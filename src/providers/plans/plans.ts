@@ -31,4 +31,12 @@ export class PlansProvider {
     return this.plans
   }
 
+  addPlan(planName){
+    let newPlan = {
+      id: 'xxx',
+      name: planName
+    }
+    this.plans.unshift(newPlan);
+  }
+
 }

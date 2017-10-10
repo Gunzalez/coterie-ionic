@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
 /**
@@ -16,12 +16,57 @@ import { PlansProvider } from '../../providers/plans/plans';
 export class PlansPage {
   public plans = [];
 
-  constructor(private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PlansPage');
     this.plans = this.plansProvider.getPlans();
+  }
+
+  addPlan(){
+
+    let addPlanAlert = this.alertCtrl.create({
+      title:'Title',
+      message: 'Create a new plan',
+      inputs: [
+        {
+          type: "text",
+          name: 'planName',
+          placeholder: '',
+
+        }
+      ],
+      buttons:[
+        {
+          text: "Cancel"
+        },
+        {
+          text: "Add",
+          handler: (inputData)=>{
+            let planName;
+            planName = inputData.planName;
+            if(planName.length > 0){
+
+              this.plansProvider.addPlan(planName);
+
+              // addPlanAlert.onDidDismiss(()=>{
+              //   let addTodoToast = this.toastCtrl.create({
+              //     message: 'Todo Added',
+              //     duration: 2000,
+              //   });
+              //
+              // });
+
+
+            }
+          }
+        }
+      ],
+      enableBackdropDismiss: false
+    });
+
+    addPlanAlert.present();
+
   }
 
 }
