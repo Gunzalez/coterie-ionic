@@ -48,7 +48,7 @@ export class PlansPage {
 
               this.plansProvider.addPlan(planName)
                 .subscribe((data)=>{
-                  planId = data.headers.get('location').replace(/plans/gi, "");
+                  planId = data.headers.get('location').replace(/\/plans\//gi, "");
                 });
 
               addPlanAlert.onDidDismiss(()=>{
