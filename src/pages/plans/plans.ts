@@ -2,12 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
-/**
- * Generated class for the PlansPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { PlanDetailsPage } from '../plan-details/plan-details';
 
 @Component({
   selector: 'page-plans',
@@ -53,15 +48,11 @@ export class PlansPage {
               this.plansProvider.addPlan(planName)
                 .subscribe((data)=>{
                   console.log(data.statusText)
-                })
+                });
 
-              // addPlanAlert.onDidDismiss(()=>{
-              //   let addTodoToast = this.toastCtrl.create({
-              //     message: 'Todo Added',
-              //     duration: 2000,
-              //   });
-              //
-              // });
+              addPlanAlert.onDidDismiss(()=>{
+                this.navCtrl.push(PlanDetailsPage);
+              });
 
 
             }

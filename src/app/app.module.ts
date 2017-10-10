@@ -9,12 +9,14 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { PlansPage } from '../pages/plans/plans';
 import { PlansProvider } from '../providers/plans/plans';
+import { PlanDetailsPage } from '../pages/plan-details/plan-details';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    PlansPage
+    PlansPage,
+    PlanDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,8 @@ import { PlansProvider } from '../providers/plans/plans';
   entryComponents: [
     MyApp,
     HomePage,
-    PlansPage
+    PlansPage,
+    PlanDetailsPage
   ],
   providers: [
     StatusBar,
