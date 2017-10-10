@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
+import { PlansProvider } from '../../providers/plans/plans';
 /**
  * Generated class for the PlansPage page.
  *
@@ -13,12 +14,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'plans.html',
 })
 export class PlansPage {
+  public plans = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PlansPage');
+    this.plans = this.plansProvider.getPlans();
   }
 
 }
