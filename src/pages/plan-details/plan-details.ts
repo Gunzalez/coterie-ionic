@@ -8,7 +8,7 @@ import { PlansProvider } from '../../providers/plans/plans';
   templateUrl: 'plan-details.html',
 })
 export class PlanDetailsPage {
-  public plan = 'Baine';
+  public plan = '';
 
   constructor(private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -20,7 +20,4 @@ export class PlanDetailsPage {
         this.plan = response.name;
       })
   }
-
-
-
 }

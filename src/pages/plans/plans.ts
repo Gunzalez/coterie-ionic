@@ -14,7 +14,7 @@ export class PlansPage {
   constructor(private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     this.plansProvider.getPlans()
       .subscribe((data)=>{
         this.plans = data.plans;
@@ -40,15 +40,15 @@ export class PlansPage {
         {
           text: "Add",
           handler: (inputData)=>{
-            let planName, planId;
+            let planName,
+              planId;
+
             planName = inputData.planName;
             if(planName.length > 0){
 
               this.plansProvider.addPlan(planName)
                 .subscribe((data)=>{
-                  planId = data.headers.get('location');
-                  var re = /plans/gi;
-                  planId = planId.replace(re ,"");
+                  planId = data.headers.get('location').replace(/plans/gi, "");
                 });
 
               addPlanAlert.onDidDismiss(()=>{
