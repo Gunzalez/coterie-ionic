@@ -24,4 +24,9 @@ export class PlansProvider {
     })
   }
 
+  getAPlan(planId){
+    return this.http.get('/api/plans/'+ planId)
+      .map(response => response.json())
+  }
+
 }

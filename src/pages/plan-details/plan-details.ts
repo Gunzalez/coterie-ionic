@@ -1,17 +1,26 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { PlansProvider } from '../../providers/plans/plans';
+
 @Component({
   selector: 'page-plan-details',
   templateUrl: 'plan-details.html',
 })
 export class PlanDetailsPage {
+  public plan = 'Baine';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PlanDetailsPage');
+    let planId = this.navParams.get('planId');
+    this.plansProvider.getAPlan(planId)
+      .subscribe((response)=>{
+        this.plan = response.name;
+      })
   }
+
+
 
 }
