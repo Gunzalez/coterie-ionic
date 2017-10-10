@@ -20,7 +20,10 @@ export class PlansPage {
   }
 
   ionViewDidLoad() {
-    this.plans = this.plansProvider.getPlans();
+    this.plansProvider.getPlans()
+      .subscribe((data)=>{
+        this.plans = data.plans;
+      })
   }
 
   addPlan(){
@@ -47,7 +50,10 @@ export class PlansPage {
             planName = inputData.planName;
             if(planName.length > 0){
 
-              this.plansProvider.addPlan(planName);
+              this.plansProvider.addPlan(planName)
+                .subscribe((data)=>{
+                  console.log(data.statusText)
+                })
 
               // addPlanAlert.onDidDismiss(()=>{
               //   let addTodoToast = this.toastCtrl.create({

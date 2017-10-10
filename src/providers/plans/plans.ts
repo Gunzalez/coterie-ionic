@@ -10,33 +10,24 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class PlansProvider {
-  private plans = [];
 
   constructor(public http: Http) {
-    console.log('Hello PlansProvider Provider');
-    let plan = {
-      id: 'xx1',
-      name: 'plan 1'
-    };
-    this.plans.push(plan);
-    plan = {
-      id: 'xx1',
-      name: 'plan 2'
-    };
-    this.plans.push(plan);
+    //console.log('Hello PlansProvider Provider');
   }
 
-
   getPlans(){
-    return this.plans
+    return this.http.get('/api/plans')
+      .map(response => response.json())
   }
 
   addPlan(planName){
-    let newPlan = {
-      id: 'xxx',
+    return this.http.post('/api/plans', {
       name: planName
-    }
-    this.plans.unshift(newPlan);
+    }).map((response) => {
+      return response
+    }, error => {
+      return error
+    })
   }
 
 }
