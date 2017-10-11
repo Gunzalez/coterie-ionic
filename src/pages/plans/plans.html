@@ -22,6 +22,7 @@
 <ion-content>
   <ion-list>
     <button ion-item *ngFor="let plan of plans" (click)="viewPlan(plan.id)">
+      <ion-icon name="contract" item-start></ion-icon>
       {{plan.name}}
     </button>
   </ion-list>

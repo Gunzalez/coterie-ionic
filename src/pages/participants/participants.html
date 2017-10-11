@@ -5,7 +5,7 @@
 
     <ion-buttons end>
       <button ion-button (click)="addParticipant()" icon-only>
-        <ion-icon name="add"></ion-icon>
+        <ion-icon name="person-add"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -23,6 +23,7 @@
     </ion-item>
 
     <ion-item *ngFor="let participant of participants">
+      <ion-icon name="person" item-start></ion-icon>
       {{participant.name}}
     </ion-item>
 
