@@ -1,0 +1,30 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Schedule</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list [reorder]="schedule.length > 0" (ionItemReorder)="itemReorded($event)">
+
+    <ion-item *ngFor="let participant of schedule">
+      {{participant.name}}
+    </ion-item>
+
+    <ion-item *ngIf="schedule.length < 1" no-lines>
+      <h2>No participants</h2>
+      <p>Add in participants to schedule</p>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-fab right bottom>
+    <button ion-fab (click)="addParticipants()">
+      <ion-icon name="person-add"></ion-icon>
+    </button>
+  </ion-fab>
+
+</ion-content>

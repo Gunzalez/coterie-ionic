@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController  } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController, ViewController  } from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
 import { ParticipantsProvider } from '../../providers/participants/participants'
@@ -10,10 +10,11 @@ import { ParticipantsProvider } from '../../providers/participants/participants'
 })
 export class ParticipantsPage {
   private planId;
+  private schedule;
   public plan = {};
   public participants = [];
 
-  constructor(private toastCrtl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, private participantsProvider: ParticipantsProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private viewCtrl: ViewController, private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, private participantsProvider: ParticipantsProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.planId = this.navParams.get('id');
   }
 
@@ -22,6 +23,7 @@ export class ParticipantsPage {
       .subscribe((response)=>{
         this.plan = response;
         this.participants = this.plan['participants'];
+        this.schedule = this.plan['schedule'].participants;
       })
   }
 
@@ -49,20 +51,26 @@ export class ParticipantsPage {
 
               this.participantsProvider.addParticipant(participantName, this.planId)
                 .subscribe((data)=>{
-                  let participantId = data.headers.get('location').replace(/\/plans\//gi, "");
+
+                  //let stringToRemove = '/plans/'+this.planId+'/;'
+                  let participantIdString = data.headers.get('location'),
+                    participantIdArray = participantIdString.split('/'),
+                    participantId = participantIdArray[participantIdArray.length - 1];
+
                   let participant = {
                     name: participantName,
                     id: participantId
                   };
                   this.participants.unshift(participant);
+                  this.schedule.unshift(participant);
 
                   addParticipantAlert.onDidDismiss(()=>{
-                    let addTodoToast = this.toastCrtl.create({
+                    let addParticipantToast = this.toastCtrl.create({
                       message: 'Participant added',
                       duration: 2000,
                     });
 
-                    addTodoToast.present();
+                    addParticipantToast.present();
                   })
 
                 });
@@ -76,6 +84,21 @@ export class ParticipantsPage {
 
     addParticipantAlert.present();
 
+  }
+
+  addingDone(){
+    let scheduleIds = []
+    this.schedule.forEach(function (obj) {
+      scheduleIds.push(obj.id);
+    });
+    this.participantsProvider.addSchedule(scheduleIds, this.planId)
+      .subscribe((done)=>{
+      if(done){
+        this.viewCtrl.dismiss({
+          schedule: this.schedule
+        });
+      }
+    })
   }
 
 }

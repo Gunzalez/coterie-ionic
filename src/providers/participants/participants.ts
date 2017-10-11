@@ -9,16 +9,6 @@ export class ParticipantsProvider {
 
   constructor(public http: Http) {
 
-    let participant = {
-      id: "1",
-      name: "john"
-    };
-    this.participants.push(participant);
-    participant = {
-      id: "2",
-      name: "Mary"
-    };
-    this.participants.push(participant);
   }
 
   addParticipant(name, planId){
@@ -33,6 +23,22 @@ export class ParticipantsProvider {
     }, error => {
       return error
     })
+  }
+
+  addSchedule(schedule, plainId){
+
+    let url = this.url + plainId + '/schedule';
+
+    let body = {
+      participants: schedule
+    };
+
+    return this.http.put(url, body).map((response) => {
+      return response
+    }, error => {
+      return error
+    })
+
   }
 
   removeParticipant(id){

@@ -3,6 +3,12 @@
   <ion-navbar>
     <ion-title>Participants</ion-title>
 
+    <ion-buttons start>
+      <button ion-button (click)="addingDone()">
+        DONE
+      </button>
+    </ion-buttons>
+
     <ion-buttons end>
       <button ion-button (click)="addParticipant()" icon-only>
         <ion-icon name="person-add"></ion-icon>

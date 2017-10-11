@@ -26,4 +26,10 @@
       {{plan.name}}
     </button>
   </ion-list>
+
+  <ion-item *ngIf="plans.length < 1">
+    <h2>No plans</h2>
+    <p>Looks like you have no plans</p>
+  </ion-item>
+
 </ion-content>

@@ -12,6 +12,7 @@ import { PlansProvider } from '../providers/plans/plans';
 import { PlanDetailsPage } from '../pages/plan-details/plan-details';
 import { ParticipantsProvider } from '../providers/participants/participants';
 import { ParticipantsPage } from '../pages/participants/participants';
+import { SchedulePage } from '../pages/schedule/schedule';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ParticipantsPage } from '../pages/participants/participants';
     HomePage,
     PlansPage,
     PlanDetailsPage,
-    ParticipantsPage
+    ParticipantsPage,
+    SchedulePage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { ParticipantsPage } from '../pages/participants/participants';
     HomePage,
     PlansPage,
     PlanDetailsPage,
-    ParticipantsPage
+    ParticipantsPage,
+    SchedulePage
   ],
   providers: [
     StatusBar,
