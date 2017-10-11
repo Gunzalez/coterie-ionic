@@ -11,13 +11,15 @@ import { PlansPage } from '../pages/plans/plans';
 import { PlansProvider } from '../providers/plans/plans';
 import { PlanDetailsPage } from '../pages/plan-details/plan-details';
 import { ParticipantsProvider } from '../providers/participants/participants';
+import { ParticipantsPage } from '../pages/participants/participants';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     PlansPage,
-    PlanDetailsPage
+    PlanDetailsPage,
+    ParticipantsPage
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,8 @@ import { ParticipantsProvider } from '../providers/participants/participants';
     MyApp,
     HomePage,
     PlansPage,
-    PlanDetailsPage
+    PlanDetailsPage,
+    ParticipantsPage
   ],
   providers: [
     StatusBar,

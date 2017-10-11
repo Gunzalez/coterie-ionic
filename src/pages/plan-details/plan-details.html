@@ -11,8 +11,7 @@
 
     <ion-item no-lines icon-left>
       <ion-icon name="contract" item-start></ion-icon>
-      <h1>{{plan}}</h1>
-      <!--<h3>We thought to try to save some money, yes lots of money.</h3>-->
+      <h1>{{plan['name']}}</h1>
       <p>Created: 11.10.2017</p>
     </ion-item>
 
@@ -22,7 +21,7 @@
       <h3>No amount set</h3>
     </button>
 
-    <button ion-item icon-left>
+    <button ion-item icon-left (click)="viewParticipants()">
       <ion-icon name="people" item-start></ion-icon>
       <h2>Participants</h2>
       <h3>No added participants</h3>
