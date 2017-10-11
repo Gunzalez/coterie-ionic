@@ -10,16 +10,18 @@ import { ParticipantsPage } from '../participants/participants';
 })
 export class PlanDetailsPage {
   public plan = {};
+  public participants = [];
   private planId;
 
   constructor(private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.planId = this.navParams.get('planId');
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     this.plansProvider.getAPlan(this.planId)
       .subscribe((response)=>{
         this.plan = response;
+        this.participants = this.plan['participants'];
       })
   }
 

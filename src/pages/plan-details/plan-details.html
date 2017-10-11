@@ -24,7 +24,9 @@
     <button ion-item icon-left (click)="viewParticipants()">
       <ion-icon name="people" item-start></ion-icon>
       <h2>Participants</h2>
-      <h3>No added participants</h3>
+      <h3 *ngIf="participants.length > 1">See {{participants.length}} participants on this plan</h3>
+      <h3 *ngIf="participants.length > 0 && participants.length < 2">1 participant added, add more</h3>
+      <h3 *ngIf="participants.length < 1">Add participants to this plan</h3>
     </button>
 
     <button ion-item icon-left>

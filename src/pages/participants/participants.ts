@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController  } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController  } from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
 import { ParticipantsProvider } from '../../providers/participants/participants'
@@ -13,7 +13,7 @@ export class ParticipantsPage {
   public plan = {};
   public participants = [];
 
-  constructor(private alertCtrl: AlertController, private plansProvider: PlansProvider, private participantsProvider: ParticipantsProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private toastCrtl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, private participantsProvider: ParticipantsProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.planId = this.navParams.get('id');
   }
 
@@ -55,16 +55,17 @@ export class ParticipantsPage {
                     id: participantId
                   };
                   this.participants.unshift(participant);
-                })
 
+                  addParticipantAlert.onDidDismiss(()=>{
+                    let addTodoToast = this.toastCrtl.create({
+                      message: 'Participant added',
+                      duration: 2000,
+                    });
 
-              // this.plansProvider.addPlan(planName)
-              //   .subscribe((data)=>{
-              //     planId = data.headers.get('location').replace(/\/plans\//gi, "");
-              //   });
+                    addTodoToast.present();
+                  })
 
-
-
+                });
             }
           }
         }
