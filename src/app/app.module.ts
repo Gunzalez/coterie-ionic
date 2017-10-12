@@ -8,9 +8,11 @@ import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { PlansPage } from '../pages/plans/plans';
-import { PlansProvider } from '../providers/plans/plans';
 import { PlanDetailsPage } from '../pages/plan-details/plan-details';
 import { ParticipantsPage } from '../pages/participants/participants';
+import { CollectionsPage } from '../pages/collections/collections';
+
+import { PlansProvider } from '../providers/plans/plans';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { ParticipantsPage } from '../pages/participants/participants';
     HomePage,
     PlansPage,
     PlanDetailsPage,
-    ParticipantsPage
+    ParticipantsPage,
+    CollectionsPage
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,8 @@ import { ParticipantsPage } from '../pages/participants/participants';
     HomePage,
     PlansPage,
     PlanDetailsPage,
-    ParticipantsPage
+    ParticipantsPage,
+    CollectionsPage
   ],
   providers: [
     StatusBar,

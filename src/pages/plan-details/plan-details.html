@@ -28,9 +28,9 @@
       <h3 *ngIf="schedule.length < 1">Add participants to this plan</h3>
     </button>
 
-    <button ion-item icon-left>
+    <button ion-item icon-left (click)="viewAmountsCollection()">
       <ion-icon name="cash" item-start></ion-icon>
-      <h2>Amount and Collection date</h2>
+      <h2>Amounts & collection</h2>
       <h3>No amount or date set</h3>
     </button>
 

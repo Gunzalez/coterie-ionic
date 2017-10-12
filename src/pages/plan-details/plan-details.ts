@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
 import { ParticipantsPage } from '../participants/participants';
+import { CollectionsPage } from '../collections/collections';
 
 @Component({
   selector: 'page-plan-details',
@@ -23,6 +24,7 @@ export class PlanDetailsPage {
   ionViewWillEnter() {
     this.plansProvider.getAPlan(this.id)
       .subscribe((response)=>{
+
         this.plan = response;
         this.schedule = this.plan['schedule'].participants;
         this.participants = this.plan['participants'];
@@ -39,5 +41,8 @@ export class PlanDetailsPage {
     this.navCtrl.push(ParticipantsPage, plan);
   }
 
+  viewAmountsCollection(){
+    this.navCtrl.push(CollectionsPage);
+  }
 
 }
