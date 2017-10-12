@@ -9,21 +9,26 @@ import { ParticipantsPage } from '../participants/participants';
   templateUrl: 'plan-details.html',
 })
 export class PlanDetailsPage {
-  private planId;
+
+  private id;
+
   public plan = {};
   public participants = [];
   public schedule = [];
 
   constructor(private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
-    this.planId = this.navParams.get('planId');
+    this.id = this.navParams.get('id');
   }
 
   ionViewWillEnter() {
-    this.plansProvider.getAPlan(this.planId)
+    this.plansProvider.getAPlan(this.id)
       .subscribe((response)=>{
         this.plan = response;
         this.schedule = this.plan['schedule'].participants;
         this.participants = this.plan['participants'];
+
+        // stuffing it into service
+        this.plansProvider.plan = this.plan
       })
   }
 

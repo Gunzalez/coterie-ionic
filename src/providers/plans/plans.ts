@@ -4,7 +4,10 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class PlansProvider {
+
   private url = '/api/plans/';
+
+  public plan = {};
 
   constructor(public http: Http) {
 
@@ -16,10 +19,10 @@ export class PlansProvider {
       .map(response => response.json())
   }
 
-  addPlan(planName){
+  addPlan(name){
 
     let body = {
-      name: planName
+      name: name
     };
 
     return this.http.post(this.url, body).map((response) => {
@@ -29,17 +32,17 @@ export class PlansProvider {
     })
   }
 
-  getAPlan(planId){
+  getAPlan(id){
 
-    let url = this.url + planId;
+    let url = this.url + id;
 
     return this.http.get(url)
       .map(response => response.json())
   }
 
-  addParticipant(name, planId){
+  addParticipant(name, id){
 
-    let url = this.url + planId + '/participants';
+    let url = this.url + id + '/participants';
     let body = {
       name: name
     };
@@ -51,9 +54,9 @@ export class PlansProvider {
     })
   }
 
-  addSchedule(schedule, plainId){
+  addSchedule(schedule, id){
 
-    let url = this.url + plainId + '/schedule';
+    let url = this.url + id + '/schedule';
 
     let body = {
       participants: schedule

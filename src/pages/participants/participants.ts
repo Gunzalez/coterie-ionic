@@ -8,24 +8,31 @@ import { PlansProvider } from '../../providers/plans/plans';
   templateUrl: 'participants.html',
 })
 export class ParticipantsPage {
-  private planId;
+
+  private id = '';
+  private plan = {};
   private participants = [];
 
-  public plan = {};
   public schedule = [];
   public reorderIsEnabled = false;
 
   constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
-    this.planId = this.navParams.get('id');
+
+    this.plan = this.plansProvider.plan;
+    this.id = this.plan['id'];
+    this.schedule = this.plan['schedule'].participants;
+    this.participants = this.plan['participants'];
+
   }
 
   ionViewDidLoad() {
-    this.plansProvider.getAPlan(this.planId)
-      .subscribe((response)=>{
-        this.plan = response;
-        this.participants = this.plan['participants'];
-        this.schedule = this.plan['schedule'].participants;
-      })
+
+  }
+
+  ionViewCanLeave(){
+    if(this.reorderIsEnabled){
+      return false;
+    }
   }
 
   addParticipant(){
@@ -50,7 +57,7 @@ export class ParticipantsPage {
             let participantName = inputData.participantName;
             if(participantName.length > 0){
 
-              this.plansProvider.addParticipant(participantName, this.planId)
+              this.plansProvider.addParticipant(participantName, this.id)
                 .subscribe((data)=>{
 
                   // getting the new id created when new person was added
@@ -70,7 +77,7 @@ export class ParticipantsPage {
                     scheduleIds.push(obj.id);
                   });
 
-                  this.plansProvider.addSchedule(scheduleIds, this.planId)
+                  this.plansProvider.addSchedule(scheduleIds, this.id)
                     .subscribe((done)=>{
                       if(done){
                         addParticipantAlert.onDidDismiss(()=>{
@@ -110,7 +117,7 @@ export class ParticipantsPage {
         scheduleIds.push(obj.id);
       });
 
-      this.plansProvider.addSchedule(scheduleIds, this.planId)
+      this.plansProvider.addSchedule(scheduleIds, this.id)
         .subscribe((done)=>{
           if(done){
 
@@ -119,15 +126,8 @@ export class ParticipantsPage {
               duration: 2000,
             });
             doneReorderToast.present();
-
           }
         });
-    }
-  }
-
-  ionViewCanLeave(){
-    if(this.reorderIsEnabled){
-      return false;
     }
   }
 }

@@ -40,20 +40,20 @@ export class PlansPage {
         {
           text: "Add",
           handler: (inputData)=>{
-            let planName,
-              planId;
 
+            let planName, id;
             planName = inputData.planName;
+
             if(planName.length > 0){
 
               this.plansProvider.addPlan(planName)
                 .subscribe((data)=>{
-                  planId = data.headers.get('location').replace(/\/plans\//gi, "");
+                  id = data.headers.get('location').replace(/\/plans\//gi, "");
                 });
 
               addPlanAlert.onDidDismiss(()=>{
                 this.navCtrl.push(PlanDetailsPage, {
-                  planId: planId
+                  id: id
                 });
               });
 
@@ -68,9 +68,9 @@ export class PlansPage {
 
   }
 
-  viewPlan(planId){
+  viewPlan(id){
     this.navCtrl.push(PlanDetailsPage, {
-      planId: planId
+      id: id
     })
   }
 
