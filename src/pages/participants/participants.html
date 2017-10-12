@@ -20,14 +20,16 @@
 
 
 <ion-content padding>
-  <ion-list>
 
-    <ion-item no-lines icon-left>
+  <ion-list no-lines>
+    <ion-item icon-left>
       <ion-icon name="contract" item-start></ion-icon>
       <h1>{{plan['name']}}</h1>
-      <p>Plan name</p>
+      <p>Add or remove participants</p>
     </ion-item>
+  </ion-list>
 
+  <ion-list>
     <ion-item *ngFor="let participant of participants">
       <ion-icon name="person" item-start></ion-icon>
       {{participant.name}}

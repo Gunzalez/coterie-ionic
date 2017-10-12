@@ -1,0 +1,5 @@
+Clean up non ES6 syntax
+Styling ions
+Look at SVGs
+Save Re-order aka Schedule
+Moving drag handles to left

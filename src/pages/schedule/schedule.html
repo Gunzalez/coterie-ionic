@@ -8,8 +8,16 @@
 
 
 <ion-content padding>
-  <ion-list [reorder]="schedule.length > 0" (ionItemReorder)="itemReorded($event)">
 
+  <ion-list no-lines>
+    <ion-item icon-left>
+      <ion-icon name="contract" item-start></ion-icon>
+      <h1>{{plan['name']}}</h1>
+      <p>Schedule participants for this plan</p>
+    </ion-item>
+  </ion-list>
+
+  <ion-list [reorder]="schedule.length > 0" (ionItemReorder)="itemReorded($event)">
     <ion-item *ngFor="let participant of schedule">
       {{participant.name}}
     </ion-item>
@@ -23,7 +31,7 @@
 
   <ion-fab right bottom>
     <button ion-fab (click)="addParticipants()">
-      <ion-icon name="person-add"></ion-icon>
+      <ion-icon name="people"></ion-icon>
     </button>
   </ion-fab>
 
