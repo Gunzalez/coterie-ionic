@@ -1,5 +1,5 @@
 Clean up non ES6 syntax
 Styling ions
 Look at SVGs
-Save Re-order aka Schedule - DOING
+Save Re-order aka Schedule - DONE
 Moving drag handles to left - NOT NEEDED

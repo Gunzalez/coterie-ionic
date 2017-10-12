@@ -1,8 +1,10 @@
 <ion-header>
   <ion-navbar>
+
     <ion-title>
       Plan Details
     </ion-title>
+
   </ion-navbar>
 </ion-header>
 
@@ -12,7 +14,7 @@
     <ion-item icon-left>
       <ion-icon name="contract" item-start></ion-icon>
       <h1>{{plan['name']}}</h1>
-      <p>Created: 11.10.2017</p>
+      <p>Plan created: 11.10.2017</p>
     </ion-item>
   </ion-list>
 
@@ -21,9 +23,9 @@
     <button ion-item icon-left (click)="viewParticipants()">
       <ion-icon name="people" item-start></ion-icon>
       <h2>Participants</h2>
-      <h3 *ngIf="participants.length > 1">See {{participants.length}} participants on this plan</h3>
-      <h3 *ngIf="participants.length > 0 && participants.length < 2">1 participant added, add more</h3>
-      <h3 *ngIf="participants.length < 1">Add participants to this plan</h3>
+      <h3 *ngIf="schedule.length > 1">This plan has {{schedule.length}} participants</h3>
+      <h3 *ngIf="schedule.length > 0 && schedule.length < 2">1 participant added, add more</h3>
+      <h3 *ngIf="schedule.length < 1">Add participants to this plan</h3>
     </button>
 
     <button ion-item icon-left>
@@ -31,14 +33,6 @@
       <h2>Amount and Collection date</h2>
       <h3>No amount or date set</h3>
     </button>
-
-    <!--<button ion-item icon-left (click)="viewSchedule()">-->
-      <!--<ion-icon name="clock" item-start></ion-icon>-->
-      <!--<h2>Schedule</h2>-->
-      <!--<h3 *ngIf="schedule.length > 1">See {{schedule.length}} participants on this plan</h3>-->
-      <!--<h3 *ngIf="schedule.length > 0 && schedule.length < 2">1 participant added, add more</h3>-->
-      <!--<h3 *ngIf="schedule.length < 1">Add participants to this plan</h3>-->
-    <!--</button>-->
 
     <!--<button ion-item icon-left>-->
       <!--<ion-icon name="switch" item-start></ion-icon>-->
@@ -48,7 +42,5 @@
   </ion-list>
 
   <button ion-button block disabled>Start</button>
-
-
 
 </ion-content>

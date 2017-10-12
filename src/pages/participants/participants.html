@@ -7,21 +7,29 @@
       <button ion-button *ngIf="reorderIsEnabled" (click)="toggleReorder('save')">Save</button>
     </ion-buttons>
 
+    <ion-buttons end *ngIf="schedule.length < 2">
+      <button ion-button (click)="addParticipant()" icon-only>
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 </ion-header>
-
 
 <ion-content>
 
   <ion-list no-lines inset>
+
     <ion-item icon-left>
       <ion-icon name="contract" item-start></ion-icon>
       <h1>{{plan['name']}}</h1>
       <p>Add, remove or reorder participants</p>
     </ion-item>
+
   </ion-list>
 
   <ion-list [reorder]="reorderIsEnabled" (ionItemReorder)="itemReorded($event)">
+
     <ion-item *ngFor="let participant of schedule">
       <ion-icon name="person" item-start></ion-icon>
       <h2>{{participant.name}}</h2>

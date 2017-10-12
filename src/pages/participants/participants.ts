@@ -42,8 +42,6 @@ export class ParticipantsPage {
     }
   }
 
-
-
   addParticipant(){
 
     let addParticipantAlert = this.alertCtrl.create({
@@ -104,11 +102,9 @@ export class ParticipantsPage {
         }
       ],
       enableBackdropDismiss: false
-
     });
 
     addParticipantAlert.present();
-
   }
 
   itemReorded($event){
