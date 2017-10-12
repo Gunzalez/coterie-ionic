@@ -14,6 +14,7 @@
 </ion-header>
 
 <ion-content>
+
   <ion-list>
     <button ion-item *ngFor="let plan of plans" (click)="viewPlan(plan.id)">
       <ion-icon name="contract" item-start></ion-icon>
@@ -22,9 +23,18 @@
     </button>
   </ion-list>
 
-  <ion-item no-lines *ngIf="plans.length < 1">
-    <h2>No plans</h2>
-    <p>Looks like you have no plans</p>
-  </ion-item>
+  <ion-list>
+    <ion-item *ngIf="plans.length < 1">
+      <h2>No plans</h2>
+      <p>Looks like you have no plans</p>
+    </ion-item>
+  </ion-list>
+
+
+  <ion-fab right bottom>
+    <button ion-fab (click)="addPlan()" icon-only>
+      <ion-icon name="contract"></ion-icon>
+    </button>
+  </ion-fab>
 
 </ion-content>

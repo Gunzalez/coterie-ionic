@@ -1,21 +1,13 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>Participants</ion-title>
 
-    <ion-buttons start>
-      <button ion-button (click)="addingDone()">
-        DONE
-      </button>
+    <ion-buttons end *ngIf="schedule.length > 1">
+      <button ion-button *ngIf="!reorderIsEnabled" (click)="toggleReorder('edit')">Edit</button>
+      <button ion-button *ngIf="reorderIsEnabled" (click)="toggleReorder('save')">Save</button>
     </ion-buttons>
 
-    <ion-buttons end>
-      <button ion-button (click)="addParticipant()" icon-only>
-        <ion-icon name="person-add"></ion-icon>
-      </button>
-    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
@@ -25,21 +17,27 @@
     <ion-item icon-left>
       <ion-icon name="contract" item-start></ion-icon>
       <h1>{{plan['name']}}</h1>
-      <p>Add or remove participants</p>
+      <p>Add, remove or reorder participants</p>
     </ion-item>
   </ion-list>
 
-  <ion-list>
-    <ion-item *ngFor="let participant of participants">
+  <ion-list [reorder]="reorderIsEnabled" (ionItemReorder)="itemReorded($event)">
+    <ion-item *ngFor="let participant of schedule">
       <ion-icon name="person" item-start></ion-icon>
       {{participant.name}}
     </ion-item>
 
-    <ion-item *ngIf="participants.length < 1">
+    <ion-item *ngIf="schedule.length < 1">
       <h2>No participants</h2>
       <p>Looks like you have no friends</p>
     </ion-item>
 
   </ion-list>
+
+  <ion-fab right bottom *ngIf="!reorderIsEnabled">
+    <button ion-fab (click)="addParticipant()" icon-only>
+      <ion-icon name="person-add"></ion-icon>
+    </button>
+  </ion-fab>
 
 </ion-content>
