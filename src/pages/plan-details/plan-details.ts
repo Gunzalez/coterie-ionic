@@ -3,7 +3,6 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
 import { ParticipantsPage } from '../participants/participants';
-import { SchedulePage } from '../schedule/schedule';
 
 @Component({
   selector: 'page-plan-details',
@@ -35,11 +34,5 @@ export class PlanDetailsPage {
     this.navCtrl.push(ParticipantsPage, plan);
   }
 
-  viewSchedule(){
-    let plan = {
-      id: this.plan['id']
-    };
-    this.navCtrl.push(SchedulePage, plan);
-  }
 
 }

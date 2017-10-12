@@ -15,6 +15,13 @@
 
 <ion-content>
 
+  <ion-list *ngIf="plans.length < 1">
+    <ion-item>
+      <h2>No plans</h2>
+      <p>Looks like you have no saving plans</p>
+    </ion-item>
+  </ion-list>
+
   <ion-list>
     <button ion-item *ngFor="let plan of plans" (click)="viewPlan(plan.id)">
       <ion-icon name="contract" item-start></ion-icon>
@@ -22,14 +29,6 @@
       <p>Created: 12.10.2017</p>
     </button>
   </ion-list>
-
-  <ion-list>
-    <ion-item *ngIf="plans.length < 1">
-      <h2>No plans</h2>
-      <p>Looks like you have no plans</p>
-    </ion-item>
-  </ion-list>
-
 
   <ion-fab right bottom>
     <button ion-fab (click)="addPlan()" icon-only>

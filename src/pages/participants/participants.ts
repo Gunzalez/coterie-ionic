@@ -10,10 +10,10 @@ import { ParticipantsProvider } from '../../providers/participants/participants'
 })
 export class ParticipantsPage {
   private planId;
+  private participants = [];
 
   public plan = {};
   public schedule = [];
-  public participants = [];
   public reorderIsEnabled = false;
 
   constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, private participantsProvider: ParticipantsProvider, public navCtrl: NavController, public navParams: NavParams) {
@@ -26,9 +26,6 @@ export class ParticipantsPage {
         this.plan = response;
         this.participants = this.plan['participants'];
         this.schedule = this.plan['schedule'].participants;
-
-        console.log(this.participants);
-        console.log(this.schedule);
       })
   }
 
@@ -57,7 +54,7 @@ export class ParticipantsPage {
               this.participantsProvider.addParticipant(participantName, this.planId)
                 .subscribe((data)=>{
 
-                  //let stringToRemove = '/plans/'+this.planId+'/;'
+                  // getting the new id created when new person was added
                   let participantIdString = data.headers.get('location'),
                     participantIdArray = participantIdString.split('/'),
                     participantId = participantIdArray[participantIdArray.length - 1];
@@ -126,6 +123,12 @@ export class ParticipantsPage {
 
           }
         });
+    }
+  }
+
+  ionViewCanLeave(){
+    if(this.reorderIsEnabled){
+      return false;
     }
   }
 }

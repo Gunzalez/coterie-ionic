@@ -5,7 +5,6 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ParticipantsProvider {
   private url = '/api/plans/';
-  private participants = [];
 
   constructor(public http: Http) {
 

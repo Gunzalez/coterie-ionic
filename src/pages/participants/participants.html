@@ -24,12 +24,13 @@
   <ion-list [reorder]="reorderIsEnabled" (ionItemReorder)="itemReorded($event)">
     <ion-item *ngFor="let participant of schedule">
       <ion-icon name="person" item-start></ion-icon>
-      {{participant.name}}
+      <h2>{{participant.name}}</h2>
+      <p>Added: 12.10.2017</p>
     </ion-item>
 
     <ion-item *ngIf="schedule.length < 1">
-      <h2>No participants</h2>
-      <p>Looks like you have no friends</p>
+      <h2>Add participants</h2>
+      <p>Looks like you have no friends :(</p>
     </ion-item>
 
   </ion-list>
