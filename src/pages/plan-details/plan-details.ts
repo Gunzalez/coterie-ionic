@@ -21,13 +21,14 @@ export class PlanDetailsPage {
     this.id = this.navParams.get('id');
   }
 
-  ionViewWillEnter() {
+  ionViewWillEnter(){
     this.plansProvider.getAPlan(this.id)
       .subscribe((response)=>{
 
         this.plan = response;
         this.schedule = this.plan['schedule'].participants;
         this.participants = this.plan['participants'];
+
 
         // stuffing it into service
         this.plansProvider.plan = this.plan;
