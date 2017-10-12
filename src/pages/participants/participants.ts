@@ -32,8 +32,8 @@ export class ParticipantsPage {
   addParticipant(){
 
     let addParticipantAlert = this.alertCtrl.create({
-      title:'New participant',
-      message: 'Enter in a name',
+      title:'Participant name',
+      message: 'Monikers are acceptable',
       inputs: [
         {
           type: "text",

@@ -24,8 +24,8 @@ export class PlansPage {
   addPlan(){
 
     let addPlanAlert = this.alertCtrl.create({
-      title:'New plan',
-      message: 'Enter a plan name',
+      title:'Plan title',
+      message: 'Short but descriptive',
       inputs: [
         {
           type: "text",
