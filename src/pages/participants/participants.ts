@@ -31,9 +31,18 @@ export class ParticipantsPage {
 
   ionViewCanLeave(){
     if(this.reorderIsEnabled){
+
+      let cannotLeaveToast = this.toastCtrl.create({
+        message: 'Exit save mode',
+        duration: 2000,
+      });
+      cannotLeaveToast.present();
+
       return false;
     }
   }
+
+
 
   addParticipant(){
 
@@ -85,7 +94,6 @@ export class ParticipantsPage {
                             message: 'Participant added',
                             duration: 2000,
                           });
-
                           addParticipantToast.present();
                         })
                       }
@@ -113,7 +121,7 @@ export class ParticipantsPage {
     if(buttonClicked == 'save'){
 
       let scheduleIds = [];
-      this.schedule.forEach(function (obj) {
+      this.schedule.forEach( (obj)=>{
         scheduleIds.push(obj.id);
       });
 
