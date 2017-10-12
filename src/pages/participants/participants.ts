@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, reorderArray, ToastController } from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
-import { ParticipantsProvider } from '../../providers/participants/participants'
 
 @Component({
   selector: 'page-participants',
@@ -16,7 +15,7 @@ export class ParticipantsPage {
   public schedule = [];
   public reorderIsEnabled = false;
 
-  constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, private participantsProvider: ParticipantsProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.planId = this.navParams.get('id');
   }
 
@@ -51,7 +50,7 @@ export class ParticipantsPage {
             let participantName = inputData.participantName;
             if(participantName.length > 0){
 
-              this.participantsProvider.addParticipant(participantName, this.planId)
+              this.plansProvider.addParticipant(participantName, this.planId)
                 .subscribe((data)=>{
 
                   // getting the new id created when new person was added
@@ -71,7 +70,7 @@ export class ParticipantsPage {
                     scheduleIds.push(obj.id);
                   });
 
-                  this.participantsProvider.addSchedule(scheduleIds, this.planId)
+                  this.plansProvider.addSchedule(scheduleIds, this.planId)
                     .subscribe((done)=>{
                       if(done){
                         addParticipantAlert.onDidDismiss(()=>{
@@ -111,7 +110,7 @@ export class ParticipantsPage {
         scheduleIds.push(obj.id);
       });
 
-      this.participantsProvider.addSchedule(scheduleIds, this.planId)
+      this.plansProvider.addSchedule(scheduleIds, this.planId)
         .subscribe((done)=>{
           if(done){
 

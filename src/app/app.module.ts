@@ -10,7 +10,6 @@ import { HomePage } from '../pages/home/home';
 import { PlansPage } from '../pages/plans/plans';
 import { PlansProvider } from '../providers/plans/plans';
 import { PlanDetailsPage } from '../pages/plan-details/plan-details';
-import { ParticipantsProvider } from '../providers/participants/participants';
 import { ParticipantsPage } from '../pages/participants/participants';
 
 @NgModule({
@@ -38,8 +37,7 @@ import { ParticipantsPage } from '../pages/participants/participants';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    PlansProvider,
-    ParticipantsProvider
+    PlansProvider
   ]
 })
 export class AppModule {}
