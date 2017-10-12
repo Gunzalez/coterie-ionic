@@ -7,9 +7,9 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
-  <ion-list no-lines>
+  <ion-list no-lines inset>
     <ion-item icon-left>
       <ion-icon name="contract" item-start></ion-icon>
       <h1>{{plan['name']}}</h1>
@@ -22,9 +22,9 @@
       {{participant.name}}
     </ion-item>
 
-    <ion-item *ngIf="schedule.length < 1" no-lines>
-      <h2>No participants</h2>
-      <p>Add in participants to schedule</p>
+    <ion-item *ngIf="schedule.length < 1">
+      <h2>No participants listed</h2>
+      <p>Add participants to your plan</p>
     </ion-item>
 
   </ion-list>
