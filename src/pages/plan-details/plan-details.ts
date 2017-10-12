@@ -30,7 +30,7 @@ export class PlanDetailsPage {
         this.participants = this.plan['participants'];
 
         // stuffing it into service
-        this.plansProvider.plan = this.plan
+        this.plansProvider.plan = this.plan;
       })
   }
 
