@@ -33,7 +33,7 @@
     <ion-item *ngFor="let participant of schedule">
       <ion-icon name="person" item-start></ion-icon>
       <h2>{{participant.name}}</h2>
-      <p>Added: 12.10.2017</p>
+      <p>Added: {{created}}</p>
     </ion-item>
 
     <ion-item *ngIf="schedule.length < 1">

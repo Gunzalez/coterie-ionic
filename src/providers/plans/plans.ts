@@ -35,11 +35,11 @@ export class PlansProvider {
   getAPlan(id){
 
     let url = this.url + id;
-
     return this.http.get(url)
       .map(response => response.json())
   }
 
+  // uses plan id
   addParticipant(name, id){
 
     let url = this.url + id + '/participants';
@@ -48,21 +48,26 @@ export class PlansProvider {
     };
 
     return this.http.post(url, body).map((response) => {
-      return response
+
+      // returns participant id
+      let headerLocation = response.headers.get('location'),
+        tempArr = headerLocation.split('/');
+      return tempArr[tempArr.length-1];
+
     }, error => {
       return error
     })
   }
 
+  // uses plan id
   addSchedule(schedule, id){
 
     let url = this.url + id + '/schedule';
-
     let body = {
       participants: schedule
     };
 
-    return this.http.put(url, body).map((response) => {
+    return this.http.put(url, body).map(response => {
       return response
     }, error => {
       return error

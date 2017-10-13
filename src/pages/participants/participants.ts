@@ -15,6 +15,7 @@ export class ParticipantsPage {
 
   public schedule = [];
   public reorderIsEnabled = false;
+  public created;
 
   constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
 
@@ -26,6 +27,20 @@ export class ParticipantsPage {
   }
 
   ionViewDidLoad() {
+
+    // just messing about with the date
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth()+1; //January is 0!
+    let yyyy = today.getFullYear();
+
+    if(dd<10){
+      dd = 0 + dd;
+    }
+    if(mm<10){
+      mm = 0 + mm;
+    }
+    this.created  = dd + '/' + mm + '/' + yyyy;
 
   }
 
@@ -46,7 +61,7 @@ export class ParticipantsPage {
 
     let addParticipantAlert = this.alertCtrl.create({
       title:'Participant name',
-      message: 'Monikers are acceptable',
+      message: 'Nicknames are acceptable of course',
       inputs: [
         {
           type: "text",
@@ -61,16 +76,13 @@ export class ParticipantsPage {
         {
           text: "Add",
           handler: (inputData)=>{
+
             let participantName = inputData.participantName;
             if(participantName.length > 0){
 
-              let next = (data)=>{
+              let next = participantId => {
 
-                // getting the new id created when new person was added
-                let participantIdString = data.headers.get('location'),
-                  participantIdArray = participantIdString.split('/'),
-                  participantId = participantIdArray[participantIdArray.length - 1];
-
+                // Gets back id, uses it
                 let participant = {
                   name: participantName,
                   id: participantId
@@ -79,30 +91,33 @@ export class ParticipantsPage {
                 this.schedule.unshift(participant);
 
                 let scheduleIds = [];
-                let callbackfn = obj => {
+                let callback = obj => {
                   scheduleIds.push(obj.id)
                 };
-                this.schedule.forEach(callbackfn);
+                this.schedule.forEach(callback);
 
-                let next = (done) => {
+                let next = done => {
+
                   if(done){
 
                     let callback = () => {
+
                       let addParticipantToast = this.toastCtrl.create({
                         message: 'Participant added',
                         duration: 2000,
                       });
                       addParticipantToast.present();
-                    };
 
+                    };
                     addParticipantAlert.onDidDismiss(callback);
+
                   }
                 };
-
                 this.plansProvider.addSchedule(scheduleIds, this.id).subscribe(next);
-              };
 
+              };
               this.plansProvider.addParticipant(participantName, this.id).subscribe(next);
+
             }
           }
         }
@@ -130,7 +145,7 @@ export class ParticipantsPage {
       };
       this.schedule.forEach(callback);
 
-      let next = (done) => {
+      let next = done => {
         if(done){
           let doneReorderToast = this.toastCtrl.create({
             message: 'Order saved',

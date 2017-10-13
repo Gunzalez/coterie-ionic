@@ -1,5 +1,5 @@
 Clean up non ES6 syntax - DONE
-Styling ions
-Look at SVGs
+Styling ions - Hasan
+Look at SVGs - Hasan
 Save Re-order aka Schedule - DONE
 Moving drag handles to left - NOT NEEDED
