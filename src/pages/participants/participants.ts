@@ -64,39 +64,45 @@ export class ParticipantsPage {
             let participantName = inputData.participantName;
             if(participantName.length > 0){
 
-              this.plansProvider.addParticipant(participantName, this.id)
-                .subscribe((data)=>{
+              let next = (data)=>{
 
-                  // getting the new id created when new person was added
-                  let participantIdString = data.headers.get('location'),
-                    participantIdArray = participantIdString.split('/'),
-                    participantId = participantIdArray[participantIdArray.length - 1];
+                // getting the new id created when new person was added
+                let participantIdString = data.headers.get('location'),
+                  participantIdArray = participantIdString.split('/'),
+                  participantId = participantIdArray[participantIdArray.length - 1];
 
-                  let participant = {
-                    name: participantName,
-                    id: participantId
-                  };
-                  this.participants.unshift(participant);
-                  this.schedule.unshift(participant);
+                let participant = {
+                  name: participantName,
+                  id: participantId
+                };
+                this.participants.unshift(participant);
+                this.schedule.unshift(participant);
 
-                  let scheduleIds = [];
-                  this.schedule.forEach(function (obj) {
-                    scheduleIds.push(obj.id);
-                  });
+                let scheduleIds = [];
+                let callbackfn = obj => {
+                  scheduleIds.push(obj.id)
+                };
+                this.schedule.forEach(callbackfn);
 
-                  this.plansProvider.addSchedule(scheduleIds, this.id)
-                    .subscribe((done)=>{
-                      if(done){
-                        addParticipantAlert.onDidDismiss(()=>{
-                          let addParticipantToast = this.toastCtrl.create({
-                            message: 'Participant added',
-                            duration: 2000,
-                          });
-                          addParticipantToast.present();
-                        })
-                      }
-                    });
-                });
+                let next = (done) => {
+                  if(done){
+
+                    let callback = () => {
+                      let addParticipantToast = this.toastCtrl.create({
+                        message: 'Participant added',
+                        duration: 2000,
+                      });
+                      addParticipantToast.present();
+                    };
+
+                    addParticipantAlert.onDidDismiss(callback);
+                  }
+                };
+
+                this.plansProvider.addSchedule(scheduleIds, this.id).subscribe(next);
+              };
+
+              this.plansProvider.addParticipant(participantName, this.id).subscribe(next);
             }
           }
         }
@@ -112,26 +118,29 @@ export class ParticipantsPage {
   }
 
   toggleReorder(buttonClicked){
+
+    // toggle edit/save mode
     this.reorderIsEnabled = !this.reorderIsEnabled;
 
     if(buttonClicked == 'save'){
 
       let scheduleIds = [];
-      this.schedule.forEach( (obj)=>{
+      let callback = obj => {
         scheduleIds.push(obj.id);
-      });
+      };
+      this.schedule.forEach(callback);
 
-      this.plansProvider.addSchedule(scheduleIds, this.id)
-        .subscribe((done)=>{
-          if(done){
+      let next = (done) => {
+        if(done){
+          let doneReorderToast = this.toastCtrl.create({
+            message: 'Order saved',
+            duration: 2000,
+          });
+          doneReorderToast.present();
+        }
+      };
+      this.plansProvider.addSchedule(scheduleIds, this.id).subscribe(next);
 
-            let doneReorderToast = this.toastCtrl.create({
-              message: 'Order saved',
-              duration: 2000,
-            });
-            doneReorderToast.present();
-          }
-        });
     }
   }
 }

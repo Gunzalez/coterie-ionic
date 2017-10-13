@@ -1,4 +1,4 @@
-Clean up non ES6 syntax
+Clean up non ES6 syntax - DONE
 Styling ions
 Look at SVGs
 Save Re-order aka Schedule - DONE

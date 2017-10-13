@@ -15,10 +15,11 @@ export class PlansPage {
   }
 
   ionViewWillEnter() {
-    this.plansProvider.getPlans()
-      .subscribe((data)=>{
-        this.plans = data.plans;
-      })
+
+    let next = (data) => {
+      this.plans = data.plans;
+    };
+    this.plansProvider.getPlans().subscribe(next);
   }
 
   addPlan(){
@@ -46,16 +47,17 @@ export class PlansPage {
 
             if(planName.length > 0){
 
-              this.plansProvider.addPlan(planName)
-                .subscribe((data)=>{
-                  id = data.headers.get('location').replace(/\/plans\//gi, "");
-                });
+              let next = data => {
+                let pathArr = data.headers.get('location').split('/');
+                id = pathArr[pathArr.length - 1];
+              };
+              this.plansProvider.addPlan(planName).subscribe(next);
 
-              addPlanAlert.onDidDismiss(()=>{
-                this.navCtrl.push(PlanDetailsPage, {
-                  id: id
-                });
-              });
+              let callback = () => {
+                let params = { id: id };
+                this.navCtrl.push(PlanDetailsPage, params);
+              };
+              addPlanAlert.onDidDismiss(callback);
 
             }
           }
@@ -69,9 +71,8 @@ export class PlansPage {
   }
 
   viewPlan(id){
-    this.navCtrl.push(PlanDetailsPage, {
-      id: id
-    })
+    let params = { id: id };
+    this.navCtrl.push(PlanDetailsPage, params);
   }
 
 }
