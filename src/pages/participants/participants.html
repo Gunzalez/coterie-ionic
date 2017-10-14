@@ -30,11 +30,21 @@
 
   <ion-list [reorder]="reorderIsEnabled" (ionItemReorder)="itemReorded($event)">
 
-    <ion-item *ngFor="let participant of schedule">
-      <ion-icon name="person" item-start></ion-icon>
-      <h2>{{participant.name}}</h2>
-      <p>Added: {{created}}</p>
-    </ion-item>
+    <ion-item-sliding *ngFor="let participant of schedule; let participantIndex = index">
+
+      <ion-item can-swipe="false">
+        <ion-icon name="person" item-start></ion-icon>
+        <h2>{{participant.name}}</h2>
+        <p>Added: {{created}}</p>
+      </ion-item>
+
+      <ion-item-options side="left">
+        <button ion-button color="danger" (click)="removeParticipant(participantIndex, participant)" icon-only>
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+
+    </ion-item-sliding>
 
     <ion-item *ngIf="schedule.length < 1">
       <h2>Add participants</h2>

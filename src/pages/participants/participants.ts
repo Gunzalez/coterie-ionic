@@ -11,7 +11,6 @@ export class ParticipantsPage {
 
   private id = '';
   private plan = {};
-  private participants = [];
 
   public schedule = [];
   public reorderIsEnabled = false;
@@ -22,7 +21,6 @@ export class ParticipantsPage {
     this.plan = this.plansProvider.plan;
     this.id = this.plan['id'];
     this.schedule = this.plan['schedule'].participants;
-    this.participants = this.plan['participants'];
 
   }
 
@@ -87,7 +85,6 @@ export class ParticipantsPage {
                   name: participantName,
                   id: participantId
                 };
-                this.participants.unshift(participant);
                 this.schedule.unshift(participant);
 
                 let scheduleIds = [];
@@ -157,5 +154,22 @@ export class ParticipantsPage {
       this.plansProvider.addSchedule(scheduleIds, this.id).subscribe(next);
 
     }
+  }
+
+  removeParticipant(participantIndex, participant){
+    this.schedule.splice(participantIndex,1);
+    // removes participant
+
+
+    // let next = response => {
+    //   console.log(response);
+    // };
+    //this.plansProvider.deleteParticipant(this.id, participant).subscribe(next);
+    if(this.plansProvider.deleteParticipant(this.id, participant)){
+      console.log('Removes index ' + participantIndex);
+      console.log(participant.id);
+      console.log(participant.name);
+    }
+
   }
 }
