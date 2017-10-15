@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+const API: string = '/api/plans/';
 @Injectable()
 export class PlansProvider {
-
-  private url = '/api/plans/';
 
   public plan = {};
 
@@ -15,7 +14,7 @@ export class PlansProvider {
 
   getPlans(){
 
-    return this.http.get(this.url)
+    return this.http.get(API)
       .map(response => response.json())
   }
 
@@ -25,7 +24,7 @@ export class PlansProvider {
       name: name
     };
 
-    return this.http.post(this.url, body).map((response) => {
+    return this.http.post(API, body).map((response) => {
       return response
     }, error => {
       return error
@@ -34,7 +33,7 @@ export class PlansProvider {
 
   getAPlan(id){
 
-    let url = this.url + id;
+    let url = API + id;
     return this.http.get(url)
       .map(response => response.json())
   }
@@ -42,7 +41,7 @@ export class PlansProvider {
   // uses plan id
   addParticipant(name, id){
 
-    let url = this.url + id + '/participants';
+    let url = API + id + '/participants';
     let body = {
       name: name
     };
@@ -62,7 +61,7 @@ export class PlansProvider {
 
   deleteParticipant(id, body){
 
-    // let url = this.url + id + '/participants';
+    // let url = API + id + '/participants';
     // return this.http.delete(url, body).map((response) => {
     //
     //   return response
@@ -78,7 +77,7 @@ export class PlansProvider {
   // uses plan id
   addSchedule(schedule, id){
 
-    let url = this.url + id + '/schedule';
+    let url = API + id + '/schedule';
     let body = {
       participants: schedule
     };
