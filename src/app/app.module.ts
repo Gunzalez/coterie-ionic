@@ -26,7 +26,13 @@ import { PlansProvider } from '../providers/plans/plans';
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp, {
+      platforms:{
+        ios:{
+          statusPadding: true
+        }
+      }
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
