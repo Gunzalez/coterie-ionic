@@ -6,7 +6,7 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "https://coterie-rest-app.herokuapp.com"
+      "proxyUrl": "http://localhost:8080"
     }
   ]
 }
