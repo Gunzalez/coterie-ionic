@@ -95,20 +95,14 @@ export class ParticipantsPage {
 
                 let next = done => {
 
-                  if(done){
-
-                    let callback = () => {
-
-                      let addParticipantToast = this.toastCtrl.create({
-                        message: 'Participant added',
-                        duration: 2000,
-                      });
-                      addParticipantToast.present();
-
-                    };
-                    addParticipantAlert.onDidDismiss(callback);
-
+                  if(done.ok){
+                    let addParticipantToast = this.toastCtrl.create({
+                      message: 'Participant added',
+                      duration: 2000,
+                    });
+                    addParticipantToast.present();
                   }
+
                 };
                 this.plansProvider.addSchedule(scheduleIds, this.id).subscribe(next);
 

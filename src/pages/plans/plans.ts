@@ -71,11 +71,8 @@ export class PlansPage {
                 let pathArr = data.headers.get('location').split('/');
                 id = pathArr[pathArr.length - 1];
                 let params = { id: id };
-                if(id.length > 5){
-                  this.navCtrl.push(PlanDetailsPage, params);
-                } else {
-                  alert('Nowt')
-                }
+                this.navCtrl.push(PlanDetailsPage, params);
+
               };
               this.plansProvider.addPlan(planName).subscribe(next);
 
