@@ -151,19 +151,8 @@ export class ParticipantsPage {
   }
 
   removeParticipant(participantIndex, participant){
-    this.schedule.splice(participantIndex,1);
+    let count = 1;
+    this.schedule.splice(participantIndex, count);
     // removes participant
-
-
-    // let next = response => {
-    //   console.log(response);
-    // };
-    //this.plansProvider.deleteParticipant(this.id, participant).subscribe(next);
-    if(this.plansProvider.deleteParticipant(this.id, participant)){
-      console.log('Removes index ' + participantIndex);
-      console.log(participant.id);
-      console.log(participant.name);
-    }
-
   }
 }

@@ -58,20 +58,12 @@ export class PlansProvider {
     })
   }
 
-
-  deleteParticipant(id, body){
-
-    // let url = API + id + '/participants';
-    // return this.http.delete(url, body).map((response) => {
-    //
-    //   return response
-    //
-    // }, error => {
-    //   return error
-    // })
-
-    return true
-
+  deletePlan(id){
+    let url = API + id;
+    console.log(url);
+    return this.http.delete(url)
+      .map((response) => { response.json()
+    });
   }
 
   // uses plan id

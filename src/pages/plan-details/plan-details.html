@@ -28,7 +28,7 @@
       <h3 *ngIf="schedule.length < 1">Add participants to this plan</h3>
     </button>
 
-    <button ion-item icon-left (click)="viewAmountsCollection()" [disabled]="!canStart" >
+    <button ion-item icon-left (click)="viewAmountsCollection()" [disabled]="!canStart">
       <ion-icon name="cash" item-start></ion-icon>
       <h2>Amounts & collection</h2>
       <h3>No amount or date set</h3>
@@ -36,6 +36,14 @@
 
   </ion-list>
 
-  <button ion-button block disabled>Start</button>
+  <ion-list inset>
+
+  </ion-list>
+
+
+  <button ion-button block full disabled>Start</button>
+  <button ion-button block full color="danger" (click)="deletePlan(plan)">
+    Delete
+  </button>
 
 </ion-content>
