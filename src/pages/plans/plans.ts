@@ -61,22 +61,23 @@ export class PlansPage {
           text: "Add",
           handler: (inputData)=>{
 
-            let planName, id;
+            let planName, id = '';
             planName = inputData.planName;
 
             if(planName.length > 0){
 
               let next = data => {
+
                 let pathArr = data.headers.get('location').split('/');
                 id = pathArr[pathArr.length - 1];
+                let params = { id: id };
+                if(id.length > 5){
+                  this.navCtrl.push(PlanDetailsPage, params);
+                } else {
+                  alert('Nowt')
+                }
               };
               this.plansProvider.addPlan(planName).subscribe(next);
-
-              let callback = () => {
-                let params = { id: id };
-                this.navCtrl.push(PlanDetailsPage, params);
-              };
-              addPlanAlert.onDidDismiss(callback);
 
             }
           }

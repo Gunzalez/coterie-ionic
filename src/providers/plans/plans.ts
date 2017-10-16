@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-const API: string = '/api/plans/';
+const API: string = 'api/plans/';
 @Injectable()
 export class PlansProvider {
 
