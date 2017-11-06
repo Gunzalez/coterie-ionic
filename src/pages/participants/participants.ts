@@ -104,10 +104,10 @@ export class ParticipantsPage {
                   }
 
                 };
-                this.plansProvider.addSchedule(scheduleIds, this.id).subscribe(next);
+                this.plansProvider.addSchedule(scheduleIds, this.id).subscribe(next); // save new schedule
 
               };
-              this.plansProvider.addParticipant(participantName, this.id).subscribe(next);
+              this.plansProvider.addParticipant(participantName, this.id).subscribe(next); // new participant
 
             }
           }

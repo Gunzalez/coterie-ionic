@@ -60,7 +60,6 @@ export class PlansProvider {
 
   deletePlan(id){
     let url = API + id;
-    console.log(url);
     return this.http.delete(url)
       .map((response) => { response.json()
     });

@@ -65,9 +65,7 @@ export class PlanDetailsPage {
     let next = data => {
       console.log(data);
     };
-    this.plansProvider.deletePlan(plan['id'])
-      .subscribe(next);
-
+    this.plansProvider.deletePlan(plan['id']).subscribe(next);
   }
 
   viewAmountsCollection(){
