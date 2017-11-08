@@ -14,20 +14,47 @@
 
 <ion-content>
 
-  <ion-list *ngIf="plans.length < 1">
-    <ion-item>
+  <ion-list>
+
+    <ion-item-sliding *ngFor="let plan of plans">
+
+      <ion-item can-swipe="false">
+        <ion-icon name="contract" item-start></ion-icon>
+        <h2>{{plan.name}}</h2>
+        <p>Created: {{created}}</p>
+      </ion-item>
+
+      <ion-item-options side="left">
+        <button ion-button color="danger" (click)="deletePlan(plan)" icon-only>
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+
+    </ion-item-sliding>
+
+    <ion-item *ngIf="plans.length < 1">
       <h2>No plans</h2>
       <p>Looks like you have no saving plans</p>
     </ion-item>
+
   </ion-list>
 
-  <ion-list>
-    <button ion-item *ngFor="let plan of plans" (click)="viewPlan(plan.id)">
-      <ion-icon name="contract" item-start></ion-icon>
-      <h2>{{plan.name}}</h2>
-      <p>Created: {{created}}</p>
-    </button>
-  </ion-list>
+
+
+
+
+
+
+  <!--<ion-list>-->
+    <!--<button ion-item *ngFor="let plan of plans" (click)="viewPlan(plan.id)">-->
+      <!--<ion-icon name="contract" item-start></ion-icon>-->
+      <!--<h2>{{plan.name}}</h2>-->
+      <!--<p>Created: {{created}}</p>-->
+    <!--</button>-->
+  <!--</ion-list>-->
+
+
+
 
   <ion-fab right bottom>
     <button ion-fab (click)="addPlan()" icon-only>

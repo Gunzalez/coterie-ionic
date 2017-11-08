@@ -61,13 +61,6 @@ export class PlanDetailsPage {
     this.navCtrl.push(ParticipantsPage, plan);
   }
 
-  deletePlan(plan){
-    let next = data => {
-      console.log(data);
-    };
-    this.plansProvider.deletePlan(plan['id']).subscribe(next);
-  }
-
   viewAmountsCollection(){
     this.navCtrl.push(CollectionsPage);
   }

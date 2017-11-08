@@ -92,4 +92,11 @@ export class PlansPage {
     this.navCtrl.push(PlanDetailsPage, params);
   }
 
+  deletePlan(plan){
+    let next = data => {
+      console.log(data);
+    };
+    this.plansProvider.deletePlan(plan['id']).subscribe(next);
+  }
+
 }
