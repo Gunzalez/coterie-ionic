@@ -151,8 +151,14 @@ export class ParticipantsPage {
   }
 
   removeParticipant(participantIndex, participant){
-    let count = 1;
-    this.schedule.splice(participantIndex, count);
-    // removes participant
+
+    let next = (response) => {
+      if(response.status === 204){
+        let count = 1;
+        this.schedule.splice(participantIndex, count);
+      }
+    };
+    this.plansProvider.removeParticipant(participant).subscribe(next);
+
   }
 }
