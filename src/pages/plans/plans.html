@@ -18,11 +18,11 @@
 
     <ion-item-sliding *ngFor="let plan of plans">
 
-      <ion-item can-swipe="false">
+      <button ion-item (click)="viewPlan(plan.id)">
         <ion-icon name="contract" item-start></ion-icon>
         <h2>{{plan.name}}</h2>
         <p>Created: {{created}}</p>
-      </ion-item>
+      </button>
 
       <ion-item-options side="left">
         <button ion-button color="danger" (click)="deletePlan(plan)" icon-only>
@@ -38,23 +38,6 @@
     </ion-item>
 
   </ion-list>
-
-
-
-
-
-
-
-  <!--<ion-list>-->
-    <!--<button ion-item *ngFor="let plan of plans" (click)="viewPlan(plan.id)">-->
-      <!--<ion-icon name="contract" item-start></ion-icon>-->
-      <!--<h2>{{plan.name}}</h2>-->
-      <!--<p>Created: {{created}}</p>-->
-    <!--</button>-->
-  <!--</ion-list>-->
-
-
-
 
   <ion-fab right bottom>
     <button ion-fab (click)="addPlan()" icon-only>

@@ -36,14 +36,6 @@
 
   </ion-list>
 
-  <ion-list inset>
-
-  </ion-list>
-
-
-  <button ion-button block full disabled>Start</button>
-  <button ion-button block full color="danger" (click)="deletePlan(plan)">
-    Delete
-  </button>
+  <button ion-button block full [disabled]="!canStart">Start</button>
 
 </ion-content>
