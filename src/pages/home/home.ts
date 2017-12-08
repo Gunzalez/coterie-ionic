@@ -19,11 +19,31 @@ export class HomePage {
 
   ionViewDidLoad() {
 
-    let whatComesNext = administrator => {
-      console.log(administrator);
-    };
-    this.plansProvider.setAdministrator().subscribe(whatComesNext);
+    if (typeof(Storage) !== "undefined") {
 
+      let key = 'administrator';
+      if(localStorage.getItem(key) !== null){
+        this.setAccessToken(localStorage.getItem(key));
+      } else {
+
+        let whatComesNext = administrator => {
+          localStorage.setItem(key, administrator);
+          this.setAccessToken(administrator);
+        };
+        this.plansProvider.getNewAdministrator().subscribe(whatComesNext);
+      }
+    } else {
+      // redirect to error page
+    }
+  }
+
+  setAccessToken(administrator){
+    let whatComesNext = savedToken => {
+      if(!savedToken){
+        // redirect to error page
+      }
+    };
+    this.plansProvider.setAccessToken(administrator).subscribe(whatComesNext);
   }
 
 

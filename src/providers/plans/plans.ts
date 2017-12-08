@@ -7,31 +7,29 @@ const API: string = 'api/plans/';
 export class PlansProvider {
 
   public plan = {};
-  private administrator = null;
+  private token = {};
 
-  constructor(public http: Http) {
+  constructor(public http: Http) {}
 
+  setAccessToken(administrator){
 
-
+    let url = 'api/registrations/'+ administrator;
+    return this.http.get(url)
+      .map(response => {
+        this.token = response.json();
+        return true
+      })
   }
 
-  setAdministrator(){
-    if (typeof(Storage) !== "undefined") {
-      if(localStorage.getItem("administrator") !== null){
-        this.administrator = localStorage.getItem("administrator")
-      } else {
+  getNewAdministrator(){
 
-        let url = 'api/registrations',
-          body = {};
-        return this.http.post(url,body)
-          .map(response => {
-            let headerPath = response.headers.get('location').split('/');
-              this.administrator = headerPath[headerPath.length - 1];
-
-              return(this.administrator);
-          })
-      }
-    }
+    let url = 'api/registrations',
+      body = {};
+    return this.http.post(url,body)
+      .map(response => {
+        let headerPath = response.headers.get('location').split('/');
+        return(headerPath[headerPath.length - 1]);
+      })
   }
 
   getPlans(){
@@ -45,7 +43,6 @@ export class PlansProvider {
     let body = {
       name: name
     };
-
     return this.http.post(API, body).map((response) => {
       return response
     }, error => {
