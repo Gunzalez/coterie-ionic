@@ -7,9 +7,31 @@ const API: string = 'api/plans/';
 export class PlansProvider {
 
   public plan = {};
+  private administrator = null;
 
   constructor(public http: Http) {
 
+
+
+  }
+
+  setAdministrator(){
+    if (typeof(Storage) !== "undefined") {
+      if(localStorage.getItem("administrator") !== null){
+        this.administrator = localStorage.getItem("administrator")
+      } else {
+
+        let url = 'api/registrations',
+          body = {};
+        return this.http.post(url,body)
+          .map(response => {
+            let headerPath = response.headers.get('location').split('/');
+              this.administrator = headerPath[headerPath.length - 1];
+
+              return(this.administrator);
+          })
+      }
+    }
   }
 
   getPlans(){
