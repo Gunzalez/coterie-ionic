@@ -14,22 +14,22 @@ export class PlansProvider {
   setAccessToken(administrator){
 
     let url = 'api/registrations/'+ administrator;
+
     return this.http.get(url)
       .map(response => {
-
         this.headers = new Headers();
-        let name = 'Authorisation',
+        let name = 'Authorization',
           value = 'token:' + response.json().authorisationToken;
         this.headers.append(name, value);
-
         return true
       })
   }
 
   getNewAdministrator(){
 
-    let url = 'api/registrations',
-      body = {};
+    let url = 'api/registrations';
+    let body = {};
+
     return this.http.post(url,body)
       .map(response => {
         let headerPath = response.headers.get('location').split('/');
@@ -40,16 +40,25 @@ export class PlansProvider {
   getPlans(){
 
     let options = { headers: this.headers };
+
     return this.http.get(API, options)
+      .map(response => response.json())
+  }
+
+  getAPlan(id){
+
+    let url = API + id;
+    let options = { headers: this.headers };
+
+    return this.http.get(url, options)
       .map(response => response.json())
   }
 
   addPlan(name){
 
     let options = { headers: this.headers };
-    let body = {
-      name: name
-    };
+    let body = { name: name };
+
     return this.http.post(API, body, options)
       .map((response) => {
       return response
@@ -58,21 +67,10 @@ export class PlansProvider {
     })
   }
 
-  getAPlan(id){
-
-    let url = API + id,
-      options = { headers: this.headers };
-    return this.http.get(url, options)
-      .map(response => response.json())
-  }
-
-  // uses plan id
   addParticipant(name, id){
 
     let url = API + id + '/participants';
-    let body = {
-      name: name
-    };
+    let body = { name: name };
     let options = { headers: this.headers };
 
     return this.http.post(url, body, options)
@@ -89,8 +87,9 @@ export class PlansProvider {
   }
 
   deletePlan(id){
-    let url = API + id,
-      options = { headers: this.headers };
+
+    let url = API + id;
+    let options = { headers: this.headers };
 
     return this.http.delete(url, options)
       .map(response => {
@@ -104,9 +103,7 @@ export class PlansProvider {
   addSchedule(schedule, id){
 
     let url = API + id + '/schedule';
-    let body = {
-      participants: schedule
-    };
+    let body = { participants: schedule };
     let options = { headers: this.headers };
 
     return this.http.put(url, body, options)
@@ -115,7 +112,6 @@ export class PlansProvider {
     }, error => {
       return error
     })
-
   }
 
   removeParticipant(participant){
@@ -130,7 +126,5 @@ export class PlansProvider {
       return error
     })
 
-
   }
-
 }
