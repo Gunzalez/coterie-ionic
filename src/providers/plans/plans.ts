@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 const API: string = 'api/plans/';
@@ -7,7 +7,7 @@ const API: string = 'api/plans/';
 export class PlansProvider {
 
   public plan = {};
-  private token = {};
+  private headers: Headers;
 
   constructor(public http: Http) {}
 
@@ -16,7 +16,12 @@ export class PlansProvider {
     let url = 'api/registrations/'+ administrator;
     return this.http.get(url)
       .map(response => {
-        this.token = response.json();
+
+        this.headers = new Headers();
+        let name = 'Authorisation',
+          value = 'token:' + response.json().authorisationToken;
+        this.headers.append(name, value);
+
         return true
       })
   }
@@ -34,16 +39,19 @@ export class PlansProvider {
 
   getPlans(){
 
-    return this.http.get(API)
+    let options = { headers: this.headers };
+    return this.http.get(API, options)
       .map(response => response.json())
   }
 
   addPlan(name){
 
+    let options = { headers: this.headers };
     let body = {
       name: name
     };
-    return this.http.post(API, body).map((response) => {
+    return this.http.post(API, body, options)
+      .map((response) => {
       return response
     }, error => {
       return error
@@ -52,8 +60,9 @@ export class PlansProvider {
 
   getAPlan(id){
 
-    let url = API + id;
-    return this.http.get(url)
+    let url = API + id,
+      options = { headers: this.headers };
+    return this.http.get(url, options)
       .map(response => response.json())
   }
 
@@ -64,8 +73,10 @@ export class PlansProvider {
     let body = {
       name: name
     };
+    let options = { headers: this.headers };
 
-    return this.http.post(url, body).map((response) => {
+    return this.http.post(url, body, options)
+      .map((response) => {
 
       // returns participant id
       let headerLocation = response.headers.get('location'),
@@ -78,8 +89,11 @@ export class PlansProvider {
   }
 
   deletePlan(id){
-    let url = API + id;
-    return this.http.delete(url).map(response => {
+    let url = API + id,
+      options = { headers: this.headers };
+
+    return this.http.delete(url, options)
+      .map(response => {
       return response.json()
     }, error  => {
       return error
@@ -93,8 +107,10 @@ export class PlansProvider {
     let body = {
       participants: schedule
     };
+    let options = { headers: this.headers };
 
-    return this.http.put(url, body).map(response => {
+    return this.http.put(url, body, options)
+      .map(response => {
       return response
     }, error => {
       return error
@@ -105,8 +121,10 @@ export class PlansProvider {
   removeParticipant(participant){
 
     let url = API + this.plan['id'] + '/participants/' + participant.id;
+    let options = { headers: this.headers };
 
-    return this.http.delete(url).map(response => {
+    return this.http.delete(url, options)
+      .map(response => {
       return response
     }, error => {
       return error
