@@ -9,5 +9,5 @@ Add toasts to deletes
 Delete action on Plans
 
 Talk to Karl about archiving plans
-See about lauching keyboard on adding new text entries
+See about launching keyboard on adding new text entries
 Rename Edit to Order
