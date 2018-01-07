@@ -30,7 +30,7 @@ export class PlansProvider {
     let url = 'api/registrations';
     let body = {};
 
-    return this.http.post(url,body)
+    return this.http.post(url, body)
       .map(response => {
         let headerPath = response.headers.get('location').split('/');
         return(headerPath[headerPath.length - 1]);
@@ -114,6 +114,7 @@ export class PlansProvider {
     })
   }
 
+  // remove a single participant
   removeParticipant(participant){
 
     let url = API + this.plan['id'] + '/participants/' + participant.id;

@@ -146,10 +146,10 @@ export class ParticipantsPage {
         }
       };
       this.plansProvider.addSchedule(scheduleIds, this.id).subscribe(next);
-
     }
   }
 
+  // removes a single participant
   removeParticipant(participantIndex, participant){
 
     let next = (response) => {
