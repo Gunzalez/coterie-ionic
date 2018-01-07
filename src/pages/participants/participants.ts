@@ -119,7 +119,7 @@ export class ParticipantsPage {
     addParticipantAlert.present();
   }
 
-  itemReorded($event){
+  itemReordered($event){
     reorderArray(this.schedule, $event);
   }
 
