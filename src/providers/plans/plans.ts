@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-const API: string = 'api/plans/';
+// const API: string = 'api/plans/';
+const API: string = 'http://coterie-rest-app.herokuapp.com/plans/';
 @Injectable()
 export class PlansProvider {
 
@@ -24,7 +25,7 @@ export class PlansProvider {
   setNewAccessToken(){
 
     // make post to with empty body
-    let url = 'api/registrations';
+    let url = 'http://coterie-rest-app.herokuapp.com/registrations';
     let body = {};
 
     return this.http.post(url, body)
