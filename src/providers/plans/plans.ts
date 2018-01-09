@@ -11,29 +11,32 @@ export class PlansProvider {
 
   constructor(public http: Http) {}
 
-  setAccessToken(administrator){
+  setHeaders(accessToken){
 
-    let url = 'api/registrations/'+ administrator;
 
-    return this.http.get(url)
-      .map(response => {
-        this.headers = new Headers();
-        let name = 'Authorization',
-          value = 'token:' + response.json().authorisationToken;
-        this.headers.append(name, value);
-        return true
-      })
+    this.headers = new Headers();
+
+
+    let name = 'Authorization',
+      value = 'token:' + accessToken;
+    this.headers.append(name, value);
   }
 
-  getNewAdministrator(){
+  setNewAccessToken(){
 
+    // make post to with empty body
     let url = 'api/registrations';
     let body = {};
 
     return this.http.post(url, body)
       .map(response => {
         let headerPath = response.headers.get('location').split('/');
-        return(headerPath[headerPath.length - 1]);
+        let registrationString = headerPath[headerPath.length - 1];
+        let tokenUrl = url + '/' + registrationString;
+        return this.http.get(tokenUrl).map(
+          response => {
+            return response.json().authorisationToken
+          })
       })
   }
 

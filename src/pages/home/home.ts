@@ -21,29 +21,24 @@ export class HomePage {
 
     if (typeof(Storage) !== "undefined") {
 
-      let key = 'administrator';
-      if(localStorage.getItem(key) !== null){
-        this.setAccessToken(localStorage.getItem(key));
-      } else {
-
-        let whatComesNext = administrator => {
-          localStorage.setItem(key, administrator);
-          this.setAccessToken(administrator);
+      let key = 'accessToken';
+      if(localStorage.getItem(key) === null){
+        let whatComesNext = accessToken => {
+          accessToken.subscribe(value => {
+            localStorage.setItem(key, value);
+            this.plansProvider.setHeaders(value);
+          })
         };
-        this.plansProvider.getNewAdministrator().subscribe(whatComesNext);
+        this.plansProvider.setNewAccessToken().subscribe(whatComesNext);
+      } else {
+        let savedToken = localStorage.getItem(key);
+        this.plansProvider.setHeaders(savedToken);
       }
+
     } else {
       // redirect to error page
+      // no local storage on this machine
     }
-  }
-
-  setAccessToken(administrator){
-    let whatComesNext = savedToken => {
-      if(!savedToken){
-        // redirect to error page
-      }
-    };
-    this.plansProvider.setAccessToken(administrator).subscribe(whatComesNext);
   }
 
 
