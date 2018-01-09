@@ -13,13 +13,12 @@ export class PlansProvider {
 
   setHeaders(accessToken){
 
-
+    // set headers ot used for all future calls
     this.headers = new Headers();
-
-
     let name = 'Authorization',
-      value = 'token:' + accessToken;
+        value = 'token:' + accessToken;
     this.headers.append(name, value);
+
   }
 
   setNewAccessToken(){
@@ -33,8 +32,12 @@ export class PlansProvider {
         let headerPath = response.headers.get('location').split('/');
         let registrationString = headerPath[headerPath.length - 1];
         let tokenUrl = url + '/' + registrationString;
+
+        // make another get call
         return this.http.get(tokenUrl).map(
           response => {
+
+            // return just the authorisationToken
             return response.json().authorisationToken
           })
       })

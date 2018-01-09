@@ -16,28 +16,34 @@ export class HomePage {
 
   }
 
-
   ionViewDidLoad() {
 
     if (typeof(Storage) !== "undefined") {
 
-      let key = 'accessToken';
-      if(localStorage.getItem(key) === null){
-        let whatComesNext = accessToken => {
-          accessToken.subscribe(value => {
-            localStorage.setItem(key, value);
-            this.plansProvider.setHeaders(value);
-          })
-        };
-        this.plansProvider.setNewAccessToken().subscribe(whatComesNext);
+        // new token needed
+        let key = 'accessToken';
+        if(localStorage.getItem(key) === null){
+          let whatComesNext = accessToken => {
+            accessToken.subscribe(value => {
+              localStorage.setItem(key, value);
+              this.plansProvider.setHeaders(value);
+            })
+          };
+          this.plansProvider.setNewAccessToken().subscribe(whatComesNext);
+
       } else {
+
+        // access token exists, use it in headers
         let savedToken = localStorage.getItem(key);
         this.plansProvider.setHeaders(savedToken);
+
       }
 
     } else {
+
       // redirect to error page
       // no local storage on this machine
+
     }
   }
 
