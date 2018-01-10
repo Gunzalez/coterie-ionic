@@ -20,14 +20,21 @@ export class HomePage {
 
     if (typeof(Storage) !== "undefined") {
 
-        // new token needed
-        let key = 'accessToken';
-        if(localStorage.getItem(key) === null){
+      // new token needed
+      let key = 'accessToken';
+      if(localStorage.getItem(key) === null){
+
           let whatComesNext = accessToken => {
+
             accessToken.subscribe(value => {
+
+              // save new access token
               localStorage.setItem(key, value);
+
+              // set token in headers
               this.plansProvider.setHeaders(value);
             })
+
           };
           this.plansProvider.setNewAccessToken().subscribe(whatComesNext);
 
@@ -35,6 +42,8 @@ export class HomePage {
 
         // access token exists, use it in headers
         let savedToken = localStorage.getItem(key);
+
+        // set token in headers
         this.plansProvider.setHeaders(savedToken);
 
       }
