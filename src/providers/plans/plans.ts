@@ -69,7 +69,7 @@ export class PlansProvider {
 
 
       // ----------------------
-      // returns one plan, pass in plan id
+      // returns one plan, accepts plan id
       getAPlan(id){
 
           let options = { headers: this.headers };
@@ -81,7 +81,7 @@ export class PlansProvider {
 
 
       // ----------------------
-      // add a new plan, pass in plan name
+      // add a new plan, accepts plan name
       addPlan(name){
 
           let options = { headers: this.headers };
@@ -97,7 +97,7 @@ export class PlansProvider {
 
 
       // ----------------------
-      // add a participant to a plan, via plan id
+      // add a participant to a plan, accepts a name + plan id
       addParticipant(name, id){
 
           let options = { headers: this.headers };
@@ -119,7 +119,7 @@ export class PlansProvider {
 
 
       // ----------------------
-      // delete one plan, pass in plan id
+      // delete one plan, accepts plan id
       deletePlan(id){
 
           let options = { headers: this.headers };
@@ -136,8 +136,8 @@ export class PlansProvider {
 
 
       // ----------------------
-      // uses plan id
-      addSchedule(schedule, id){
+      // sets order of participants, accepts an array of id + plan id
+      setSchedule(schedule, id){
 
           let options = { headers: this.headers };
           let url = API + id + '/schedule';
@@ -153,7 +153,7 @@ export class PlansProvider {
 
 
       // ----------------------
-      // remove a single participant
+      // remove a single participant, accepts
       removeParticipant(participant){
 
           let options = { headers: this.headers };

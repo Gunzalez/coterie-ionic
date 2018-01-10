@@ -3,6 +3,8 @@ import { NavController, NavParams, AlertController, reorderArray, ToastControlle
 
 import { PlansProvider } from '../../providers/plans/plans';
 
+const DURATION = 2000;
+
 @Component({
   selector: 'page-participants',
   templateUrl: 'participants.html',
@@ -47,7 +49,7 @@ export class ParticipantsPage {
 
       let cannotLeaveToast = this.toastCtrl.create({
         message: 'Exit save mode',
-        duration: 2000,
+        duration: DURATION,
       });
       cannotLeaveToast.present();
 
@@ -98,13 +100,13 @@ export class ParticipantsPage {
                   if(done.ok){
                     let addParticipantToast = this.toastCtrl.create({
                       message: 'Participant added',
-                      duration: 2000,
+                      duration: DURATION,
                     });
                     addParticipantToast.present();
                   }
 
                 };
-                this.plansProvider.addSchedule(scheduleIds, this.id).subscribe(next); // save new schedule
+                this.plansProvider.setSchedule(scheduleIds, this.id).subscribe(next); // save new schedule
 
               };
               this.plansProvider.addParticipant(participantName, this.id).subscribe(next); // new participant
@@ -140,12 +142,12 @@ export class ParticipantsPage {
         if(done){
           let doneReorderToast = this.toastCtrl.create({
             message: 'Order saved',
-            duration: 2000,
+            duration: DURATION,
           });
           doneReorderToast.present();
         }
       };
-      this.plansProvider.addSchedule(scheduleIds, this.id).subscribe(next);
+      this.plansProvider.setSchedule(scheduleIds, this.id).subscribe(next);
     }
   }
 
@@ -156,6 +158,11 @@ export class ParticipantsPage {
       if(response.status === 204){
         let count = 1;
         this.schedule.splice(participantIndex, count);
+        let participantRemovedToast = this.toastCtrl.create({
+          message: 'Participant removed',
+          duration: DURATION,
+        });
+        participantRemovedToast.present();
       }
     };
     this.plansProvider.removeParticipant(participant).subscribe(next);

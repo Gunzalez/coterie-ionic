@@ -3,7 +3,7 @@
     <ion-title>Participants</ion-title>
 
     <ion-buttons end *ngIf="schedule.length > 1">
-      <button ion-button *ngIf="!reorderIsEnabled" (click)="toggleReorder('edit')">Edit</button>
+      <button ion-button *ngIf="!reorderIsEnabled" (click)="toggleReorder('edit')">Reorder</button>
       <button ion-button *ngIf="reorderIsEnabled" (click)="toggleReorder('save')">Save</button>
     </ion-buttons>
 
