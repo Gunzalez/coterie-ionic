@@ -3,7 +3,7 @@ import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 // const URL: string = 'api';
-const URL: string = 'http://coterie-rest-app.herokuapp.com';
+const URL: string = 'https://coterie-rest-app.herokuapp.com';
 const API: string = URL + '/plans/';
 @Injectable()
 export class PlansProvider {
