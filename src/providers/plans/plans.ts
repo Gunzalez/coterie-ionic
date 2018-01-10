@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-const API: string = 'api/plans/';
-// const API: string = 'https://coterie-rest-app.herokuapp.com/plans/';
+// const URL: string = 'api';
+const URL: string = 'http://coterie-rest-app.herokuapp.com';
+const API: string = URL + '/plans/';
 @Injectable()
 export class PlansProvider {
 
@@ -27,7 +28,7 @@ export class PlansProvider {
       // ----------------------
       // returns Access Token
       getAccessToken(registrationString){
-          let tokenUrl = 'api/registrations/' + registrationString;
+          let tokenUrl =  URL + '/registrations/' + registrationString;
 
           // make another get call
           return this.http.get(tokenUrl)
@@ -44,7 +45,7 @@ export class PlansProvider {
       getRegistrationString(){
 
           // make post to with empty body
-          let registrationsUrl = 'api/registrations';
+          let registrationsUrl = URL + '/registrations';
           let body = {};
 
           return this.http.post(registrationsUrl, body)
