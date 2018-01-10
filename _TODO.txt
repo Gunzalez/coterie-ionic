@@ -1,13 +1,25 @@
-Clean up non ES6 syntax - DONE
-Styling ions - Hasan
-Look at SVGs - Hasan
 
-Save Re-order aka Schedule - DONE
-Moving drag handles to left - NOT NEEDED
 
-Add toasts to deletes, DONE on participants
-Delete action on Plans
-
+TODO
+================================
 Talk to Karl about archiving plans
 See about launching keyboard on adding new text entries
 Rename Edit to Order
+Fixed height for list items
+Delete action on Plans
+
+
+
+DONE
+================================
+Clean up non ES6 syntax
+Save Re-order aka Schedule
+Moving drag handles to left (INVALID)
+Add toasts to delete participant
+
+
+
+DELEGATED
+================================
+Styling ions - Hasan
+Look at SVGs - Hasan
