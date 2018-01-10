@@ -10,57 +10,48 @@ import { PlansProvider } from '../../providers/plans/plans';
 })
 export class HomePage {
 
-  public plansPage = PlansPage;
+    public plansPage = PlansPage;
 
-  constructor(public navCtrl: NavController, private plansProvider: PlansProvider,) {
+    constructor(public navCtrl: NavController, private plansProvider: PlansProvider,) {}
 
-  }
+    ionViewDidLoad() {
 
-  ionViewDidLoad() {
+        if (typeof(Storage) !== "undefined") {
 
-    if (typeof(Storage) !== "undefined") {
+            let key = 'accessToken';
 
-      // new token needed
-      let key = 'accessToken';
-      if(localStorage.getItem(key) === null){
+            if(localStorage.getItem(key) === null){
+                // no access token saved, create a new one
 
-          let whatComesNext = accessToken => {
+                let whatComesNext = registrationString => {
 
-            accessToken.subscribe(value => {
 
-              // save new access token
-              localStorage.setItem(key, value);
+                    let whatComesNext = authorisationToken  => {
 
-              // set token in headers
-              this.plansProvider.setHeaders(value);
-            })
+                      // save new token in local storage
+                      localStorage.setItem(key, authorisationToken);
 
-          };
-          this.plansProvider.setNewAccessToken().subscribe(whatComesNext);
+                      // set headers with this new token
+                      this.plansProvider.setHeaders(authorisationToken);
 
-      } else {
+                    };
+                    this.plansProvider.getAccessToken(registrationString).subscribe(whatComesNext)
 
-        // access token exists, use it in headers
-        let savedToken = localStorage.getItem(key);
+                };
+                this.plansProvider.getRegistrationString().subscribe(whatComesNext);
 
-        // set token in headers
-        this.plansProvider.setHeaders(savedToken);
+            } else {
 
-      }
+                // set headers with existing access token in local storage
+                this.plansProvider.setHeaders(localStorage.getItem(key));
 
-    } else {
+            }
 
-      // redirect to error page
-      // no local storage on this machine
+        } else {
 
+            // redirect to error page
+            // no local storage on this machine
+
+        }
     }
-  }
-
-
-
-
-
-
-
-
 }
