@@ -5,7 +5,7 @@ Look at SVGs - Hasan
 Save Re-order aka Schedule - DONE
 Moving drag handles to left - NOT NEEDED
 
-Add toasts to deletes
+Add toasts to deletes, DONE on participants
 Delete action on Plans
 
 Talk to Karl about archiving plans
