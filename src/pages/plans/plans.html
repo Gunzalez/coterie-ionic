@@ -19,9 +19,9 @@
     <ion-item-sliding *ngFor="let plan of plans">
 
       <button ion-item (click)="viewPlan(plan.id)">
-        <ion-icon name="contract" item-start></ion-icon>
+        <ion-icon name="{{ plan.canStart ? 'musical-notes' : 'contract'}}" item-start></ion-icon>
         <h2>{{plan.name}}</h2>
-        <p>Created: {{created}}</p>
+        <p title="{{plan.canStart}}">Created: {{created}}</p>
       </button>
 
       <ion-item-options side="left">

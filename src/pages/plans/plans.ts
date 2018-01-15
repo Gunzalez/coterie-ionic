@@ -37,6 +37,14 @@ export class PlansPage {
 
     let next = (data) => {
       this.plans = data.plans;
+      this.plans.map(plan =>{
+        if(plan._capabilities.indexOf('startPlan') !== -1){
+          plan.canStart = true;
+        } else {
+          plan.canStart = false;
+        }
+        //console.log(plan._capabilities.indexOf('startPlan'));
+      })
     };
     this.plansProvider.getPlans().subscribe(next);
   }
