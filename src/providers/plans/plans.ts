@@ -173,7 +173,7 @@ export class PlansProvider {
       startPlan(id){
 
         let options = { headers: this.headers };
-        let url = API + '.start'
+        let url = URL + '/plans.start'
         let body = { planId : id };
 
         console.log(url, body, options)
