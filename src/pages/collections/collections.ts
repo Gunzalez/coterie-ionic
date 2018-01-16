@@ -12,6 +12,7 @@ export class CollectionsPage {
   private id = '';
   private plan = {};
   private participants = [];
+  public canStart;
 
   public schedule = [];
 
@@ -21,6 +22,11 @@ export class CollectionsPage {
     this.id = this.plan['id'];
     this.schedule = this.plan['schedule'].participants;
     this.participants = this.plan['participants'];
+    if(this.plan['_capabilities'].indexOf('startPlan') !== -1){
+      this.canStart = true;
+    } else {
+      this.canStart = false;
+    }
   }
 
   ionViewDidLoad() {
