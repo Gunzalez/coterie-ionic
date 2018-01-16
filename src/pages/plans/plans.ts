@@ -38,12 +38,15 @@ export class PlansPage {
     let next = (data) => {
       this.plans = data.plans;
       this.plans.map(plan =>{
-        if(plan._capabilities.indexOf('startPlan') !== -1){
-          plan.canStart = true;
+        if(plan._capabilities.length < 1){
+          plan.status = 'bonfire' // started 
         } else {
-          plan.canStart = false;
+          if(plan._capabilities.indexOf('startPlan') !== -1){
+            plan.status = 'briefcase'; // can start plan
+          } else {
+            plan.status = 'contract'; // can not start plan
+          }
         }
-        //console.log(plan._capabilities.indexOf('startPlan'));
       })
     };
     this.plansProvider.getPlans().subscribe(next);
