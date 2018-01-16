@@ -108,7 +108,7 @@ export class ParticipantsPage {
 
                   if(done.ok){
 
-                    if(this.plan['_capabilities'].indexOf('startPlan') !== -1){
+                    if(this.schedule.length > 1){
                       this.status = 'cloud'; // can start plan
                     } else {
                       this.status = 'cloud-outline'; // can not start plan
