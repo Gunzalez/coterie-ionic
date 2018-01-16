@@ -167,4 +167,29 @@ export class PlansProvider {
           })
       }
 
+      
+      // ------------------------
+      // starts a plan
+      startPlan(id){
+
+        let options = { headers: this.headers };
+        let url = API + '.start'
+        let body = { planId : id };
+
+        console.log(url, body, options)
+
+        return this.http.post(url, body, options)
+            .map( response => {
+                console.log(response)
+                return response.status === 200 ? true : false
+                // if (response.status === 200){
+                //     return true
+                // } else {
+                //     return false;
+                // }
+          }, error => {
+              console.log(error);
+            return error
+          })
+      } 
 }

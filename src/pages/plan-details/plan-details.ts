@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
 import { ParticipantsPage } from '../participants/participants';
 import { CollectionsPage } from '../collections/collections';
+
+const DURATION = 2000;
 
 @Component({
   selector: 'page-plan-details',
@@ -18,7 +20,7 @@ export class PlanDetailsPage {
   public canStart = false;
   public created;
 
-  constructor(private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private toastCtrl: ToastController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.id = this.navParams.get('id');
   }
 
@@ -42,10 +44,14 @@ export class PlanDetailsPage {
 
   ionViewWillEnter(){
 
-    let next = response => {
-      this.plan = response;
+    let next = plan => {
+      this.plan = plan;
       this.schedule = this.plan['schedule'].participants;
-      this.canStart = this.plan['_links'].start;
+      if(this.plan['_capabilities'].indexOf('startPlan') !== -1){
+        this.canStart = true;
+      } else {
+        this.canStart = false;
+      }
 
       // stuffing it into service/provider
       this.plansProvider.plan = this.plan;
@@ -59,6 +65,21 @@ export class PlanDetailsPage {
       id: this.plan['id']
     };
     this.navCtrl.push(ParticipantsPage, plan);
+  }
+
+  startPlan(){
+    
+    let next = result => {
+      if (result){
+        // should hide start button
+        let startPlanToast = this.toastCtrl.create({
+          message: 'Plan started',
+          duration: DURATION,
+        });
+        startPlanToast.present();
+      }
+    }
+    this.plansProvider.startPlan(this.plan['id']).subscribe(next)
   }
 
   viewAmountsCollection(){
