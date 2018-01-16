@@ -17,8 +17,9 @@ export class PlanDetailsPage {
 
   public plan = {};
   public schedule = [];
-  public canStart = false;
+  public status;
   public created;
+  public canStart;
 
   constructor(private toastCtrl: ToastController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.id = this.navParams.get('id');
@@ -47,13 +48,19 @@ export class PlanDetailsPage {
     let next = plan => {
       this.plan = plan;
       this.schedule = this.plan['schedule'].participants;
-      if(this.plan['_capabilities'].indexOf('startPlan') !== -1){
-        this.canStart = true;
-      } else {
+      if(plan._capabilities.length < 1){
+        this.status = 'rainy' // started 
         this.canStart = false;
+      } else {
+        if(plan._capabilities.indexOf('startPlan') !== -1){
+          this.status = 'cloud'; // can start plan
+          this.canStart = true;
+        } else {
+          this.status = 'cloud-outline'; // can not start plan
+          this.canStart = false;
+        }
       }
-
-      // stuffing it into service/provider
+      
       this.plansProvider.plan = this.plan;
     };
 
@@ -71,7 +78,10 @@ export class PlanDetailsPage {
     
     let next = result => {
       if (result){
-        // should hide start button
+
+        this.canStart = false;
+        this.status = 'rainy';
+
         let startPlanToast = this.toastCtrl.create({
           message: 'Plan started',
           duration: DURATION,

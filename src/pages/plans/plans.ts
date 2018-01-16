@@ -39,12 +39,12 @@ export class PlansPage {
       this.plans = data.plans;
       this.plans.map(plan =>{
         if(plan._capabilities.length < 1){
-          plan.status = 'bonfire' // started 
+          plan.status = 'rainy' // started 
         } else {
           if(plan._capabilities.indexOf('startPlan') !== -1){
-            plan.status = 'briefcase'; // can start plan
+            plan.status = 'cloud'; // can start plan
           } else {
-            plan.status = 'contract'; // can not start plan
+            plan.status = 'cloud-outline'; // can not start plan
           }
         }
       })

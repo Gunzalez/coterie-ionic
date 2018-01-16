@@ -17,19 +17,22 @@ export class ParticipantsPage {
   public schedule = [];
   public reorderIsEnabled = false;
   public created;
-  public canStart;
+  public status;
 
   constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
 
     this.plan = this.plansProvider.plan;
     this.id = this.plan['id'];
     this.schedule = this.plan['schedule'].participants;
-    if(this.plan['_capabilities'].indexOf('startPlan') !== -1){
-      this.canStart = true;
+    if(this.plan['_capabilities'].length < 1){
+      this.status = 'rainy' // started 
     } else {
-      this.canStart = false;
+      if(this.plan['_capabilities'].indexOf('startPlan') !== -1){
+        this.status = 'cloud'; // can start plan
+      } else {
+        this.status = 'cloud-outline'; // can not start plan
+      }
     }
-
   }
 
   ionViewDidLoad() {
@@ -104,6 +107,13 @@ export class ParticipantsPage {
                 let next = done => {
 
                   if(done.ok){
+
+                    if(this.plan['_capabilities'].indexOf('startPlan') !== -1){
+                      this.status = 'cloud'; // can start plan
+                    } else {
+                      this.status = 'cloud-outline'; // can not start plan
+                    }
+
                     let addParticipantToast = this.toastCtrl.create({
                       message: 'Participant added',
                       duration: DURATION,

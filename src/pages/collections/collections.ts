@@ -13,6 +13,7 @@ export class CollectionsPage {
   private plan = {};
   private participants = [];
   public canStart;
+  public status;
 
   public schedule = [];
 
@@ -22,10 +23,14 @@ export class CollectionsPage {
     this.id = this.plan['id'];
     this.schedule = this.plan['schedule'].participants;
     this.participants = this.plan['participants'];
-    if(this.plan['_capabilities'].indexOf('startPlan') !== -1){
-      this.canStart = true;
+    if(this.plan['_capabilities'].length < 1){
+      this.status = 'rainy' // started 
     } else {
-      this.canStart = false;
+      if(this.plan['_capabilities'].indexOf('startPlan') !== -1){
+        this.status = 'cloud'; // can start plan
+      } else {
+        this.status = 'cloud-outline'; // can not start plan
+      }
     }
   }
 
