@@ -16,21 +16,11 @@
 
   <ion-list>
 
-    <ion-item-sliding *ngFor="let plan of plans">
-
-      <button ion-item (click)="viewPlan(plan.id)">
-        <ion-icon name="{{plan.status}}" item-start></ion-icon>
-        <h2>{{plan.name}}</h2>
-        <p>Created: {{created}}</p>
-      </button>
-
-      <ion-item-options side="left">
-        <button ion-button color="danger" (click)="deletePlan(plan)" icon-only>
-          <ion-icon name="trash"></ion-icon>
-        </button>
-      </ion-item-options>
-
-    </ion-item-sliding>
+    <button ion-item (click)="viewPlan(plan.id)" *ngFor="let plan of plans">
+      <ion-icon name="{{plan.status}}" item-start></ion-icon>
+      <h2>{{plan.name}}</h2>
+      <p>Created: {{created}}</p>
+    </button>
 
     <ion-item *ngIf="plans.length < 1">
       <h2>No plans</h2>
