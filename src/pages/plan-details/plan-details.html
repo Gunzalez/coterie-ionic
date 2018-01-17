@@ -20,7 +20,7 @@
 
   <ion-list>
 
-    <button ion-item icon-left (click)="viewParticipants()">
+    <button ion-item icon-left (click)="viewParticipants()" [disabled]="!canAddMembers">
       <ion-icon name="people" item-start></ion-icon>
       <h2>Participants</h2>
       <h3 *ngIf="schedule.length > 1">This plan has {{schedule.length}} participants</h3>
@@ -36,6 +36,7 @@
 
   </ion-list>
 
-  <button ion-button block full [disabled]="!canStart" (click)="startPlan()">Start</button>
-
+  <button ion-button full [disabled]="!canStart" (click)="startPlan()">
+    {{ status === 'rainy' ? 'Plan started' : 'Start plan' }}
+  </button>
 </ion-content>

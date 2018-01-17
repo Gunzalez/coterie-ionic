@@ -50,7 +50,7 @@ export class ParticipantsPage {
       mm = 0 + mm;
     }
     this.created  = dd + '/' + mm + '/' + yyyy;
-
+    
   }
 
   ionViewCanLeave(){
@@ -170,7 +170,7 @@ export class ParticipantsPage {
   // removes a single participant
   removeParticipant(participantIndex, participant){
 
-    let next = (response) => {
+    let next = response => {
       if(response.status === 204){
         let count = 1;
         this.schedule.splice(participantIndex, count);

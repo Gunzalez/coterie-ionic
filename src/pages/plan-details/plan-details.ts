@@ -20,6 +20,8 @@ export class PlanDetailsPage {
   public status;
   public created;
   public canStart;
+  public canAddMembers;
+
 
   constructor(private toastCtrl: ToastController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.id = this.navParams.get('id');
@@ -51,13 +53,16 @@ export class PlanDetailsPage {
       if(plan._capabilities.length < 1){
         this.status = 'rainy' // started 
         this.canStart = false;
+        this.canAddMembers = false;
       } else {
         if(plan._capabilities.indexOf('startPlan') !== -1){
           this.status = 'cloud'; // can start plan
           this.canStart = true;
+          this.canAddMembers = true;
         } else {
           this.status = 'cloud-outline'; // can not start plan
           this.canStart = false;
+          this.canAddMembers = true;
         }
       }
       
@@ -81,6 +86,7 @@ export class PlanDetailsPage {
 
         this.canStart = false;
         this.status = 'rainy';
+        this.canAddMembers = false;
 
         let startPlanToast = this.toastCtrl.create({
           message: 'Plan started',
