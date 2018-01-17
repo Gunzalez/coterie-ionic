@@ -36,7 +36,7 @@
 
   </ion-list>
 
-  <button ion-button full [disabled]="!canStart" (click)="startPlan()">
+  <button ion-button full [disabled]="!canStart" (click)="startPlan()" color="{{ status === 'rainy' ? 'secondary' : null }}">
     {{ status === 'rainy' ? 'Plan started' : 'Start plan' }}
   </button>
 </ion-content>
