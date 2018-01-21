@@ -25,7 +25,7 @@ export class ParticipantsPage {
     this.id = this.plan['id'];
     this.schedule = this.plan['schedule'].participants;
     if(this.plan['_capabilities'].length < 1){
-      this.status = 'rainy' // started 
+      this.status = 'rainy' // started
     } else {
       if(this.plan['_capabilities'].indexOf('startPlan') !== -1){
         this.status = 'cloud'; // can start plan
@@ -50,7 +50,7 @@ export class ParticipantsPage {
       mm = 0 + mm;
     }
     this.created  = dd + '/' + mm + '/' + yyyy;
-    
+
   }
 
   ionViewCanLeave(){
@@ -174,6 +174,15 @@ export class ParticipantsPage {
       if(response.status === 204){
         let count = 1;
         this.schedule.splice(participantIndex, count);
+
+        if(this.schedule.length > 1){
+          this.status = 'cloud'; // can start plan
+        } else {
+          this.status = 'cloud-outline'; // can not start plan
+        }
+
+
+
         let participantRemovedToast = this.toastCtrl.create({
           message: 'Participant removed',
           duration: DURATION,
