@@ -98,7 +98,7 @@ export class PlanDetailsPage {
         });
         startPlanToast.present();
       }
-    }
+    };
     this.plansProvider.startPlan(this.plan['id']).subscribe(next)
   }
 
