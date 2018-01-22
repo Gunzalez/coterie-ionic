@@ -12,7 +12,7 @@
 
   <ion-list no-lines inset>
     <ion-item icon-left>
-      <ion-icon name="{{status}}" item-start></ion-icon>
+      <ion-icon name="{{icon}}" item-start></ion-icon>
       <h1>{{plan['name']}}</h1>
       <p>Plan created: {{created}}</p>
     </ion-item>
@@ -28,7 +28,7 @@
       <h3 *ngIf="schedule.length < 1">Add participants to this plan</h3>
     </button>
 
-    <button ion-item icon-left (click)="viewAmountsCollection()" [disabled]="!canStart">
+    <button ion-item icon-left (click)="viewAmountsCollection()" [disabled]="!canAddAmount">
       <ion-icon name="cash" item-start></ion-icon>
       <h2>Amounts & collection</h2>
       <h3>No amount or date set</h3>
@@ -39,4 +39,5 @@
   <button ion-button full [disabled]="!canStart" (click)="startPlan()" color="{{ status === 'rainy' ? 'secondary' : null }}">
     {{ status === 'rainy' ? 'Plan started' : 'Start plan' }}
   </button>
+
 </ion-content>

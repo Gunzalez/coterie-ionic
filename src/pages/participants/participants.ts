@@ -17,20 +17,20 @@ export class ParticipantsPage {
   public schedule = [];
   public reorderIsEnabled = false;
   public created;
-  public status;
+  public icon;
 
   constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
 
     this.plan = this.plansProvider.plan;
     this.id = this.plan['id'];
-    this.schedule = this.plan['schedule'].participants;
-    if(this.plan['_capabilities'].length < 1){
-      this.status = 'rainy' // started
+    this.schedule = this.plan['participants'];
+    if(this.plan['status'] === 'in-progress'){
+      this.icon = 'rainy' // started
     } else {
       if(this.plan['_capabilities'].indexOf('startPlan') !== -1){
-        this.status = 'cloud'; // can start plan
+        this.icon = 'cloud'; // can start plan
       } else {
-        this.status = 'cloud-outline'; // can not start plan
+        this.icon = 'cloud-outline'; // can not start plan
       }
     }
   }
@@ -109,9 +109,9 @@ export class ParticipantsPage {
                   if(done.ok){
 
                     if(this.schedule.length > 1){
-                      this.status = 'cloud'; // can start plan
+                      this.icon = 'cloud'; // can start plan
                     } else {
-                      this.status = 'cloud-outline'; // can not start plan
+                      this.icon = 'cloud-outline'; // can not start plan
                     }
 
                     let addParticipantToast = this.toastCtrl.create({
@@ -176,12 +176,10 @@ export class ParticipantsPage {
         this.schedule.splice(participantIndex, count);
 
         if(this.schedule.length > 1){
-          this.status = 'cloud'; // can start plan
+          this.icon = 'cloud'; // can start plan
         } else {
-          this.status = 'cloud-outline'; // can not start plan
+          this.icon = 'cloud-outline'; // can not start plan
         }
-
-
 
         let participantRemovedToast = this.toastCtrl.create({
           message: 'Participant removed',
@@ -189,6 +187,7 @@ export class ParticipantsPage {
         });
         participantRemovedToast.present();
       }
+
     };
     this.plansProvider.removeParticipant(participant).subscribe(next);
 

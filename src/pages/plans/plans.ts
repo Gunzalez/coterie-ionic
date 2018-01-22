@@ -35,19 +35,20 @@ export class PlansPage {
 
   ionViewWillEnter() {
 
-    let next = (data) => {
+    let next = data => {
       this.plans = data.plans;
-      this.plans.map(plan =>{
-        if(plan._capabilities.length < 1){
-          plan.status = 'rainy' // started 
+      let callback = plan => {
+        if(plan.status === 'in-progress'){
+          plan.icon = 'rainy' // started
         } else {
           if(plan._capabilities.indexOf('startPlan') !== -1){
-            plan.status = 'cloud'; // can start plan
+            plan.icon = 'cloud'; // can start plan
           } else {
-            plan.status = 'cloud-outline'; // can not start plan
+            plan.icon = 'cloud-outline'; // can not start plan
           }
         }
-      })
+      };
+      this.plans.map(callback);
     };
     this.plansProvider.getPlans().subscribe(next);
   }

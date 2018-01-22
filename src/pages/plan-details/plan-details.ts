@@ -17,11 +17,11 @@ export class PlanDetailsPage {
 
   public plan = {};
   public schedule = [];
-  public status;
+  public icon;
   public created;
   public canStart;
   public canAddMembers;
-
+  public canAddAmount = true;
 
   constructor(private toastCtrl: ToastController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.id = this.navParams.get('id');
@@ -49,23 +49,23 @@ export class PlanDetailsPage {
 
     let next = plan => {
       this.plan = plan;
-      this.schedule = this.plan['schedule'].participants;
-      if(plan._capabilities.length < 1){
-        this.status = 'rainy' // started 
+      this.schedule = this.plan['participants'];
+      if(this.plan['status'] === 'in-progress'){
+        this.icon = 'rainy'; // started
         this.canStart = false;
         this.canAddMembers = false;
+        this.canAddAmount = false;
       } else {
         if(plan._capabilities.indexOf('startPlan') !== -1){
-          this.status = 'cloud'; // can start plan
+          this.icon = 'cloud'; // can start plan
           this.canStart = true;
           this.canAddMembers = true;
         } else {
-          this.status = 'cloud-outline'; // can not start plan
+          this.icon = 'cloud-outline'; // can not start plan
           this.canStart = false;
           this.canAddMembers = true;
         }
       }
-      
       this.plansProvider.plan = this.plan;
     };
 
@@ -80,12 +80,12 @@ export class PlanDetailsPage {
   }
 
   startPlan(){
-    
+
     let next = result => {
       if (result){
 
         this.canStart = false;
-        this.status = 'rainy';
+        this.icon = 'rainy';
         this.canAddMembers = false;
 
         let startPlanToast = this.toastCtrl.create({

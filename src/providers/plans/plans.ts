@@ -140,10 +140,10 @@ export class PlansProvider {
       setSchedule(schedule, id){
 
           let options = { headers: this.headers };
-          let url = API + id + '/schedule';
+          let url = API + id + '/participants';
           let body = { participants: schedule };
 
-          return this.http.put(url, body, options)
+          return this.http.patch(url, body, options)
               .map( response => {
               return response
           }, error => {
@@ -167,7 +167,7 @@ export class PlansProvider {
           })
       }
 
-      
+
       // ------------------------
       // starts a plan
       startPlan(id){
@@ -191,5 +191,5 @@ export class PlansProvider {
               console.log(error);
             return error
           })
-      } 
+      }
 }
