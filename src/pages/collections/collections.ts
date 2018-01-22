@@ -14,7 +14,9 @@ export class CollectionsPage {
   private participants = [];
   public icon;
 
-  constructor(public navCtrl: NavController, private plansProvider: PlansProvider, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+              private plansProvider: PlansProvider,
+              public navParams: NavParams) {
 
     this.plan = this.plansProvider.plan;
     this.id = this.plan['id'];

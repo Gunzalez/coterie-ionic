@@ -23,7 +23,11 @@ export class PlanDetailsPage {
   public canAddMembers;
   public canAddAmount = true;
 
-  constructor(private toastCtrl: ToastController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private toastCtrl: ToastController,
+              private plansProvider: PlansProvider,
+              public navCtrl: NavController,
+              public navParams: NavParams) {
+
     this.id = this.navParams.get('id');
   }
 

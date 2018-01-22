@@ -12,7 +12,11 @@ export class PlansPage {
   public plans = [];
   public created;
 
-  constructor(private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private alertCtrl: AlertController,
+              private plansProvider: PlansProvider,
+              public navCtrl: NavController,
+              public navParams: NavParams) {
+
   }
 
   ionViewDidLoad() {

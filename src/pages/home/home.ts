@@ -12,7 +12,8 @@ export class HomePage {
 
     public plansPage = PlansPage;
 
-    constructor(public navCtrl: NavController, private plansProvider: PlansProvider,) {}
+    constructor(public navCtrl: NavController,
+                private plansProvider: PlansProvider,) {}
 
     ionViewDidLoad() {
 

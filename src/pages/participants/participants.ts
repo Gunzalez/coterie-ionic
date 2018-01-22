@@ -19,7 +19,11 @@ export class ParticipantsPage {
   public created;
   public icon;
 
-  constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private toastCtrl: ToastController,
+              private alertCtrl: AlertController,
+              private plansProvider: PlansProvider,
+              public navCtrl: NavController,
+              public navParams: NavParams) {
 
     this.plan = this.plansProvider.plan;
     this.id = this.plan['id'];
