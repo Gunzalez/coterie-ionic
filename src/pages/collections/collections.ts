@@ -38,4 +38,8 @@ export class CollectionsPage {
     console.log('ionViewDidLoad CollectionsPage');
   }
 
+  isNumber(event){
+    return event.charCode >= 48 && event.charCode <= 57;
+  }
+
 }

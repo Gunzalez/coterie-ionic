@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Amounts & Collection</ion-title>
+    <ion-title>Amounts &amp; Collection</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -12,14 +12,14 @@
     <ion-item icon-left>
       <ion-icon name="{{icon}}" item-start></ion-icon>
       <h1>{{plan['name']}}</h1>
-      <p>Set amount and collection for this plan</p>
+      <p>Set amount per participant</p>
     </ion-item>
   </ion-list>
 
   <ion-list>
     <ion-item>
       <ion-label stacked>Type in an amount</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="number" (onkeypress)="return isNumber(event)"></ion-input>
     </ion-item>
   </ion-list>
 
