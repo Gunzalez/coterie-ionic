@@ -3,7 +3,7 @@ import { NavController, NavParams, AlertController, reorderArray, ToastControlle
 
 import { PlansProvider } from '../../providers/plans/plans';
 
-const DURATION = 2000;
+const DURATION = 1000;
 
 @Component({
   selector: 'page-participants',

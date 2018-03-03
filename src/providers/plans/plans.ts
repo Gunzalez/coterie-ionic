@@ -14,6 +14,24 @@ export class PlansProvider {
   constructor(public http: Http) {}
 
       // ----------------------
+      // gets the plans icon
+      getPlanIcon(){
+        if(this.plan && this.plan['_capabilities']){
+          let icon = ''
+          if(this.plan['status'] === 'in-progress'){
+            icon = 'rainy'; // started
+          } else {
+            if(this.plan['_capabilities'].indexOf('startPlan') !== -1){
+              icon = 'cloud'; // can start plan
+            } else {
+              icon = 'cloud-outline'; // can not start plan
+            }
+          }
+          return icon;
+        }
+      }
+
+      // ----------------------
       // sets headers
       setHeaders(accessToken){
 
@@ -176,17 +194,15 @@ export class PlansProvider {
         let url = URL + '/plans.start'
         let body = { planId : id };
 
-        console.log(url, body, options)
-
         return this.http.post(url, body, options)
             .map( response => {
-                console.log(response)
-                return response.status === 200 ? true : false
-                // if (response.status === 200){
-                //     return true
-                // } else {
-                //     return false;
-                // }
+                // return response.status === 200 ? true : false
+                if (response.status === 200){
+                    this.plan['status'] = 'in-progress'
+                    return true
+                } else {
+                    return false;
+                }
           }, error => {
               console.log(error);
             return error

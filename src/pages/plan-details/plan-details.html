@@ -12,15 +12,15 @@
 
   <ion-list no-lines inset>
     <ion-item icon-left>
-      <ion-icon name="{{icon}}" item-start></ion-icon>
-      <h1>{{plan['name']}}</h1>
-      <p>Plan created: {{created}}</p>
+      <ion-icon name="{{ getPlanIcon() }}" item-start></ion-icon>
+      <h1>{{ plan['name'] }}</h1>
+      <p>Plan created: {{ created }}</p>
     </ion-item>
   </ion-list>
 
   <ion-list>
 
-    <button ion-item icon-left (click)="viewParticipants()" [disabled]="!canAddMembers">
+    <button ion-item icon-left (click)="viewParticipants()" [disabled]="!canAddMembers()">
       <ion-icon name="people" item-start></ion-icon>
       <h2>Participants</h2>
       <h3 *ngIf="schedule.length > 1">This plan has {{schedule.length}} participants</h3>
@@ -28,7 +28,7 @@
       <h3 *ngIf="schedule.length < 1">Add participants to this plan</h3>
     </button>
 
-    <button ion-item icon-left (click)="viewAmountsCollection()" [disabled]="!canAddAmount">
+    <button ion-item icon-left (click)="viewAmountsCollection()" [disabled]="!canAddAmount()">
       <ion-icon name="cash" item-start></ion-icon>
       <h2>Amounts & collection</h2>
       <h3>No amount or date set</h3>
@@ -36,7 +36,7 @@
 
   </ion-list>
 
-  <button ion-button full [disabled]="!canStart" (click)="startPlan()" color="{{ plan['status'] === 'in-progress' ? 'secondary' : null }}">
+  <button ion-button full [disabled]="!canStartPlan()" (click)="startPlan()" color="{{ getPlanStatusColor() }}">
     {{ plan['status'] === 'in-progress' ? 'Plan started' : 'Start plan' }}
   </button>
 
