@@ -9,7 +9,7 @@ const DURATION = 2000;
 
 @Component({
   selector: 'page-plan-details',
-  templateUrl: 'plan-details.html',
+  templateUrl: 'plan-details.html'
 })
 export class PlanDetailsPage {
 
@@ -71,39 +71,40 @@ export class PlanDetailsPage {
         }
       }
       this.plansProvider.plan = this.plan;
+      console.log(this.plansProvider.plan);
     };
 
     this.plansProvider.getAPlan(this.id).subscribe(next);
   }
 
-  viewParticipants(){
-    let plan = {
-      id: this.plan['id']
-    };
-    this.navCtrl.push(ParticipantsPage, plan);
-  }
+viewParticipants(){
+  let plan = {
+    id: this.plan['id']
+  };
+  this.navCtrl.push(ParticipantsPage, plan);
+}
 
-  startPlan(){
+startPlan(){
 
-    let next = result => {
-      if (result){
+  let next = result => {
+    if (result){
 
-        this.canStart = false;
-        this.icon = 'rainy';
-        this.canAddMembers = false;
+      this.canStart = false;
+      this.icon = 'rainy';
+      this.canAddMembers = false;
 
-        let startPlanToast = this.toastCtrl.create({
-          message: 'Plan started',
-          duration: DURATION,
-        });
-        startPlanToast.present();
-      }
-    };
-    this.plansProvider.startPlan(this.plan['id']).subscribe(next)
-  }
+      let startPlanToast = this.toastCtrl.create({
+        message: 'Plan started',
+        duration: DURATION,
+      });
+      startPlanToast.present();
+    }
+  };
+  this.plansProvider.startPlan(this.plan['id']).subscribe(next)
+}
 
-  viewAmountsCollection(){
-    this.navCtrl.push(CollectionsPage);
-  }
+viewAmountsCollection(){
+  this.navCtrl.push(CollectionsPage);
+}
 
 }

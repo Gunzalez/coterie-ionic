@@ -16,8 +16,8 @@
 
   <ion-list>
 
-    <button ion-item (click)="viewPlan(plan.id)" *ngFor="let plan of plans">
-      <ion-icon name="{{plan['icon']}}" item-start></ion-icon>
+    <button ion-item (click)="viewPlan(plan)" *ngFor="let plan of plans">
+      <ion-icon name="{{ getPlanIcon(plan) }}" item-start></ion-icon>
       <h2>{{plan.name}}</h2>
       <p>Created: {{created}}</p>
     </button>

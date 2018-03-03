@@ -6,7 +6,7 @@ import { PlanDetailsPage } from '../plan-details/plan-details';
 
 @Component({
   selector: 'page-plans',
-  templateUrl: 'plans.html',
+  templateUrl: 'plans.html'
 })
 export class PlansPage {
   public plans = [];
@@ -41,20 +41,22 @@ export class PlansPage {
 
     let next = data => {
       this.plans = data.plans;
-      let callback = plan => {
-        if(plan.status === 'in-progress'){
-          plan.icon = 'rainy' // started
-        } else {
-          if(plan._capabilities.indexOf('startPlan') !== -1){
-            plan.icon = 'cloud'; // can start plan
-          } else {
-            plan.icon = 'cloud-outline'; // can not start plan
-          }
-        }
-      };
-      this.plans.map(callback);
     };
     this.plansProvider.getPlans().subscribe(next);
+  }
+
+  getPlanIcon(plan){
+    let icon = '';
+    if(plan.status === 'in-progress'){
+      icon = 'rainy' // started
+    } else {
+      if(plan._capabilities.indexOf('startPlan') !== -1){
+        icon = 'cloud'; // can start plan
+      } else {
+        icon = 'cloud-outline'; // can not start plan
+      }
+    }
+    return icon;
   }
 
   addPlan(){
@@ -103,8 +105,8 @@ export class PlansPage {
 
   }
 
-  viewPlan(id){
-    let params = { id: id };
+  viewPlan(plan){
+    let params = { id: plan.id };
     this.navCtrl.push(PlanDetailsPage, params);
   }
 
