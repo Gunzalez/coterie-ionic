@@ -55,13 +55,11 @@ export class PlanDetailsPage {
   }
 
   canAddAmount(){
-    return this.plan['status'] !== 'in-progress'
+    return this.plan['status'] === 'in-progress' || this.schedule.length < 2 ? false : true;
   }
 
   canStartPlan(){
-    if(this.plan['status'] && this.plan['_capabilities']){
-      return this.plan['status'] === 'in-progress' || this.plan['_capabilities'].indexOf('startPlan') === -1 ? false : true
-    }
+    return this.plansProvider.canStartPlan();
   }
 
   getPlanStatusColor(){
@@ -73,10 +71,11 @@ export class PlanDetailsPage {
   }
 
   viewParticipants(){
-    let plan = {
-      id: this.plan['id']
-    };
-    this.navCtrl.push(ParticipantsPage, plan);
+    this.navCtrl.push(ParticipantsPage);
+  }
+  
+  viewAmountsCollection(){
+    this.navCtrl.push(CollectionsPage);
   }
   
   startPlan(){
@@ -91,10 +90,6 @@ export class PlanDetailsPage {
       }
     };
     this.plansProvider.startPlan(this.plan['id']).subscribe(next)
-  }
-  
-  viewAmountsCollection(){
-    this.navCtrl.push(CollectionsPage);
   }
 
 }

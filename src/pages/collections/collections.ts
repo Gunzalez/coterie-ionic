@@ -36,6 +36,10 @@ export class CollectionsPage {
     console.log('ionViewDidLoad CollectionsPage');
   }
 
+  getPlanIcon(){
+    return this.plansProvider.getPlanIcon();
+  }
+
   isNumber(event){
     return event.charCode >= 48 && event.charCode <= 57;
   }

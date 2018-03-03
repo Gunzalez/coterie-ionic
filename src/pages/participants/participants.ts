@@ -7,7 +7,7 @@ const DURATION = 1000;
 
 @Component({
   selector: 'page-participants',
-  templateUrl: 'participants.html',
+  templateUrl: 'participants.html'
 })
 export class ParticipantsPage {
 
@@ -19,24 +19,11 @@ export class ParticipantsPage {
   public created;
   public icon;
 
-  constructor(private toastCtrl: ToastController,
-              private alertCtrl: AlertController,
-              private plansProvider: PlansProvider,
-              public navCtrl: NavController,
-              public navParams: NavParams) {
+  constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
 
     this.plan = this.plansProvider.plan;
     this.id = this.plan['id'];
     this.schedule = this.plan['participants'];
-    if(this.plan['status'] === 'in-progress'){
-      this.icon = 'rainy' // started
-    } else {
-      if(this.plan['_capabilities'].indexOf('startPlan') !== -1){
-        this.icon = 'cloud'; // can start plan
-      } else {
-        this.icon = 'cloud-outline'; // can not start plan
-      }
-    }
   }
 
   ionViewDidLoad() {
@@ -55,6 +42,7 @@ export class ParticipantsPage {
     }
     this.created  = dd + '/' + mm + '/' + yyyy;
 
+    this.icon = this.plansProvider.getPlanIcon();
   }
 
   ionViewCanLeave(){

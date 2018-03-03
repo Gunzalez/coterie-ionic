@@ -32,10 +32,18 @@ export class PlansProvider {
       }
 
       // ----------------------
+      // returns true/false
+      canStartPlan(){
+        if(this.plan['status'] && this.plan['_capabilities']){
+          return this.plan['status'] === 'in-progress' || this.plan['_capabilities'].indexOf('startPlan') === -1 ? false : true
+        }
+      }
+
+      // ----------------------
       // sets headers
       setHeaders(accessToken){
 
-          // set headers ot used for all future calls
+          // set headers of used for all future calls
           this.headers = new Headers();
           let name = 'Authorization',
               value = 'token:' + accessToken;
