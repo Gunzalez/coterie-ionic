@@ -3,11 +3,11 @@
   <ion-navbar>
 
     <ion-title>Plans</ion-title>
-    <ion-buttons end>
+    <!-- <ion-buttons end>
       <button ion-button (click)="addPlan()" icon-only>
         <ion-icon name="add"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
 
   </ion-navbar>
 </ion-header>
@@ -24,7 +24,7 @@
 
     <ion-item *ngIf="plans.length < 1">
       <h2>No plans</h2>
-      <p>Looks like you have no saving plans</p>
+      <p>Please use the button below</p>
     </ion-item>
 
   </ion-list>

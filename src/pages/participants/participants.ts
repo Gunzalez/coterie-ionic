@@ -62,7 +62,7 @@ export class ParticipantsPage {
 
     let addParticipantAlert = this.alertCtrl.create({
       title:'Participant name',
-      message: 'Nicknames are acceptable of course',
+      // message: 'Nicknames are acceptable of course',
       inputs: [
         {
           type: "text",

@@ -9,31 +9,20 @@ import { PlansProvider } from '../../providers/plans/plans';
 })
 export class CollectionsPage {
 
-  private id = '';
   private plan = {};
-  private participants = [];
-  public icon;
+
+  public amount: String = '';
+  public collection: String = '';
+  public participants = 0;
 
   constructor(public navCtrl: NavController, private plansProvider: PlansProvider, public navParams: NavParams) {
-
     this.plan = this.plansProvider.plan;
-    this.id = this.plan['id'];
-    this.participants = this.plan['participants'];
-
-    if(this.plan['status'] === 'in-progress'){
-      this.icon = 'rainy' // started
-    } else {
-      if(this.plan['_capabilities'].indexOf('startPlan') !== -1){
-        this.icon = 'cloud'; // can start plan
-      } else {
-        this.icon = 'cloud-outline'; // can not start plan
-      }
-    }
-
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CollectionsPage');
+    this.amount = '£' + this.plan['savingsAmount'];
+    this.participants = parseInt(this.plan['participants'].length)
+    this.collection = '£' + parseInt(this.plan['savingsAmount']) * this.participants;
   }
 
   getPlanIcon(){
@@ -42,6 +31,11 @@ export class CollectionsPage {
 
   isNumber(event){
     return event.charCode >= 48 && event.charCode <= 57;
+  }
+
+  setAmount(value){
+    this.amount = '£' + value
+    this.collection = '£' + (parseInt(value) * this.participants)
   }
 
 }

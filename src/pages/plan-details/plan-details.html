@@ -30,14 +30,23 @@
 
     <button ion-item icon-left (click)="viewAmountsCollection()" [disabled]="!canAddAmount()">
       <ion-icon name="cash" item-start></ion-icon>
-      <h2>Amounts & collection</h2>
-      <h3>No amount or date set</h3>
+      <h2>Amounts</h2>
+      <h3>No amounts currently set</h3>
     </button>
 
   </ion-list>
 
-  <button ion-button full [disabled]="!canStartPlan()" (click)="startPlan()" color="{{ getPlanStatusColor() }}">
-    {{ plan['status'] === 'in-progress' ? 'Plan started' : 'Start plan' }}
-  </button>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+          <button ion-button full [disabled]="!canStartPlan()" (click)="startPlan()" color="{{ getPlanStatusColor() }}">
+              {{ plan['status'] === 'in-progress' ? 'Plan started' : 'Start plan' }}
+            </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  
 
 </ion-content>

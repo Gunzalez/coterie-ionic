@@ -12,10 +12,7 @@ export class PlansPage {
   public plans = [];
   public created;
 
-  constructor(private alertCtrl: AlertController,
-              private plansProvider: PlansProvider,
-              public navCtrl: NavController,
-              public navParams: NavParams) {
+  constructor(private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
 
   }
 
@@ -62,8 +59,8 @@ export class PlansPage {
   addPlan(){
 
     let addPlanAlert = this.alertCtrl.create({
-      title:'Plan title',
-      message: 'Short but descriptive',
+      title:'Plan name',
+      // message: 'Anything descriptive',
       inputs: [
         {
           type: "text",

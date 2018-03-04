@@ -7,11 +7,11 @@
       <button ion-button *ngIf="reorderIsEnabled" (click)="toggleReorder('save')">Save</button>
     </ion-buttons>
 
-    <ion-buttons end *ngIf="schedule.length < 2">
+    <!-- <ion-buttons end *ngIf="schedule.length < 2">
       <button ion-button (click)="addParticipant()" icon-only>
         <ion-icon name="add"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
 
   </ion-navbar>
 </ion-header>
@@ -47,8 +47,8 @@
     </ion-item-sliding>
 
     <ion-item *ngIf="schedule.length < 1">
-      <h2>Add participants</h2>
-      <p>Looks like you have no friends :(</p>
+      <h2>No participants</h2>
+      <p>Please use the button below</p>
     </ion-item>
 
   </ion-list>
