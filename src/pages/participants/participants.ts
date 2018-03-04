@@ -12,7 +12,7 @@ const DURATION = 1000;
 export class ParticipantsPage {
 
   private id = '';
-  private plan = {};
+  public plan = {};
 
   public schedule = [];
   public reorderIsEnabled = false;
@@ -22,7 +22,6 @@ export class ParticipantsPage {
   constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
 
     this.plan = this.plansProvider.plan;
-    this.id = this.plan['id'];
     this.schedule = this.plan['participants'];
   }
 
@@ -49,8 +48,8 @@ export class ParticipantsPage {
     if(this.reorderIsEnabled){
 
       let cannotLeaveToast = this.toastCtrl.create({
-        message: 'Exit save mode',
-        duration: DURATION,
+        message: 'Sane to exit Reorder mode',
+        duration: DURATION * 2
       });
       cannotLeaveToast.present();
 
@@ -67,7 +66,7 @@ export class ParticipantsPage {
         {
           type: "text",
           name: 'participantName',
-          placeholder: '',
+          placeholder: ''
         }
       ],
       buttons:[
@@ -108,16 +107,16 @@ export class ParticipantsPage {
 
                     let addParticipantToast = this.toastCtrl.create({
                       message: 'Participant added',
-                      duration: DURATION,
+                      duration: DURATION
                     });
                     addParticipantToast.present();
                   }
 
                 };
-                this.plansProvider.setSchedule(scheduleIds, this.id).subscribe(next); // save new schedule
+                this.plansProvider.setSchedule(scheduleIds, this.plan['id']).subscribe(next); // save new schedule
 
               };
-              this.plansProvider.addParticipant(participantName, this.id).subscribe(next); // new participant
+              this.plansProvider.addParticipant(participantName, this.plan['id']).subscribe(next); // new participant
 
             }
           }
@@ -150,12 +149,12 @@ export class ParticipantsPage {
         if(done){
           let doneReorderToast = this.toastCtrl.create({
             message: 'Order saved',
-            duration: DURATION,
+            duration: DURATION
           });
           doneReorderToast.present();
         }
       };
-      this.plansProvider.setSchedule(scheduleIds, this.id).subscribe(next);
+      this.plansProvider.setSchedule(scheduleIds, this.plan['id']).subscribe(next);
     }
   }
 
@@ -175,7 +174,7 @@ export class ParticipantsPage {
 
         let participantRemovedToast = this.toastCtrl.create({
           message: 'Participant removed',
-          duration: DURATION,
+          duration: DURATION
         });
         participantRemovedToast.present();
       }
