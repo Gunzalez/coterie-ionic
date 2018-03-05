@@ -70,6 +70,10 @@ export class PlanDetailsPage {
     return this.plansProvider.canStartPlan();
   }
 
+  getSavingsAmount(){
+    return this.plansProvider.getSavingsAmount()
+  }
+
   getPlanStatusColor(){
     return this.plan['status'] === 'in-progress' ? 'secondary' : null 
   }

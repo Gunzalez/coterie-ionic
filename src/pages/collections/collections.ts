@@ -41,13 +41,19 @@ export class CollectionsPage {
 
   setAmount(value){
     // todo: validation on value
-    this.amount = '£' + value
-    this.collection = '£' + (parseInt(value) * this.participants)   
+    let next = response => {      
+      if( response.ok ){
+        this.amount = '£' + value
+        this.collection = '£' + (parseInt(value) * this.participants);
+        this.plan['savingsAmount'] = value;
 
-    let next = returnValue => {      
-      console.log(returnValue);
-      // this.amount = '£' + returnValue
-      // this.collection = '£' + (returnValue * this.participants)      
+        let amountSaveToast = this.toastCtrl.create({
+          message: 'Amount set',
+          duration: DURATION
+        });
+        amountSaveToast.present();
+
+      }    
     };
     this.plansProvider.setSavingsAmount(value, this.plan['id']).subscribe(next);
   }

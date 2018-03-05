@@ -40,6 +40,13 @@ export class PlansProvider {
       }
 
       // ----------------------
+      // return savings amount 
+      getSavingsAmount(){
+          return this.plan['savingsAmount'];
+      }
+
+
+      // ----------------------
       // sets headers
       setHeaders(accessToken){
 
@@ -168,7 +175,7 @@ export class PlansProvider {
         
         let options = { headers: this.headers };
         let url = API + id;
-        let body = [{"op": "replace", "path": "/savingsAmount", "value": value}];
+        let body = [{"op": "replace", "path": "/savingsAmount", "value": parseInt(value)}];
         
         return this.http.patch(url, body, options)
             .map( response => {
