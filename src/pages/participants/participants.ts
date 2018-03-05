@@ -11,7 +11,6 @@ const DURATION = 1000;
 })
 export class ParticipantsPage {
 
-  private id = '';
   private plan = {};
 
   public schedule = [];
@@ -81,8 +80,7 @@ export class ParticipantsPage {
             if(participantName.length > 0){
 
               let next = participantId => {
-
-                // Gets back id, uses it
+                // create participant add to array
                 let participant = {
                   name: participantName,
                   id: participantId
@@ -105,11 +103,11 @@ export class ParticipantsPage {
                       this.icon = 'cloud-outline'; // can not start plan
                     }
 
-                    let addParticipantToast = this.toastCtrl.create({
-                      message: 'Participant added',
-                      duration: DURATION
-                    });
-                    addParticipantToast.present();
+                    // let addParticipantToast = this.toastCtrl.create({
+                    //   message: 'Participant added',
+                    //   duration: DURATION
+                    // });
+                    // addParticipantToast.present();
                   }
 
                 };

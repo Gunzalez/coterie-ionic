@@ -35,7 +35,7 @@ export class PlansProvider {
       // returns true/false
       canStartPlan(){
         if(this.plan['status'] && this.plan['_capabilities']){
-          return this.plan['status'] === 'in-progress' || this.plan['_capabilities'].indexOf('startPlan') === -1 ? false : true
+          return this.plan['status'] === 'in-progress' || this.plan['_capabilities'].indexOf('startPlan') === -1 || this.plan['savingsAmount'] === 0 ? false : true
         }
       }
 

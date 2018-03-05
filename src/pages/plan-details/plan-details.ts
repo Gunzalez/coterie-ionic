@@ -66,6 +66,10 @@ export class PlanDetailsPage {
     return this.plan['status'] === 'in-progress' ? 'Plan started' : 'Start plan';
   }
 
+  isPlanInProgress(){
+    return this.plan['status'] === 'in-progress'
+  }
+
   canStartPlan(){
     return this.plansProvider.canStartPlan();
   }
