@@ -11,7 +11,7 @@
   <ion-list no-lines inset>
     <ion-item icon-left>
       <ion-icon name="{{ getPlanIcon() }}" item-start></ion-icon>
-      <h1>{{plan['name']}}</h1>
+      <h1>{{ getPlanName() }}</h1>
       <p>Set amount per participant</p>
     </ion-item>
   </ion-list>
@@ -46,7 +46,7 @@
         <button ion-button full (click)="setAmount('100')">£100</button>
       </ion-col>
       <ion-col col-4>
-        <button ion-button full (click)="setAmount('custom')">Custom</button>
+        <button ion-button full (click)="getCustomAmount()">Custom</button>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -160,6 +160,24 @@ export class PlansProvider {
           });
       }
 
+      
+
+      // ----------------------
+      // set savings amount
+      setSavingsAmount(value, id){
+        
+        let options = { headers: this.headers };
+        let url = API + id;
+        let body = [{"op": "replace", "path": "/savingsAmount", "value": value}];
+        
+        return this.http.patch(url, body, options)
+            .map( response => {
+            return response
+        }, error => {
+            return error
+        })
+      }
+
 
       // ----------------------
       // sets order of participants, accepts an array of id + plan id

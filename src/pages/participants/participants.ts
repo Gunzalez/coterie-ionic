@@ -12,7 +12,7 @@ const DURATION = 1000;
 export class ParticipantsPage {
 
   private id = '';
-  public plan = {};
+  private plan = {};
 
   public schedule = [];
   public reorderIsEnabled = false;
@@ -48,7 +48,7 @@ export class ParticipantsPage {
     if(this.reorderIsEnabled){
 
       let cannotLeaveToast = this.toastCtrl.create({
-        message: 'Sane to exit Reorder mode',
+        message: 'Save to exit Reorder mode',
         duration: DURATION * 2
       });
       cannotLeaveToast.present();
@@ -126,6 +126,10 @@ export class ParticipantsPage {
     });
 
     addParticipantAlert.present();
+  }
+
+  getPlanName(){
+    return this.plan['name'];
   }
 
   itemReordered($event){
