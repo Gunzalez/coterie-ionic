@@ -14,8 +14,8 @@ const DURATION = 1000;
 export class PlanDetailsPage {
 
   private id;
+  private plan = {};
 
-  public plan = {};
   public schedule = [];
   public created;
 
@@ -50,12 +50,20 @@ export class PlanDetailsPage {
     this.plansProvider.getAPlan(this.id).subscribe(next);
   }
 
+  getPlanName() {
+    return this.plan['name'];
+  }
+
   canAddMembers(){
-    return this.plan['status'] !== 'in-progress'
+    return this.plan['status'] !== 'in-progress';
   }
 
   canAddAmount(){
     return this.plan['status'] === 'in-progress' || this.schedule.length < 2 ? false : true;
+  }
+
+  getStartButtonLabel(){
+    return this.plan['status'] === 'in-progress' ? 'Plan started' : 'Start plan';
   }
 
   canStartPlan(){
