@@ -97,17 +97,17 @@ export class ParticipantsPage {
 
                   if(done.ok){
 
-                    if(this.schedule.length > 1){
-                      this.icon = 'cloud'; // can start plan
-                    } else {
-                      this.icon = 'cloud-outline'; // can not start plan
-                    }
+                    // if(this.schedule.length > 1){
+                    //   this.icon = 'cloud'; // can start plan
+                    // } else {
+                    //   this.icon = 'cloud-outline'; // can not start plan
+                    // }
 
-                    // let addParticipantToast = this.toastCtrl.create({
-                    //   message: 'Participant added',
-                    //   duration: DURATION
-                    // });
-                    // addParticipantToast.present();
+                    let addParticipantToast = this.toastCtrl.create({
+                      message: 'Participant added',
+                      duration: DURATION
+                    });
+                    addParticipantToast.present();
                   }
 
                 };
@@ -168,11 +168,11 @@ export class ParticipantsPage {
         let count = 1;
         this.schedule.splice(participantIndex, count);
 
-        if(this.schedule.length > 1){
-          this.icon = 'cloud'; // can start plan
-        } else {
-          this.icon = 'cloud-outline'; // can not start plan
-        }
+        // if(this.schedule.length > 1){
+        //   this.icon = 'cloud'; // can start plan
+        // } else {
+        //   this.icon = 'cloud-outline'; // can not start plan
+        // }
 
         let participantRemovedToast = this.toastCtrl.create({
           message: 'Participant removed',
