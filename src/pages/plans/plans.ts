@@ -10,7 +10,7 @@ import { PlanDetailsPage } from '../plan-details/plan-details';
 })
 export class PlansPage {
   public plans = [];
-  public created;
+  public created = "Monday";
 
   constructor(private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
 
@@ -18,7 +18,7 @@ export class PlansPage {
 
   ionViewDidLoad() {
 
-    // just messing about with the date
+    //just messing about with the date
     let today = new Date();
     let dd = today.getDate();
     let mm = today.getMonth()+1; //January is 0!
@@ -43,15 +43,12 @@ export class PlansPage {
   }
 
   getPlanIcon(plan){
-    let icon = '';
-    if(plan.status === 'in-progress'){
-      icon = 'rainy' // started
-    } else {
-      if(plan._capabilities.indexOf('startPlan') !== -1){
-        icon = 'cloud'; // can start plan
-      } else {
-        icon = 'cloud-outline'; // can not start plan
-      }
+    let icon = 'cloud-outline';
+    if(plan['savingsAmount'] > 0){
+      icon = 'cloud'
+    }
+    if(plan['status'] === 'in-progress'){
+      icon = 'rainy'
     }
     return icon;
   }

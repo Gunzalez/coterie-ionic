@@ -17,7 +17,7 @@ export class PlanDetailsPage {
   private plan = {};
 
   public schedule = [];
-  public created;
+  public created = "Monday";
 
   constructor(private toastCtrl: ToastController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.id = this.navParams.get('id');
@@ -59,7 +59,7 @@ export class PlanDetailsPage {
   }
 
   canAddAmount(){
-    return this.plan['status'] === 'in-progress' || this.schedule.length < 2 ? false : true;
+    return !(this.plan['status'] === 'in-progress' || this.schedule.length < 2);
   }
 
   getStartButtonLabel(){
@@ -79,7 +79,7 @@ export class PlanDetailsPage {
   }
 
   getPlanStatusColor(){
-    return this.plan['status'] === 'in-progress' ? 'secondary' : null 
+    return this.plan['status'] === 'in-progress' ? 'secondary' : null
   }
 
   getPlanIcon(){
@@ -89,13 +89,13 @@ export class PlanDetailsPage {
   viewParticipants(){
     this.navCtrl.push(ParticipantsPage);
   }
-  
+
   viewAmountsCollection(){
     this.navCtrl.push(CollectionsPage);
   }
-  
+
   startPlan(){
-  
+
     let next = result => {
       if (result){
         let startPlanToast = this.toastCtrl.create({

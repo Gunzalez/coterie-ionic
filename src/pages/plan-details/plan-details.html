@@ -11,7 +11,7 @@
   <ion-list no-lines inset>
     <ion-item icon-left>
       <ion-icon name="{{ getPlanIcon() }}" item-start></ion-icon>
-      <h1>{{ getPlanName() }}</h1>
+      <h1>{{ getPlanName() }}&nbsp;</h1>
       <p>Plan created: {{ created }}</p>
     </ion-item>
   </ion-list>
@@ -40,15 +40,13 @@
     <ion-row>
       <ion-col col-12>
           <button ion-button full [disabled]="!canStartPlan()" (click)="startPlan()" color="{{ getPlanStatusColor() }}">
-              {{ getStartButtonLabel() }}
-            </button>
-            <div class="help" *ngIf="!isPlanInProgress()">
-              <p>You need more than one participant and any amount to start a plan</p>
-            </div>
+            {{ getStartButtonLabel() }}
+          </button>
+          <div class="help" *ngIf="!isPlanInProgress() && !canStartPlan()">
+            <p>Add participants and set an amount to start a plan.</p>
+          </div>
       </ion-col>
     </ion-row>
   </ion-grid>
-
-  
 
 </ion-content>

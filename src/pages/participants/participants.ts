@@ -15,7 +15,7 @@ export class ParticipantsPage {
 
   public schedule = [];
   public reorderIsEnabled = false;
-  public created;
+  public created = "Monday";
   public icon;
 
   constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {

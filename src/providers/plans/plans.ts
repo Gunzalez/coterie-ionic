@@ -16,35 +16,27 @@ export class PlansProvider {
       // ----------------------
       // gets the plans icon
       getPlanIcon(){
-        if(this.plan && this.plan['_capabilities']){
-          let icon = ''
-          if(this.plan['status'] === 'in-progress'){
-            icon = 'rainy'; // started
-          } else {
-            if(this.plan['_capabilities'].indexOf('startPlan') !== -1){
-              icon = 'cloud'; // can start plan
-            } else {
-              icon = 'cloud-outline'; // can not start plan
-            }
-          }
-          return icon;
+        let icon = 'cloud-outline';
+        if(this.canStartPlan()){
+          icon = 'cloud'
         }
+        if(this.plan['status'] === 'in-progress'){
+          icon = 'rainy'
+        }
+        return icon
       }
 
       // ----------------------
       // returns true/false
       canStartPlan(){
-        if(this.plan['status'] && this.plan['_capabilities']){
-          return this.plan['status'] === 'in-progress' || this.plan['_capabilities'].indexOf('startPlan') === -1 || this.plan['savingsAmount'] === 0 ? false : true
-        }
+        return this.plan['savingsAmount'] > 0 && this.plan['status'] !== 'in-progress';
       }
 
       // ----------------------
-      // return savings amount 
+      // return savings amount
       getSavingsAmount(){
           return this.plan['savingsAmount'];
       }
-
 
       // ----------------------
       // sets headers
@@ -161,22 +153,21 @@ export class PlansProvider {
           return this.http.delete(url, options)
               .map( response => {
               return response.json()
-
           }, error  => {
               return error
           });
       }
 
-      
+
 
       // ----------------------
       // set savings amount
       setSavingsAmount(value, id){
-        
+
         let options = { headers: this.headers };
         let url = API + id;
         let body = [{"op": "replace", "path": "/savingsAmount", "value": parseInt(value)}];
-        
+
         return this.http.patch(url, body, options)
             .map( response => {
             return response
@@ -231,7 +222,7 @@ export class PlansProvider {
             .map( response => {
                 // return response.status === 200 ? true : false
                 if (response.status === 200){
-                    this.plan['status'] = 'in-progress'
+                    this.plan['status'] = 'in-progress';
                     return true
                 } else {
                     return false;

@@ -1,9 +1,7 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>Amounts &amp; Collection</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content>
@@ -15,43 +13,31 @@
       <p>Set amount per participant</p>
     </ion-item>
   </ion-list>
-<!-- 
-  <ion-list>
-    <ion-item>
-      <ion-label stacked>Type in an amount</ion-label>
-      <ion-input type="number" pattern="\\d*"></ion-input>
-    </ion-item>
-  </ion-list> -->
 
   <ion-grid>
     <ion-row>
-      <ion-col>
+      <ion-col col-12>
         <div class="amount">
-          {{amount}}
+          £{{amount}}
         </div>
       </ion-col>
-    </ion-row>
-
-    <ion-row>
-        <ion-col col-12>
-          <p class="explanation"><span>{{participants}}</span> participants pay in <span>{{amount}}</span>, and collect <span>{{collection}}</span></p>
-        </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col col-4>
-        <button ion-button full (click)="setAmount('50')" color="black">£50</button>
+      <ion-col col-12>
+        <ion-range min="0" max="500" step="50" snaps="true" [(ngModel)]="amount" color="secondary">
+          <ion-label range-left>£0</ion-label>
+          <ion-label range-right>£500</ion-label>
+        </ion-range>
       </ion-col>
-      <ion-col col-4>
-        <button ion-button full (click)="setAmount('100')">£100</button>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <button ion-button full (click)="setAmount(amount)" [disabled]="!canSetAmount()">
+          Set this amount
+        </button>
       </ion-col>
-      <ion-col col-4>
-        <button ion-button full (click)="getCustomAmount()">Custom</button>
+      <ion-col col-12>
+        <p class="explanation"><span>{{participants}}</span> participants pay in £<span>{{amount}}</span>, and collect £<span>{{ getCollection() }}</span></p>
       </ion-col>
     </ion-row>
   </ion-grid>
-
-
-
 
 </ion-content>
