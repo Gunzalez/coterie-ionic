@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
 
@@ -17,7 +17,7 @@ export class CollectionsPage {
   public collection = 0;
   public participants = 0;
 
-  constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, public navCtrl: NavController, private plansProvider: PlansProvider, public navParams: NavParams) {
+  constructor(private toastCtrl: ToastController, public navCtrl: NavController, private plansProvider: PlansProvider) {
     this.plan = this.plansProvider.plan;
   }
 
@@ -43,9 +43,14 @@ export class CollectionsPage {
     // todo: validation on value
     let next = response => {
       if( response.ok ){
+
+        // set screen properties
         this.amount = value;
         this.collection = (parseInt(value) * this.participants);
         this.plan['savingsAmount'] = value;
+
+        // go back to previous screen
+        this.navCtrl.pop();
 
         let amountSaveToast = this.toastCtrl.create({
           message: 'Amount set',
