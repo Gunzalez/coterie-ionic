@@ -4,6 +4,8 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { PlansProvider } from '../../providers/plans/plans';
 import { PlanDetailsPage } from '../plan-details/plan-details';
 
+import { getIcon } from  '../../helpers/helpers';
+
 @Component({
   selector: 'page-plans',
   templateUrl: 'plans.html'
@@ -43,14 +45,7 @@ export class PlansPage {
   }
 
   getPlanIcon(plan){
-    let icon = 'cloud-outline';
-    if(plan['savingsAmount'] > 0){
-      icon = 'cloud'
-    }
-    if(plan['status'] === 'in-progress'){
-      icon = 'rainy'
-    }
-    return icon;
+    return getIcon(plan)
   }
 
   addPlan(){

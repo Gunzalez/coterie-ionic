@@ -14,31 +14,6 @@ export class PlansProvider {
   constructor(public http: Http) {}
 
       // ----------------------
-      // gets the plans icon
-      getPlanIcon(){
-        let icon = 'cloud-outline';
-        if(this.canStartPlan()){
-          icon = 'cloud'
-        }
-        if(this.plan['status'] === 'in-progress'){
-          icon = 'rainy'
-        }
-        return icon
-      }
-
-      // ----------------------
-      // returns true/false
-      canStartPlan(){
-        return this.plan['savingsAmount'] > 0 && this.plan['status'] !== 'in-progress';
-      }
-
-      // ----------------------
-      // return savings amount
-      getSavingsAmount(){
-          return this.plan['savingsAmount'];
-      }
-
-      // ----------------------
       // sets headers
       setHeaders(accessToken){
 

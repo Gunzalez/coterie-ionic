@@ -5,6 +5,7 @@ import { PlansProvider } from '../../providers/plans/plans';
 import { ParticipantsPage } from '../participants/participants';
 import { CollectionsPage } from '../collections/collections';
 
+import { getIcon } from '../../helpers/helpers';
 const DURATION = 1000;
 
 @Component({
@@ -15,6 +16,7 @@ export class PlanDetailsPage {
 
   private id;
   private plan = {};
+  icon: String = '';
 
   public schedule = [];
   public created = "Monday";
@@ -55,7 +57,7 @@ export class PlanDetailsPage {
   }
 
   canAddMembers(){
-    return this.plan['status'] !== 'in-progress';
+    return this.plan['_capabilities'] && this.plan['_capabilities'].indexOf('addParticipant') !== 1;
   }
 
   canAddAmount(){
@@ -71,11 +73,11 @@ export class PlanDetailsPage {
   }
 
   canStartPlan(){
-    return this.plansProvider.canStartPlan();
+    return this.plan['_capabilities'] && this.plan['_capabilities'].indexOf('startPlan') !== -1 && this.plan['savingsAmount'] > 0 && this.plan['participants'].length > 0;
   }
 
   getSavingsAmount(){
-    return this.plansProvider.getSavingsAmount()
+    return this.plan['savingsAmount'];
   }
 
   getPlanStatusColor(){
@@ -83,7 +85,11 @@ export class PlanDetailsPage {
   }
 
   getPlanIcon(){
-    return this.plansProvider.getPlanIcon();
+    if(this.icon !== ''){
+      return this.icon;
+    } else {
+      return getIcon(this.plan);
+    }
   }
 
   viewParticipants(){
@@ -98,6 +104,7 @@ export class PlanDetailsPage {
 
     let next = result => {
       if (result){
+        this.icon = 'rainy';
         let startPlanToast = this.toastCtrl.create({
           message: 'Plan started',
           duration: DURATION,

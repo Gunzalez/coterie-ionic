@@ -3,6 +3,7 @@ import { NavController, ToastController } from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
 
+import { getIcon } from  '../../helpers/helpers';
 const DURATION = 1000;
 
 @Component({
@@ -28,7 +29,7 @@ export class CollectionsPage {
   }
 
   getPlanIcon(){
-    return this.plansProvider.getPlanIcon();
+    return getIcon(this.plan);
   }
 
   getPlanName(){
@@ -40,7 +41,6 @@ export class CollectionsPage {
   }
 
   setAmount(value){
-    // todo: validation on value
     let next = response => {
       if( response.ok ){
 
