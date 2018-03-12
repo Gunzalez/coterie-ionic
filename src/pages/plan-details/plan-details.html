@@ -4,7 +4,8 @@
       Plan Details
     </ion-title>
 
-    <ion-buttons end *ngIf="!isPlanInProgress()">
+    <ion-buttons end [hidden]="isPlanInProgress()">
+    <!--<ion-buttons end *ngIf="!isPlanInProgress()">-->
       <button ion-button (click)="editPlanName()" icon-only>
         <ion-icon name="create"></ion-icon>
       </button>
@@ -50,7 +51,7 @@
             {{ getStartButtonLabel() }}
           </button>
           <div class="help" *ngIf="!isPlanInProgress() && !canStartPlan()">
-            <p>Add participants and set an amount to start a plan.</p>
+            <p>At least 2 participants and an amount to start a plan</p>
           </div>
       </ion-col>
     </ion-row>

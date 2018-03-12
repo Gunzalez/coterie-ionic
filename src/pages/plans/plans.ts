@@ -48,6 +48,23 @@ export class PlansPage {
     return getIcon(plan)
   }
 
+  getIconColour(plan){
+    let icon = this.getPlanIcon(plan);
+    let colour = 'new';
+    switch(icon){
+      case 'rainy':
+          colour = 'secondary';
+          break;
+      case 'cloud':
+          colour = 'black';
+          break;
+      default:
+        colour = 'new';
+        break;
+      }
+    return colour;
+  }
+
   addPlan(){
 
     let addPlanAlert = this.alertCtrl.create({
