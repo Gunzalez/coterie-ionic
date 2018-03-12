@@ -68,8 +68,8 @@ export class PlansPage {
           text: "Add",
           handler: (inputData)=>{
 
-            let planName, id = '';
-            planName = inputData.planName;
+            let id = '';
+            let planName = inputData.planName.trim();
 
             if(planName.length > 0){
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
 import { ParticipantsPage } from '../participants/participants';
@@ -16,12 +16,15 @@ export class PlanDetailsPage {
 
   private id;
   private plan = {};
-  icon: String = '';
+
+  private icon: String = '';
+  private name: String = '';
+  private status: String = '';
 
   public schedule = [];
   public created = "Monday";
 
-  constructor(private toastCtrl: ToastController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.id = this.navParams.get('id');
   }
 
@@ -52,7 +55,53 @@ export class PlanDetailsPage {
     this.plansProvider.getAPlan(this.id).subscribe(next);
   }
 
+  editPlanName(){
+
+    let addPlanAlert = this.alertCtrl.create({
+      title:'Edit plan name',
+      inputs: [
+        {
+          type: "text",
+          name: 'planName',
+          placeholder: '',
+          value: this.getPlanName()
+        }
+      ],
+      buttons:[
+        {
+          text: "Cancel"
+        },
+        {
+          text: "Update",
+          handler: (inputData)=>{
+
+            let planName = inputData.planName.trim();
+            if(planName.length > 0){
+
+              let next = response => {
+                if (response.ok){
+                  this.name = planName;
+                } else {
+                  // error handling
+                }
+              };
+              this.plansProvider.updatePlan(planName, this.id).subscribe(next);
+
+            }
+          }
+        }
+      ],
+      enableBackdropDismiss: false
+    });
+
+    addPlanAlert.present();
+
+  }
+
   getPlanName() {
+    if(this.name !== ''){
+      return this.name;
+    }
     return this.plan['name'];
   }
 
@@ -65,14 +114,20 @@ export class PlanDetailsPage {
   }
 
   getStartButtonLabel(){
-    return this.plan['status'] === 'in-progress' ? 'Plan started' : 'Start plan';
+    return this.plan['status'] === 'in-progress' ? 'Started' : 'Start plan';
   }
 
   isPlanInProgress(){
-    return this.plan['status'] === 'in-progress'
+    if(this.status !== ''){
+      return this.status === 'in-progress'
+    }
+    return this.plan['status'] === 'in-progress';
   }
 
   canStartPlan(){
+    if(this.isPlanInProgress()){
+      return false;
+    }
     return this.plan['_capabilities'] && this.plan['_capabilities'].indexOf('startPlan') !== -1 && this.plan['savingsAmount'] > 0 && this.plan['participants'].length > 0;
   }
 
@@ -87,9 +142,8 @@ export class PlanDetailsPage {
   getPlanIcon(){
     if(this.icon !== ''){
       return this.icon;
-    } else {
-      return getIcon(this.plan);
     }
+    return getIcon(this.plan);
   }
 
   viewParticipants(){
@@ -99,6 +153,8 @@ export class PlanDetailsPage {
   viewAmountsCollection(){
     this.navCtrl.push(CollectionsPage);
   }
+
+
 
   startPlan(){
 

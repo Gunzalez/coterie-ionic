@@ -79,6 +79,21 @@ export class PlansProvider {
             .map( response => response.json())
       }
 
+      // ----------------------
+      // updates the plan name, accepts new plan name and plan id
+      updatePlan(name, id){
+        let options = { headers: this.headers };
+        let url = API + id;
+        let body = [{"op": "replace", "path": "/name", "value": name}];
+
+        return this.http.patch(url, body, options)
+          .map( response => {
+            return response
+          }, error => {
+            return error
+          })
+      }
+
 
       // ----------------------
       // add a new plan, accepts plan name

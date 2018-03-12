@@ -3,6 +3,13 @@
     <ion-title>
       Plan Details
     </ion-title>
+
+    <ion-buttons end *ngIf="!isPlanInProgress()">
+      <button ion-button (click)="editPlanName()" icon-only>
+        <ion-icon name="create"></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 

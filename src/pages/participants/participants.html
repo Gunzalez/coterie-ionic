@@ -3,8 +3,12 @@
     <ion-title>Participants</ion-title>
 
     <ion-buttons end *ngIf="schedule.length > 1">
-      <button ion-button *ngIf="!reorderIsEnabled" (click)="toggleReorder('edit')">Reorder</button>
-      <button ion-button *ngIf="reorderIsEnabled" (click)="toggleReorder('save')">Save</button>
+      <button ion-button *ngIf="!reorderIsEnabled" (click)="toggleReorder('edit')" icon-only>
+        <ion-icon name="list"></ion-icon>
+      </button>
+      <button ion-button *ngIf="reorderIsEnabled" (click)="toggleReorder('save')" icon-only>
+        <ion-icon name="list-box"></ion-icon>
+      </button>
     </ion-buttons>
 
     <!-- <ion-buttons end *ngIf="schedule.length < 2">
