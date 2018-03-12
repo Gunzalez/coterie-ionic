@@ -154,8 +154,6 @@ export class PlanDetailsPage {
     this.navCtrl.push(CollectionsPage);
   }
 
-
-
   startPlan(){
 
     let next = result => {
@@ -170,5 +168,4 @@ export class PlanDetailsPage {
     };
     this.plansProvider.startPlan(this.plan['id']).subscribe(next)
   }
-
 }
