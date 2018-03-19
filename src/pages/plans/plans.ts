@@ -14,7 +14,7 @@ export class PlansPage {
   public plans = [];
   public created = "Monday";
 
-  constructor(private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController) {
 
   }
 
@@ -37,7 +37,10 @@ export class PlansPage {
   }
 
   ionViewWillEnter() {
+    this.getAllPlans();
+  }
 
+  getAllPlans(){
     let next = data => {
       this.plans = data.plans;
     };
@@ -46,6 +49,24 @@ export class PlansPage {
 
   getPlanIcon(plan){
     return getIcon(plan)
+  }
+
+  canBeDeleted(plan){
+    return plan['status'] === 'created'
+  }
+
+  deleteOrArchive(plan){
+    if(this.canBeDeleted(plan)){
+      let next = response => {
+        if(response.ok){
+          this.getAllPlans();
+        }
+      };
+      this.plansProvider.deletePlan(plan['id']).subscribe(next);
+    } else {
+      console.log('Archive')
+    }
+
   }
 
   getIconColour(plan){
@@ -114,13 +135,6 @@ export class PlansPage {
   viewPlan(plan){
     let params = { id: plan.id };
     this.navCtrl.push(PlanDetailsPage, params);
-  }
-
-  deletePlan(plan){
-    let next = data => {
-      console.log(data);
-    };
-    this.plansProvider.deletePlan(plan['id']).subscribe(next);
   }
 
 }

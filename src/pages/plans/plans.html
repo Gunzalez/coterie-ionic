@@ -9,13 +9,21 @@
 
   <ion-list>
 
-    <button ion-item (click)="viewPlan(plan)" *ngFor="let plan of plans">
-      <ion-icon name="{{ getPlanIcon(plan) }}"
-                color="{{ getIconColour(plan) }}"
-                item-start></ion-icon>
-      <h2>{{plan.name}}</h2>
-      <p>Created: {{created}}</p>
-    </button>
+    <ion-item-sliding *ngFor="let plan of plans">
+
+      <button ion-item (click)="viewPlan(plan)">
+        <ion-icon name="{{ getPlanIcon(plan) }}" color="{{ getIconColour(plan) }}" item-start></ion-icon>
+        <h2>{{plan.name}}</h2>
+        <p>Created: {{created}}</p>
+      </button>
+
+      <ion-item-options side="right">
+        <button ion-button [color]="canBeDeleted(plan) ? 'danger' : 'secondary'" (click)="deleteOrArchive(plan)" icon-only>
+          <ion-icon [name]="canBeDeleted(plan) ? 'trash' : 'archive'"></ion-icon>
+        </button>
+      </ion-item-options>
+
+    </ion-item-sliding>
 
     <ion-item *ngIf="plans.length < 1">
       <h2>No plans</h2>

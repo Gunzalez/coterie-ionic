@@ -140,6 +140,8 @@ export class PlansProvider {
           let options = { headers: this.headers };
           let url = API + id;
 
+          console.log(url);
+
           return this.http.delete(url, options)
               .map( response => {
               return response.json()
