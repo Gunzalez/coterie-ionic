@@ -57,14 +57,14 @@ export class PlansPage {
 
   deleteOrArchive(plan){
     if(this.canBeDeleted(plan)){
-      let next = response => {
-        if(response.ok){
-          this.getAllPlans();
-        }
-      };
-      this.plansProvider.deletePlan(plan['id']).subscribe(next);
+      // let next = response => {
+      //   if(response.ok){
+      //     this.getAllPlans();
+      //   }
+      // };
+      // this.plansProvider.deletePlan(plan['id']).subscribe(next);
     } else {
-      console.log('Archive')
+      // console.log('Archive')
     }
 
   }
