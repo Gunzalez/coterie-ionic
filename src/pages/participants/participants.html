@@ -5,11 +5,11 @@
     <ion-buttons end *ngIf="schedule.length > 1">
       <button ion-button *ngIf="!reorderIsEnabled" (click)="toggleReorder('edit')">
         <!--<ion-icon name="list"></ion-icon>-->
-        REORDER
+        Reorder
       </button>
       <button ion-button *ngIf="reorderIsEnabled" (click)="toggleReorder('save')">
         <!--<ion-icon name="list-box"></ion-icon>-->
-        SAVE
+        Save
       </button>
     </ion-buttons>
 
@@ -42,6 +42,7 @@
         <ion-icon name="person" item-start></ion-icon>
         <h2>{{participant.name}}</h2>
         <p>Added: {{created}}</p>
+        <ion-note item-end *ngIf="!reorderIsEnabled">Collects {{getPosition(participantIndex + 1)}}</ion-note>
       </ion-item>
 
       <ion-item-options side="right">
@@ -61,7 +62,7 @@
 
   <ion-fab right bottom *ngIf="!reorderIsEnabled">
     <button ion-fab (click)="addParticipant()" icon-only>
-      <ion-icon name="person-add"></ion-icon>
+      <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
 

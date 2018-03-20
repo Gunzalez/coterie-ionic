@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, reorderArray, ToastController } from 'ionic-angular';
+import { AlertController, reorderArray, ToastController } from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
 
-import { getIcon } from  '../../helpers/helpers';
+import { getIcon, ordinal_suffix_of } from  '../../helpers/helpers';
 const DURATION = 1000;
 
 @Component({
@@ -40,6 +40,11 @@ export class ParticipantsPage {
       mm = 0 + mm;
     }
     this.created  = dd + '/' + mm + '/' + yyyy;
+  }
+
+
+  getPosition(i){
+    return ordinal_suffix_of(i)
   }
 
   getPlanIcon(){
