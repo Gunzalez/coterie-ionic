@@ -41,11 +41,11 @@
       <ion-item can-swipe="false">
         <ion-icon name="person" item-start></ion-icon>
         <h2>{{participant.name}}</h2>
-        <p>Added: {{created}}</p>
-        <ion-note item-end *ngIf="!reorderIsEnabled">Collects {{getPosition(participantIndex + 1)}}</ion-note>
+        <p>Collect on {{getPosition(participantIndex + 1)}} cycle</p>
+        <!--<ion-note item-end *ngIf="!reorderIsEnabled">Collects {{getPosition(participantIndex + 1)}}</ion-note>-->
       </ion-item>
 
-      <ion-item-options side="right">
+      <ion-item-options side="left">
       <button ion-button color="danger" (click)="removeParticipant(participantIndex, participant)" icon-only>
         <ion-icon name="trash"></ion-icon>
       </button>

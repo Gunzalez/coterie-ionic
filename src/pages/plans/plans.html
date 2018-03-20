@@ -17,7 +17,7 @@
         <p>Created: {{created}}</p>
       </button>
 
-      <ion-item-options side="right">
+      <ion-item-options side="left">
         <button ion-button [color]="canBeDeleted(plan) ? 'danger' : 'secondary'" (click)="deleteOrArchive(plan)" icon-only>
           <ion-icon [name]="canBeDeleted(plan) ? 'trash' : 'archive'"></ion-icon>
         </button>
