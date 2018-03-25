@@ -1,3 +1,26 @@
 page-home {
 
 }
+
+
+.mk-home {
+  background: #f3f3f3;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+
+  .mk-image {
+    flex-grow: 1;
+    background: url('../../assets/img/piggy-bank.jpg') center center no-repeat;
+    background-size: cover;
+  }
+
+  .mk-buttons {
+    width: 100%;
+
+    //> * {
+    //  margin-bottom: 0;
+    //}
+
+  }
+}
