@@ -7,6 +7,17 @@
 
 <ion-content>
 
+  <div class="hidden-input">
+    <div class="input-container">
+      <ion-list>
+        <ion-item>
+          <ion-label color="primary" stacked>Enter plan name</ion-label>
+          <ion-input type="text" #input placeholder="Email Input"></ion-input>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+
   <ion-list>
 
     <ion-item-sliding *ngFor="let plan of plans">

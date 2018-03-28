@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { Component, Input, ViewChild } from '@angular/core';
+import { NavController, AlertController } from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
 import { PlanDetailsPage } from '../plan-details/plan-details';
@@ -18,6 +18,10 @@ export class PlansPage {
 
   }
 
+  @ViewChild('input') myInput;
+
+
+
   ionViewDidLoad() {
 
     //just messing about with the date
@@ -33,6 +37,12 @@ export class PlansPage {
       mm = 0 + mm;
     }
     this.created  = dd + '/' + mm + '/' + yyyy;
+
+    let timeout = 600;
+    let handler = () => {
+      this.myInput.setFocus();
+    };
+    setTimeout(handler,timeout);
 
   }
 
