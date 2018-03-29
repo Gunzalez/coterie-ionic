@@ -3,11 +3,11 @@
   <ion-navbar>
     <ion-title>Plans</ion-title>
 
-    <ion-buttons end>
-     <button ion-button (click)="addPlan()" icon-only>
-       <ion-icon name="add"></ion-icon>
-     </button>
-   </ion-buttons>
+    <!--<ion-buttons end>-->
+     <!--<button ion-button (click)="showPlanInput()" icon-only>-->
+       <!--<ion-icon name="add"></ion-icon>-->
+     <!--</button>-->
+   <!--</ion-buttons>-->
 
   </ion-navbar>
 </ion-header>
@@ -18,8 +18,9 @@
     <div class="input-container">
       <ion-list>
         <ion-item>
-          <ion-label color="primary" stacked>Enter plan name</ion-label>
-          <ion-input type="text" #input placeholder="Email Input"></ion-input>
+          <!--<ion-label stacked>Enter plan name</ion-label>-->
+          <ion-input type="text" [(ngModel)]="newPlanName" #input placeholder="Plan name"></ion-input>
+          <ion-icon item-right name="add" (click)="addPlan()"></ion-icon>
         </ion-item>
       </ion-list>
     </div>
@@ -55,7 +56,7 @@
   </ion-list>
 
   <ion-fab right bottom>
-    <button ion-fab (click)="addPlan()" icon-only>
+    <button ion-fab (click)="showPlanInput()" icon-only>
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
