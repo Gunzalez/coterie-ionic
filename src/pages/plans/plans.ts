@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
+import { Keyboard } from '@ionic-native/keyboard';
 
 import { PlansProvider } from '../../providers/plans/plans';
 import { PlanDetailsPage } from '../plan-details/plan-details';
@@ -16,7 +17,7 @@ export class PlansPage {
 
   private addMode: Boolean = false;
 
-  constructor(private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController) {
+  constructor(private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, private keyboard: Keyboard) {
 
   }
 
@@ -106,62 +107,63 @@ export class PlansPage {
     return colour;
   }
 
-  // addPlan(){
-  //   this.addMode = !this.addMode;
-  //   if(this.addMode){
-  //     let timeout = 150;
-  //     let handler = () => {
-  //       this.myInput.setFocus();
-  //     };
-  //     setTimeout(handler,timeout);
-  //   }
-  // }
-
   addPlan(){
-
-    let addPlanAlert = this.alertCtrl.create({
-      title:'Plan name',
-      // message: 'Anything descriptive',
-      inputs: [
-        {
-          type: "text",
-          name: 'planName',
-          placeholder: '',
-        }
-      ],
-      buttons:[
-        {
-          text: "Cancel"
-        },
-        {
-          text: "Add",
-          handler: (inputData)=>{
-
-            let id = '';
-            let planName = inputData.planName.trim();
-
-            if(planName.length > 0){
-
-              let next = data => {
-
-                let pathArr = data.headers.get('location').split('/');
-                id = pathArr[pathArr.length - 1];
-                let params = { id: id };
-                this.navCtrl.push(PlanDetailsPage, params);
-
-              };
-              this.plansProvider.addPlan(planName).subscribe(next);
-
-            }
-          }
-        }
-      ],
-      enableBackdropDismiss: false
-    });
-
-    addPlanAlert.present();
-
+    this.addMode = !this.addMode;
+    if(this.addMode){
+      let timeout = 150;
+      let handler = () => {
+        this.myInput.setFocus();
+        this.keyboard.show();
+      };
+      setTimeout(handler,timeout);
+    }
   }
+
+  // addPlan(){
+  //
+  //   let addPlanAlert = this.alertCtrl.create({
+  //     title:'Plan name',
+  //     // message: 'Anything descriptive',
+  //     inputs: [
+  //       {
+  //         type: "text",
+  //         name: 'planName',
+  //         placeholder: '',
+  //       }
+  //     ],
+  //     buttons:[
+  //       {
+  //         text: "Cancel"
+  //       },
+  //       {
+  //         text: "Add",
+  //         handler: (inputData)=>{
+  //
+  //           let id = '';
+  //           let planName = inputData.planName.trim();
+  //
+  //           if(planName.length > 0){
+  //
+  //             let next = data => {
+  //
+  //               let pathArr = data.headers.get('location').split('/');
+  //               id = pathArr[pathArr.length - 1];
+  //               let params = { id: id };
+  //               this.navCtrl.push(PlanDetailsPage, params);
+  //
+  //             };
+  //             this.plansProvider.addPlan(planName).subscribe(next);
+  //
+  //           }
+  //         }
+  //       }
+  //     ],
+  //     enableBackdropDismiss: false
+  //   });
+  //
+  //   addPlanAlert.present();
+  //
+  // }
 
   viewPlan(plan){
     let params = { id: plan.id };

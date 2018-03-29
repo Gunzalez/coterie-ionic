@@ -2,7 +2,9 @@
   "name": "coterie-ionic",
   "app_id": "34c60a1c",
   "type": "ionic-angular",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "proxies": [
     {
       "path": "/api",

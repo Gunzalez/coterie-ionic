@@ -12,6 +12,8 @@ import { PlanDetailsPage } from '../pages/plan-details/plan-details';
 import { ParticipantsPage } from '../pages/participants/participants';
 import { CollectionsPage } from '../pages/collections/collections';
 
+import { Keyboard } from '@ionic-native/keyboard';
+
 import { PlansProvider } from '../providers/plans/plans';
 
 @NgModule({
@@ -47,7 +49,8 @@ import { PlansProvider } from '../providers/plans/plans';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    PlansProvider
+    PlansProvider,
+    Keyboard
   ]
 })
 export class AppModule {}
