@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
@@ -44,11 +44,11 @@ export class PlansPage {
 
   ionViewDidEnter(){
 
-    let timeout = 150;
-    let handler = () => {
-      this.myInput.setFocus();
-    };
-    setTimeout(handler,timeout);
+    // let timeout = 150;
+    // let handler = () => {
+    //   this.myInput.setFocus();
+    // };
+    // setTimeout(handler,timeout);
 
   }
 
