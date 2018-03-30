@@ -58,6 +58,10 @@ export class PlansPage {
     this.getAllPlans();
   }
 
+  ionViewDidLeave(){
+    this.setPlanMode(false);
+  }
+
   isInAddMode(){
     return this.addMode;
   }
@@ -108,42 +112,48 @@ export class PlansPage {
     return colour;
   }
 
-  showPlanInput(){
-    this.addMode = !this.addMode;
-    if(this.addMode){
-      let timeout = 150;
-      let handler = () => {
-        this.myInput.setFocus();
-        this.keyboard.show();
-      };
-      setTimeout(handler,timeout);
+  addButtonClicked(){
+    if(!this.isInAddMode()){
+      this.setPlanMode(true)
+    }  else {
+      this.addPlan();
+    }
+  }
+
+  setPlanMode(mode){
+    this.addMode = mode;
+    if (mode) {
+      this.myInput.setFocus();
+      this.keyboard.show();
+    } else {
+      this.newPlanName = '';
+      this.keyboard.close();
     }
   }
 
   addPlan(){
 
-    let id = '';
     let planName = this.newPlanName.trim();
-
     if(planName.length > 0){
 
       let next = data => {
-
         let pathArr = data.headers.get('location').split('/');
-        id = pathArr[pathArr.length - 1];
+        let id = pathArr[pathArr.length - 1];
         let params = { id: id };
         this.navCtrl.push(PlanDetailsPage, params);
-
+        // this.setPlanMode(false);
       };
       this.plansProvider.addPlan(planName).subscribe(next);
 
+    } else {
+      this.setPlanMode(false);
     }
-
   }
 
   viewPlan(plan){
     let params = { id: plan.id };
     this.navCtrl.push(PlanDetailsPage, params);
+    // this.setPlanMode(false);
   }
 
 }

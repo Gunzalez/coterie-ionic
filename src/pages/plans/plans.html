@@ -20,7 +20,7 @@
         <ion-item>
           <!--<ion-label stacked>Enter plan name</ion-label>-->
           <ion-input type="text" [(ngModel)]="newPlanName" #input placeholder="Plan name"></ion-input>
-          <ion-icon item-right name="add" (click)="addPlan()"></ion-icon>
+          <!--<ion-icon item-end name="add" (click)="addPlan()">ADD</ion-icon>-->
         </ion-item>
       </ion-list>
     </div>
@@ -56,7 +56,7 @@
   </ion-list>
 
   <ion-fab right bottom>
-    <button ion-fab (click)="showPlanInput()" icon-only>
+    <button ion-fab (click)="addButtonClicked()" icon-only>
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
