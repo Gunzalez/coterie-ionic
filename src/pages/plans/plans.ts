@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { Keyboard } from '@ionic-native/keyboard';
 
 import { PlansProvider } from '../../providers/plans/plans';
@@ -18,7 +18,7 @@ export class PlansPage {
 
   private addMode: Boolean = false;
 
-  constructor(private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, private keyboard: Keyboard) {
+  constructor(private plansProvider: PlansProvider, public navCtrl: NavController, private keyboard: Keyboard) {
 
   }
 
