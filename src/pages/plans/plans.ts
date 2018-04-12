@@ -46,17 +46,10 @@ export class PlansPage {
   }
 
   ionViewDidEnter(){
-
-    // let timeout = 150;
-    // let handler = () => {
-    //   this.myInput.setFocus();
-    // };
-    // setTimeout(handler,timeout);
-
-
+    //
   }
 
-  presentLoadingDefault() {
+  displayLoadingSpinner() {
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -66,7 +59,7 @@ export class PlansPage {
   }
 
   ionViewWillEnter() {
-    this.presentLoadingDefault();
+    this.displayLoadingSpinner();
     this.getAllPlans();
   }
 
@@ -82,7 +75,6 @@ export class PlansPage {
     let next = data => {
       this.plans = data.plans;
       this.loading.dismiss();
-
     };
     this.plansProvider.getPlans().subscribe(next);
   }
