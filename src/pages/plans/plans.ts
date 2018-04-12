@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { Keyboard } from '@ionic-native/keyboard';
 
 import { PlansProvider } from '../../providers/plans/plans';
@@ -17,8 +17,9 @@ export class PlansPage {
   public newPlanName = '';
 
   private addMode: Boolean = false;
+  private loading = null;
 
-  constructor(private plansProvider: PlansProvider, public navCtrl: NavController, private keyboard: Keyboard) {
+  constructor(private plansProvider: PlansProvider, public loadingCtrl: LoadingController, public navCtrl: NavController, private keyboard: Keyboard) {
 
   }
 
@@ -52,9 +53,20 @@ export class PlansPage {
     // };
     // setTimeout(handler,timeout);
 
+
+  }
+
+  presentLoadingDefault() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+
+    this.loading.present();
+
   }
 
   ionViewWillEnter() {
+    this.presentLoadingDefault();
     this.getAllPlans();
   }
 
@@ -69,6 +81,8 @@ export class PlansPage {
   getAllPlans(){
     let next = data => {
       this.plans = data.plans;
+      this.loading.dismiss();
+
     };
     this.plansProvider.getPlans().subscribe(next);
   }
