@@ -126,6 +126,10 @@ export class PlansPage {
     }
   }
 
+  resignFocus(){
+    this.setPlanMode(false);
+  }
+
   setPlanMode(mode){
     this.addMode = mode;
     if (mode) {
@@ -140,7 +144,7 @@ export class PlansPage {
   addPlan(){
 
     let planName = this.newPlanName.trim();
-    if(planName.length > 0){
+    if(planName.length){
 
       let next = data => {
         let pathArr = data.headers.get('location').split('/');
