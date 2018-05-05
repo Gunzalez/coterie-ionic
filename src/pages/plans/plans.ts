@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { Keyboard } from '@ionic-native/keyboard';
 
 import { PlansProvider } from '../../providers/plans/plans';
@@ -17,8 +17,9 @@ export class PlansPage {
   public newPlanName = '';
 
   private addMode: Boolean = false;
+  private loading = null;
 
-  constructor(private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, private keyboard: Keyboard) {
+  constructor(private plansProvider: PlansProvider, public loadingCtrl: LoadingController, public navCtrl: NavController, private keyboard: Keyboard) {
 
   }
 
@@ -45,16 +46,20 @@ export class PlansPage {
   }
 
   ionViewDidEnter(){
+    //
+  }
 
-    // let timeout = 150;
-    // let handler = () => {
-    //   this.myInput.setFocus();
-    // };
-    // setTimeout(handler,timeout);
+  displayLoadingSpinner() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+
+    this.loading.present();
 
   }
 
   ionViewWillEnter() {
+    this.displayLoadingSpinner();
     this.getAllPlans();
   }
 
@@ -69,6 +74,7 @@ export class PlansPage {
   getAllPlans(){
     let next = data => {
       this.plans = data.plans;
+      this.loading.dismiss();
     };
     this.plansProvider.getPlans().subscribe(next);
   }
@@ -120,6 +126,10 @@ export class PlansPage {
     }
   }
 
+  resignFocus(){
+    this.setPlanMode(false);
+  }
+
   setPlanMode(mode){
     this.addMode = mode;
     if (mode) {
@@ -134,7 +144,7 @@ export class PlansPage {
   addPlan(){
 
     let planName = this.newPlanName.trim();
-    if(planName.length > 0){
+    if(planName.length){
 
       let next = data => {
         let pathArr = data.headers.get('location').split('/');
