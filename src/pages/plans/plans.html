@@ -19,7 +19,7 @@
       <ion-list>
         <ion-item>
           <!--<ion-label stacked>Enter plan name</ion-label>-->
-          <ion-input type="text" (blur)="resignFocus()" [(ngModel)]="newPlanName" #input placeholder="Plan name"></ion-input>
+          <ion-input type="text" (ionBlur)="resignFocus()" [(ngModel)]="newPlanName" #input placeholder="Plan name"></ion-input>
           <button ng-if="newPlanName.length"
                   class="input-button button button-icon ion-android-close"
                   ng-click="clearSearch()">

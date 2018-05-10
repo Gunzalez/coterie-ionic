@@ -138,17 +138,21 @@ export class PlansProvider {
       deletePlan(id){
 
           let options = { headers: this.headers };
-          let url = API + id;
+          let url = URL + '/plans.cancel';
+          let body = { planId : id };
 
-          console.log(url);
-
-          return this.http.delete(url, options)
-              .map( response => {
-              return response.json()
-          }, error  => {
-              return error
-          });
+        return this.http.post(url, body, options)
+          .map( response => {
+            if (response.status === 200){
+                return true
+              } else {
+                return false;
+              }
+            }, error => {
+                return error
+            })
       }
+
 
 
 

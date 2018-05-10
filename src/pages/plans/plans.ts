@@ -84,17 +84,17 @@ export class PlansPage {
   }
 
   canBeDeleted(plan){
-    return plan['status'] === 'created'
+    return plan['_capabilities'].indexOf("cancelPlan") !== -1
   }
 
   deleteOrArchive(plan){
     if(this.canBeDeleted(plan)){
-      // let next = response => {
-      //   if(response.ok){
-      //     this.getAllPlans();
-      //   }
-      // };
-      // this.plansProvider.deletePlan(plan['id']).subscribe(next);
+      let next = response => {
+        if(response){
+          this.getAllPlans();
+        }
+      };
+      this.plansProvider.deletePlan(plan['id']).subscribe(next);
     } else {
       // console.log('Archive')
     }
@@ -127,7 +127,7 @@ export class PlansPage {
   }
 
   resignFocus(){
-    this.setPlanMode(false);
+    //this.setPlanMode(false);
   }
 
   setPlanMode(mode){
