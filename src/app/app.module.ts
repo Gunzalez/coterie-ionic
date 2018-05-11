@@ -13,6 +13,7 @@ import { ParticipantsPage } from '../pages/participants/participants';
 import { CollectionsPage } from '../pages/collections/collections';
 
 import { Keyboard } from '@ionic-native/keyboard';
+import { Contacts } from '@ionic-native/contacts';
 
 import { PlansProvider } from '../providers/plans/plans';
 
@@ -50,7 +51,8 @@ import { PlansProvider } from '../providers/plans/plans';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     PlansProvider,
-    Keyboard
+    Keyboard,
+    Contacts
   ]
 })
 export class AppModule {}
