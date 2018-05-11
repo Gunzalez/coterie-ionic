@@ -134,6 +134,7 @@ export class PlansPage {
     this.addMode = mode;
     if (mode) {
       this.myInput.setFocus();
+      this.keyboard.hideKeyboardAccessoryBar(true);
       this.keyboard.show();
     } else {
       this.newPlanName = '';
