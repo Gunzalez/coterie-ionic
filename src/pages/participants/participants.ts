@@ -11,14 +11,19 @@ export class ParticipantsPage {
 
   constructor(private contacts: Contacts) {
 
-    contacts.find(['displayName', 'name', 'phoneNumbers', 'emails'], {filter: "", multiple: true})
-    .then(data => {
-      this.allContacts = data
-    });
+    // contacts.find(['displayName', 'name', 'phoneNumbers', 'emails'], {filter: "", multiple: true})
+    // .then(data => {
+    //   this.allContacts = data
+    // });
     
   }
 
-  ionViewDidLoad(){}
+  ionViewDidLoad(){
+   this.contacts.find(['displayName', 'name', 'phoneNumbers', 'emails'], {filter: "", multiple: true})
+   .then(data => {
+     this.allContacts = data
+   });
+  }
 
   ionViewCanLeave(){}
 }
