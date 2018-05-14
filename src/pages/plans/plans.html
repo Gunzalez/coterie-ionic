@@ -2,12 +2,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Plans</ion-title>
-
-    <!--<ion-buttons end>-->
-     <!--<button ion-button (click)="showPlanInput()" icon-only>-->
-       <!--<ion-icon name="add"></ion-icon>-->
-     <!--</button>-->
-   <!--</ion-buttons>-->
+    <ion-buttons end>
+      <button ion-button (click)="addButtonClicked()">
+        {{ allowedAction() }}
+      </button>
+   </ion-buttons>
 
   </ion-navbar>
 </ion-header>
@@ -18,21 +17,18 @@
     <div class="input-container">
       <ion-list>
         <ion-item>
-          <!--<ion-label stacked>Enter plan name</ion-label>-->
-          <ion-input type="text" (ionBlur)="resignFocus()" [(ngModel)]="newPlanName" #input placeholder="Plan name"></ion-input>
-          <button ng-if="newPlanName.length"
-                  class="input-button button button-icon ion-android-close"
-                  ng-click="clearSearch()">
+          <ion-input type="text"
+             [(ngModel)]="newPlanName"
+             #input placeholder="Plan name"></ion-input>
+
+          <button (click)="resignFocus()" item-right>
+            <ion-icon name="arrow-up"></ion-icon>
           </button>
-          <!--<ion-icon item-end name="add" (click)="addPlan()">ADD</ion-icon>-->
+
         </ion-item>
       </ion-list>
     </div>
   </div>
-
-  <!--<ion-refresher>-->
-    <!--<ion-refresher-content></ion-refresher-content>-->
-  <!--</ion-refresher>-->
 
   <ion-list>
 
@@ -54,15 +50,9 @@
 
     <ion-item *ngIf="plans.length < 1">
       <h2>No plans</h2>
-      <p>Please use the add button below</p>
+      <p>Add plans with the add button</p>
     </ion-item>
 
   </ion-list>
-
-  <ion-fab right bottom>
-    <button ion-fab (click)="addButtonClicked()" icon-only>
-      <ion-icon name="add"></ion-icon>
-    </button>
-  </ion-fab>
 
 </ion-content>
