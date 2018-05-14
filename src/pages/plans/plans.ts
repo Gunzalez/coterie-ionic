@@ -17,6 +17,7 @@ export class PlansPage {
   public newPlanName:string = '';
 
   private addMode: Boolean = false;
+  private plansHasLoaded: Boolean = false;
   private loading:any = null;
 
   @ViewChild('input') myInput;
@@ -49,6 +50,7 @@ export class PlansPage {
   }
 
   displayLoadingSpinner() {
+    this.plansHasLoaded = false;
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -66,6 +68,7 @@ export class PlansPage {
     let next = data => {
       this.plans = data.plans.reverse();
       this.loading.dismiss();
+      this.plansHasLoaded = true;
     };
     this.plansProvider.getPlans().subscribe(next);
   }
