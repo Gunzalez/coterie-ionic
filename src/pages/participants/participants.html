@@ -2,68 +2,27 @@
   <ion-navbar>
     <ion-title>Participants</ion-title>
 
-    <ion-buttons end *ngIf="schedule.length > 1">
-      <button ion-button *ngIf="!reorderIsEnabled" (click)="toggleReorder('edit')">
-        <!--<ion-icon name="list"></ion-icon>-->
-        Reorder
-      </button>
-      <button ion-button *ngIf="reorderIsEnabled" (click)="toggleReorder('save')">
-        <!--<ion-icon name="list-box"></ion-icon>-->
-        Save
+    <ion-buttons end>
+
+      <button ion-button>
+        Done
       </button>
     </ion-buttons>
-
-    <!-- <ion-buttons end *ngIf="schedule.length < 2">
-      <button ion-button (click)="addParticipant()" icon-only>
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-buttons> -->
 
   </ion-navbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-list no-lines inset>
+  <ion-list>
 
-    <ion-item icon-left>
-      <ion-icon name="{{ getPlanIcon() }}" item-start></ion-icon>
-      <h1>{{ getPlanName() }}</h1>
-      <p>Add, remove or reorder participants</p>
+    <ion-item *ngFor="let contact of contacts">
+      <ion-icon name="person" item-start></ion-icon>
+      <h2>{{ contact.name }}</h2>
+      <p>Some other value</p>
     </ion-item>
 
   </ion-list>
 
-  <ion-list [reorder]="reorderIsEnabled" (ionItemReorder)="itemReordered($event)">
-
-    <ion-item-sliding *ngFor="let participant of schedule; let participantIndex = index">
-
-      <ion-item can-swipe="false">
-        <ion-icon name="person" item-start></ion-icon>
-        <h2>{{participant.name}}</h2>
-        <p>Collect on {{getPosition(participantIndex + 1)}} cycle</p>
-        <!--<ion-note item-end *ngIf="!reorderIsEnabled">Collects {{getPosition(participantIndex + 1)}}</ion-note>-->
-      </ion-item>
-
-      <ion-item-options side="left">
-      <button ion-button color="danger" (click)="removeParticipant(participantIndex, participant)" icon-only>
-        <ion-icon name="trash"></ion-icon>
-      </button>
-    </ion-item-options>
-
-    </ion-item-sliding>
-
-    <ion-item *ngIf="schedule.length < 1">
-      <h2>No participants</h2>
-      <p>Please use the add button below</p>
-    </ion-item>
-
-  </ion-list>
-
-  <ion-fab right bottom *ngIf="!reorderIsEnabled">
-    <button ion-fab (click)="addParticipant()" icon-only>
-      <ion-icon name="add"></ion-icon>
-    </button>
-  </ion-fab>
 
 </ion-content>
