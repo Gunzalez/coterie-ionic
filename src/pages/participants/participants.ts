@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { AlertController, reorderArray, ToastController } from 'ionic-angular';
+import { AlertController, ToastController } from 'ionic-angular';
+
+import { Contacts  } from '@ionic-native/contacts';
 
 import { PlansProvider } from '../../providers/plans/plans';
 
@@ -9,9 +11,9 @@ import { PlansProvider } from '../../providers/plans/plans';
 })
 export class ParticipantsPage {
 
-  public contacts = [];
+  public participants = [];
 
-  constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider ) {
+  constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, private contacts: Contacts) {
 
 
 
@@ -19,9 +21,15 @@ export class ParticipantsPage {
 
   ionViewDidLoad() {
 
-    this.contacts.push({
-      name: "Martin"
-    })
+    // this.participants.push({
+    //   name: "Martin"
+    // });
+
+
+    this.contacts.find(['displayName', 'name', 'phoneNumbers', 'emails'], {filter: "", multiple: true})
+      .then(data => {
+        this.participants = data
+      });
 
   }
 
