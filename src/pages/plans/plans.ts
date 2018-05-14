@@ -14,7 +14,7 @@ import { getIcon } from  '../../helpers/helpers';
 export class PlansPage {
   public plans = [];
   public created:string = "Monday";
-  public newPlanName:string = '';
+  public newPlanName:string = 'New';
 
   private addMode: Boolean = false;
   private plansHasLoaded: Boolean = false;
@@ -40,9 +40,6 @@ export class PlansPage {
       mm = 0 + mm;
     }
     this.created  = dd + '/' + mm + '/' + yyyy;
-
-
-
   }
 
   allowedAction(){
