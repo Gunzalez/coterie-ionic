@@ -43,7 +43,7 @@ export class PlansPage {
   }
 
   allowedAction(){
-    return this.newPlanName.length ? "Save" : "New"
+    return this.newPlanName.length ? "Add" : "New"
   }
 
   displayLoadingSpinner() {
