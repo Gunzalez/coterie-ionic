@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 // import { AlertController, ToastController } from 'ionic-angular';
 
-import { Contacts  } from '@ionic-native/contacts';
+// import { Contacts, ContactFieldType  } from '@ionic-native/contacts';
 
 // import { PlansProvider } from '../../providers/plans/plans';
 
@@ -13,14 +13,21 @@ export class ParticipantsPage {
 
   public participants = [];
 
-  constructor(private contacts: Contacts) {}
+  constructor() {}
 
   ionViewDidLoad() {
 
-    this.contacts.find(['displayName', 'name', 'phoneNumbers', 'emails'], {filter: "", multiple: true})
-      .then(data => {
-        this.participants = data
-      });
+    //const contactFieldType = ['displayName', 'name', 'phoneNumbers', 'emails'];
+
+    // const options = {
+    //   filter: "",
+    //   multiple: true
+    // };
+
+    // this.contacts.find(fields, options)
+    //   .then(data => {
+    //     this.participants = data
+    //   });
 
   }
 
