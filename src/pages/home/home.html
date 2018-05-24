@@ -1,32 +1,58 @@
-<!--<ion-header>-->
-  <!--<ion-navbar>-->
 
-    <!--<ion-title>-->
-      <!--Coterie-->
-    <!--</ion-title>-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Your Saving Pots</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="addButtonClicked()">
+        {{ allowedAction() }}
+      </button>
+    </ion-buttons>
 
-  <!--</ion-navbar>-->
-<!--</ion-header>-->
+  </ion-navbar>
+</ion-header>
 
 <ion-content>
 
-  <div class="mk-home">
-    <div class="mk-image">
+  <div class="hidden-input" [ngClass]="{'add-mode': isInAddMode()}">
+    <div class="input-container">
+      <ion-list>
+        <ion-item>
+          <ion-input type="text"
+                     [(ngModel)]="newPlanName"
+                     #input placeholder="New saving pot name"></ion-input>
 
+          <button ion-button (click)="resignFocus()" color="grey" outline small item-right>
+            <ion-icon name="close"></ion-icon>
+          </button>
 
-    </div>
-
-
-    <div class="mk-buttons">
-      <ion-list inset>
-        <button ion-item [navPush]="plansPage">
-          <ion-icon name="list" item-start></ion-icon>
-          <h2>Pots</h2>
-          <p>Manage your saving plans</p>
-        </button>
-
-
+        </ion-item>
       </ion-list>
     </div>
   </div>
+
+  <ion-list>
+
+    <ion-item-sliding *ngFor="let plan of plans">
+
+      <button ion-item (click)="viewPlan(plan)">
+        <ion-icon name="{{ getPlanIcon(plan) }}" color="{{ getIconColour(plan) }}" item-start></ion-icon>
+        <h2>{{plan.name}}</h2>
+        <p>Created: {{created}}</p>
+      </button>
+
+      <ion-item-options side="left">
+        <button ion-button [color]="canBeDeleted(plan) ? 'danger' : 'secondary'" (click)="deleteOrArchive(plan)" icon-only>
+          <ion-icon [name]="canBeDeleted(plan) ? 'trash' : 'archive'"></ion-icon>
+        </button>
+      </ion-item-options>
+
+    </ion-item-sliding>
+
+    <ion-item *ngIf="plans.length < 1 && plansHasLoaded">
+      <h2>No plans</h2>
+      <p>Add plans with the add button</p>
+    </ion-item>
+
+  </ion-list>
+
 </ion-content>
