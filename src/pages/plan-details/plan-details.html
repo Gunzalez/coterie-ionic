@@ -4,45 +4,61 @@
       Pot Details
     </ion-title>
 
-    <ion-buttons end [hidden]="isPlanInProgress()">
-    <!--<ion-buttons end *ngIf="!isPlanInProgress()">-->
-      <button ion-button (click)="editPlanName()">
-        <!--<ion-icon name="create"></ion-icon>-->
-        Edit
-      </button>
-    </ion-buttons>
-
   </ion-navbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-list no-lines inset>
-    <ion-item icon-left>
-      <ion-icon name="{{ getPlanIcon() }}" item-start></ion-icon>
+  <ion-fab top right edge *ngIf="canSetAmount()">
+    <button ion-fab mini (click)="setAmount()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <ion-card>
+    <ion-card-header>
       <h1>{{ getPlanName() }}&nbsp;</h1>
-      <p>Plan created: {{ created }}</p>
-    </ion-item>
-  </ion-list>
+      <p>Created: {{ created }}</p>
+      <p>Started: {{ started }} </p>
+      <p>Next to collect: {{ nextToCollect }}</p>
+    </ion-card-header>
 
-  <ion-list>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-3>
+            <button ion-button full class="btn" (click)="amountMinus()">-</button>
+          </ion-col>
+          <ion-col col-6>
+            <ion-input type="number" [(ngModel)]="savingsAmount" class="input"></ion-input>
+          </ion-col>
+          <ion-col col-3>
+            <button ion-button full class="btn" (click)="amountPlus()">+</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
 
-    <button ion-item icon-left (click)="viewParticipants()" [disabled]="canAddMembers()">
-      <ion-icon name="people" item-start></ion-icon>
-      <h2>Participants</h2>
-      <h3 *ngIf="schedule.length > 1">This plan has {{schedule.length}} participants</h3>
-      <h3 *ngIf="schedule.length > 0 && schedule.length < 2">1 participant added, add more</h3>
-      <h3 *ngIf="schedule.length < 1">Add participants to this plan</h3>
-    </button>
+    <ion-list>
 
-    <button ion-item icon-left (click)="viewAmountsCollection()" [disabled]="!canAddAmount()">
-      <ion-icon name="cash" item-start></ion-icon>
-      <h2>Amounts</h2>
-      <h3 *ngIf="getSavingsAmount() < 1">No amount currently set</h3>
-      <h3 *ngIf="getSavingsAmount() > 0">£{{ getSavingsAmount() }} per participant</h3>
-    </button>
+        <button ion-item icon-left (click)="viewParticipants()" [disabled]="canAddMembers()">
+          <ion-icon name="people" item-start></ion-icon>
+          <h2>Participants</h2>
+          <h3 *ngIf="schedule.length > 1">This plan has {{schedule.length}} participants</h3>
+          <h3 *ngIf="schedule.length > 0 && schedule.length < 2">1 participant added, add more</h3>
+          <h3 *ngIf="schedule.length < 1">Add participants to this plan</h3>
+        </button>
 
-  </ion-list>
+        <button ion-item icon-left (click)="viewAmountsCollection()" [disabled]="!canAddAmount()">
+          <ion-icon name="cash" item-start></ion-icon>
+          <h2>Amounts</h2>
+          <h3 *ngIf="getSavingsAmount() < 1">No amount currently set</h3>
+          <h3 *ngIf="getSavingsAmount() > 0">£{{ getSavingsAmount() }} per participant</h3>
+        </button>
+
+      </ion-list>
+
+  </ion-card>
 
 
   <ion-grid>
@@ -51,9 +67,6 @@
           <button ion-button full [disabled]="!canStartPlan()" (click)="startPlan()" color="{{ getPlanStatusColor() }}">
             {{ getStartButtonLabel() }}
           </button>
-          <div class="help" *ngIf="!isPlanInProgress() && !canStartPlan()">
-            <p>At least 2 participants and an amount to start a plan</p>
-          </div>
       </ion-col>
     </ion-row>
   </ion-grid>

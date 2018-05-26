@@ -23,11 +23,7 @@ export class PlanDetailsPage {
 
   public schedule = [];
   public created = "Monday";
-  public started:string = "-not date-";
-  public nextToCollect:string = "-no participant-";
-
   public savingsAmount:number = 50;
-  public initialAmt:number = 0;
 
   constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.id = this.navParams.get('id');
@@ -50,46 +46,14 @@ export class PlanDetailsPage {
     this.created  = dd + '/' + mm + '/' + yyyy;
   };
 
-  amountMinus(){
-    this.savingsAmount = this.savingsAmount - 50;
-    if(this.savingsAmount < 0){
-      this.savingsAmount = 0
-    }
-  }
-
-  amountPlus(){
-    this.savingsAmount = this.savingsAmount + 50;
-  }
-
   ionViewWillEnter(){
+
     let next = plan => {
       this.plan = plan;
       this.schedule = this.plan['participants'];
       this.plansProvider.plan = this.plan;
-      this.savingsAmount = this.plan['savingsAmount'];
-      this.initialAmt = this.savingsAmount;
     };
     this.plansProvider.getAPlan(this.id).subscribe(next);
-  }
-
-
-  canSetAmount(){
-    return this.initialAmt !== this.savingsAmount && this.savingsAmount > 0;
-  }
-
-  setAmount(){
-    let next = response => {
-      if( response.ok ){
-        // set screen properties
-        this.initialAmt = this.savingsAmount;
-        let amountSaveToast = this.toastCtrl.create({
-          message: 'Amount set',
-          duration: DURATION
-        });
-        amountSaveToast.present();
-      }
-    };
-    this.plansProvider.setSavingsAmount(this.savingsAmount, this.plan['id']).subscribe(next);
   }
 
   editPlanName(){
