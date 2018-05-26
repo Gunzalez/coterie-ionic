@@ -20,6 +20,7 @@
       <h1>{{ getPlanName() }}&nbsp;</h1>
       <p>Created: {{ created }}</p>
       <p>Started: {{ started }} </p>
+      <p>Round: {{ round }} </p>
       <p>Next to collect: {{ nextToCollect }}</p>
     </ion-card-header>
 
@@ -47,13 +48,6 @@
           <h3 *ngIf="schedule.length > 1">This plan has {{schedule.length}} participants</h3>
           <h3 *ngIf="schedule.length > 0 && schedule.length < 2">1 participant added, add more</h3>
           <h3 *ngIf="schedule.length < 1">Add participants to this plan</h3>
-        </button>
-
-        <button ion-item icon-left (click)="viewAmountsCollection()" [disabled]="!canAddAmount()">
-          <ion-icon name="cash" item-start></ion-icon>
-          <h2>Amounts</h2>
-          <h3 *ngIf="getSavingsAmount() < 1">No amount currently set</h3>
-          <h3 *ngIf="getSavingsAmount() > 0">£{{ getSavingsAmount() }} per participant</h3>
         </button>
 
       </ion-list>

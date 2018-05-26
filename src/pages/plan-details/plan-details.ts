@@ -25,8 +25,9 @@ export class PlanDetailsPage {
   public created = "Monday";
   public started:string = "-not date-";
   public nextToCollect:string = "-no participant-";
+  public round:number = 0;
 
-  public savingsAmount:number = 50;
+  public savingsAmount:number = 0;
   public initialAmt:number = 0;
 
   constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
