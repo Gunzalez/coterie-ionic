@@ -459,6 +459,7 @@ export class ParticipantsPage {
   constructor(private myContacts: Contacts) {}
 
   ionViewDidLoad(){
+
     // this.contacts.map(contact => {
     //
     //   let displayContact = {
@@ -469,9 +470,11 @@ export class ParticipantsPage {
     //   this.contactList.push(displayContact);
     //   this.contactList.reverse();
     //
-    // })
+    // });
 
     this.getAllContacts();
+
+    this.groupContacts(this.contactList);
   }
 
 
@@ -508,8 +511,10 @@ export class ParticipantsPage {
     let currentLetter = false;
     let currentContacts = [];
 
-    sortedContacts.forEach((value, index) => {
-      if (value.name.charAt(0) != currentLetter) {
+    sortedContacts.forEach((value) => {
+
+      console.log(value);
+      if (value.name.charAt(0) !== currentLetter) {
         currentLetter = value.name.charAt(0);
 
         let newGroup = {
