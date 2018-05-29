@@ -15,12 +15,9 @@
 <ion-content>
 
   <ion-list>
-    <ion-item *ngFor="let participant of participants">
-      <ion-avatar item-start>
-        <img src="../../assets/img/avatar-aku.png">
-      </ion-avatar>
-      <h2>{{ participant.displayName }}</h2>
-      <p>{{ participant.phoneNumbers[0] }}</p>
+    <ion-item *ngFor="let contact of contactList">
+      <p>{{contact.name}}</p>
+      <p>{{contact.number}}</p>
     </ion-item>
   </ion-list>
 
