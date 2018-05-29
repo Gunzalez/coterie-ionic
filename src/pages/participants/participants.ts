@@ -460,24 +460,10 @@ export class ParticipantsPage {
 
   ionViewDidLoad(){
 
-    // this.contacts.map(contact => {
-    //
-    //   let displayContact = {
-    //     "name": contact["_objectInstance"].name.formatted,
-    //     "number": contact["_objectInstance"].phoneNumbers[0].value
-    //   };
-    //
-    //   this.contactList.push(displayContact);
-    //   this.contactList.reverse();
-    //
-    // });
-
     this.getAllContacts();
 
-    this.groupContacts(this.contactList);
+    //this.doLocal()
   }
-
-
 
   getAllContacts(){
 
@@ -494,10 +480,29 @@ export class ParticipantsPage {
         this.contactList.push(displayContact);
         this.contactList.reverse();
 
-      })
+      });
+
+      this.groupContacts(this.contactList);
 
 
     })
+  }
+
+  doLocal(){
+
+    this.contacts.map(contact => {
+
+      let displayContact = {
+        "name": contact["_objectInstance"].name.formatted,
+        "number": contact["_objectInstance"].phoneNumbers[0].value
+      };
+
+      this.contactList.push(displayContact);
+      this.contactList.reverse();
+
+    });
+
+    this.groupContacts(this.contactList);
   }
 
   groupContacts(contacts) {
@@ -513,7 +518,6 @@ export class ParticipantsPage {
 
     sortedContacts.forEach((value) => {
 
-      console.log(value);
       if (value.name.charAt(0) !== currentLetter) {
         currentLetter = value.name.charAt(0);
 

@@ -3,7 +3,6 @@
     <ion-title>Participants</ion-title>
 
     <ion-buttons end>
-
       <button ion-button>
         Done
       </button>
@@ -19,16 +18,13 @@
       <!--<h2>{{contact.name}}</h2>-->
       <!--<p>{{contact.number}}</p>-->
     <!--</ion-item>-->
-
-
-
     <ion-item-group *ngFor="let group of groupedContacts">
-      <ion-item-divider color="light">{{group.letter}}</ion-item-divider>
+      <ion-item-divider color="light" class="groupLetter">{{group.letter}}</ion-item-divider>
       <ion-item *ngFor="let contact of group.contacts">
         <ion-avatar item-start>
-          <img src="../../assets/img/avatar-aku.png">
+          <img src="assets/img/avatar-aku.png">
         </ion-avatar>
-        {{contact.name}}
+        <h2>{{contact.name}}</h2>
         <p>{{contact.number}}</p>
       </ion-item>
     </ion-item-group>
