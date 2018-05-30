@@ -28,13 +28,13 @@
       <ion-grid>
         <ion-row>
           <ion-col col-3>
-            <button ion-button full class="btn" (click)="amountMinus()">-</button>
+            <button ion-button full class="btn" [disabled]="hasReachedMin()" (click)="amountMinus()">-</button>
           </ion-col>
           <ion-col col-6>
-            <ion-input type="number" [(ngModel)]="savingsAmount" class="input"></ion-input>
+            <ion-input type="tel" maxlength="4" pattern="\d{1,15}" max="1000" min="1" [(ngModel)]="savingsAmount" class="input"></ion-input>
           </ion-col>
           <ion-col col-3>
-            <button ion-button full class="btn" (click)="amountPlus()">+</button>
+            <button ion-button full class="btn" [disabled]="hasReachedMax()" (click)="amountPlus()">+</button>
           </ion-col>
         </ion-row>
       </ion-grid>

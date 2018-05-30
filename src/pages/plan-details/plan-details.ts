@@ -21,14 +21,18 @@ export class PlanDetailsPage {
   private name: String = '';
   private status: String = '';
 
+  private inc = 50;
+  private max = 1000;
+  private min = 1;
+
   public schedule = [];
   public created = "Monday";
   public started:string = "-not date-";
   public nextToCollect:string = "-no participant-";
   public round:number = 0;
 
-  public savingsAmount:number = 0;
-  public initialAmt:number = 0;
+  public savingsAmount:any = 0;
+  public initialAmt:any = 0;
 
   constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.id = this.navParams.get('id');
@@ -52,14 +56,25 @@ export class PlanDetailsPage {
   };
 
   amountMinus(){
-    this.savingsAmount = this.savingsAmount - 50;
-    if(this.savingsAmount < 0){
-      this.savingsAmount = 0
+    this.savingsAmount = parseInt(this.savingsAmount) - this.inc;
+    if(this.savingsAmount < this.min){
+      this.savingsAmount = this.min
     }
   }
 
   amountPlus(){
-    this.savingsAmount = this.savingsAmount + 50;
+    this.savingsAmount = parseInt(this.savingsAmount) + this.inc;
+    if(this.savingsAmount >= (this.max + 1)){
+      this.savingsAmount = this.max
+    }
+  }
+
+  hasReachedMax(){
+    return this.savingsAmount >= (this.max + 1)
+  }
+
+  hasReachedMin(){
+    return this.savingsAmount < this.min
   }
 
   ionViewWillEnter(){
@@ -75,14 +90,15 @@ export class PlanDetailsPage {
 
 
   canSetAmount(){
-    return this.initialAmt !== this.savingsAmount && this.savingsAmount > 0;
+    return this.initialAmt !== this.savingsAmount && this.savingsAmount > 0 && this.savingsAmount < (this.max + 1);
   }
 
   setAmount(){
     let next = response => {
       if( response.ok ){
         // set screen properties
-        this.initialAmt = this.savingsAmount;
+        this.savingsAmount = parseInt(this.savingsAmount)
+        this.initialAmt = parseInt(this.savingsAmount);
         let amountSaveToast = this.toastCtrl.create({
           message: 'Amount set',
           duration: DURATION
