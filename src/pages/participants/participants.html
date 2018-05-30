@@ -13,6 +13,14 @@
 
 <ion-content>
 
+
+  <ion-list>
+    <ion-item *ngFor="let contact of potContacts">
+      <h2>{{contact.name}}</h2>
+      <p>{{contact.number}}</p>
+    </ion-item>
+  </ion-list>
+
   <ion-list>
     <!--<ion-item *ngFor="let contact of contactList">-->
       <!--<h2>{{contact.name}}</h2>-->
