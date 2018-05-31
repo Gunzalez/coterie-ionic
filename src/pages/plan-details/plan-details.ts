@@ -17,9 +17,9 @@ export class PlanDetailsPage {
   private id;
   private plan = {};
 
-  private icon: String = '';
-  private name: String = '';
-  private status: String = '';
+  private icon:string= '';
+  private name:string = '';
+  private status:string = '';
 
   private inc = 50;
   private max = 1000;
