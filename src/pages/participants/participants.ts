@@ -454,83 +454,40 @@ export class ParticipantsPage {
     // ];
     allContacts = [];
     contactList = [];
-    groupedContacts = [];
     participants = [];
 
     constructor(private contacts: Contacts) {}
 
     ionViewDidLoad(){
 
-      this.getAllContacts();
+        this.getAllContacts();
 
-      //this.doLocal()
+        //this.doLocal()
     }
 
     getAllContacts(){
 
-      this.contacts.find(["displayName", "phoneNumbers"], {multiple: true, hasPhoneNumber: true}).then((contacts) => {
+        this.contacts.find(["displayName", "phoneNumbers"], {multiple: true, hasPhoneNumber: true}).then((contacts) => {
 
-        contacts.map(contact => {
-
-          let displayContact = {
-              "name": contact["_objectInstance"].name.formatted,
-              "number": contact["_objectInstance"].phoneNumbers[0].value
-          };
-
-          this.contactList.push(displayContact);
-          this.contactList.reverse();
-
-        });
-
-        this.groupContacts(this.contactList);
-
-
-      })
+            contacts.map(contact => {
+                let displayContact = {
+                    "name": contact["_objectInstance"].name.formatted,
+                    "number": contact["_objectInstance"].phoneNumbers[0].value
+                };
+                this.contactList.push(displayContact);
+            });
+        })
     }
 
     doLocal(){
 
-      this.allContacts.map(contact => {
-
-        let displayContact = {
-          "name": contact["_objectInstance"].name.formatted,
-          "number": contact["_objectInstance"].phoneNumbers[0].value
-        };
-
-        this.contactList.push(displayContact);
-        this.contactList.reverse();
-
-      });
-
-      this.groupContacts(this.contactList);
-    }
-
-    groupContacts(contacts) {
-
-      let sortedContacts = contacts.sort(function (a, b) {
-        if (a.name < b.name) return -1;
-        if (a.name > b.name) return 1;
-        return 0;
-      });
-
-      let currentLetter = false;
-      let currentContacts = [];
-
-      sortedContacts.forEach((value) => {
-
-        if (value.name.charAt(0) !== currentLetter) {
-          currentLetter = value.name.charAt(0);
-
-          let newGroup = {
-            letter: currentLetter,
-            contacts: []
-          };
-
-          currentContacts = newGroup.contacts;
-          this.groupedContacts.push(newGroup);
-        }
-        currentContacts.push(value);
-      });
+        this.allContacts.map(contact => {
+            let displayContact = {
+                "name": contact["_objectInstance"].name.formatted,
+                "number": contact["_objectInstance"].phoneNumbers[0].value
+            };
+            this.contactList.push(displayContact);
+        });
     }
 
     onAddParticipant(index){
