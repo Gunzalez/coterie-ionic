@@ -27,7 +27,7 @@ export class PlanDetailsPage {
 
   public schedule = [];
   public created = "Monday";
-  public started:string = "-not date-";
+  public started:string = "-no date-";
   public nextToCollect:string = "-no participant-";
   public round:number = 0;
 
