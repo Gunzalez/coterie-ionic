@@ -8,7 +8,7 @@ import { Contacts } from '@ionic-native/contacts';
 })
 export class ParticipantsPage {
 
-  allContacts= [
+  allContacts = [
     {
       "_objectInstance":{
         "id":5,
@@ -452,10 +452,10 @@ export class ParticipantsPage {
       "rawId":null
     }
   ];
-  //allContacts= [];
+  //allContacts = [];
   contactList = [];
   groupedContacts = [];
-  potContacts = [];
+  participants = [];
 
   constructor(private contacts: Contacts) {}
 
@@ -531,6 +531,16 @@ export class ParticipantsPage {
       }
       currentContacts.push(value);
     });
+  }
+
+  onAddParticipant(index){
+      let participant = this.contactList.splice(index, 1);
+      this.participants.push(participant.pop())
+  }
+
+  onRemoveParticipant(index){
+      let participant = this.participants.splice(index, 1);
+      this.contactList.push(participant.pop())
   }
 
 }

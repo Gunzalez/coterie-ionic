@@ -13,31 +13,26 @@
 
 <ion-content>
 
-
   <ion-list>
-    <ion-item *ngFor="let contact of potContacts">
-      <h2>{{contact.name}}</h2>
-      <p>{{contact.number}}</p>
+    <ion-list-header>
+      Participant list
+    </ion-list-header>
+    <ion-item *ngFor="let participant of participants; let i = index">
+      <ion-icon name="remove-circle" (click)="onRemoveParticipant(i)" class="remove" item-start></ion-icon>
+      <p class="name">{{participant.name}}</p>
+      <span class="number" item-end>{{participant.number}}</span>
     </ion-item>
   </ion-list>
 
   <ion-list>
-    <!--<ion-item *ngFor="let contact of contactList">-->
-      <!--<h2>{{contact.name}}</h2>-->
-      <!--<p>{{contact.number}}</p>-->
-    <!--</ion-item>-->
-    <ion-item-group *ngFor="let group of groupedContacts">
-      <ion-item-divider color="light" class="groupLetter">{{group.letter}}</ion-item-divider>
-      <ion-item *ngFor="let contact of group.contacts">
-        <ion-avatar item-start>
-          <img src="assets/img/avatar-aku.png">
-        </ion-avatar>
-        <h2>{{contact.name}}</h2>
-        <p>{{contact.number}}</p>
-      </ion-item>
-    </ion-item-group>
+    <ion-list-header>
+      Contact list
+    </ion-list-header>
+    <ion-item *ngFor="let contact of contactList; let i = index">
+      <ion-icon name="add-circle" (click)="onAddParticipant(i)" class="add" item-start></ion-icon>
+      <p class="name">{{contact.name}}</p>
+      <span class="number" item-end>{{contact.number}}</span>
+    </ion-item>
   </ion-list>
-
-
 
 </ion-content>
