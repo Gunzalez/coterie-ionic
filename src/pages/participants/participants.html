@@ -3,7 +3,7 @@
     <ion-title>Participants</ion-title>
 
     <ion-buttons end>
-      <button ion-button>
+      <button ion-button (click)="onSaveParticipants()">
         Done
       </button>
     </ion-buttons>
@@ -13,21 +13,21 @@
 
 <ion-content>
 
-  <ion-list>
-    <ion-list-header>
-      Participant list
-    </ion-list-header>
+  <ion-list-header>
+    Participant list
+  </ion-list-header>
+  <ion-list reorder="true" (ionItemReorder)="reorderItems($event)">
     <ion-item *ngFor="let participant of participantList; let i = index">
       <ion-icon name="remove-circle" (click)="onRemoveParticipant(i)" class="remove" item-start></ion-icon>
       <p class="name">{{participant.name}}</p>
-      <span class="number" item-end>{{participant.number}}</span>
+      <p class="number">{{participant.number}}</p>
     </ion-item>
   </ion-list>
 
+  <ion-list-header>
+    Contact list
+  </ion-list-header>
   <ion-list>
-    <ion-list-header>
-      Contact list
-    </ion-list-header>
     <ion-item *ngFor="let contact of contactList; let i = index">
       <ion-icon name="add-circle" (click)="onAddParticipant(i)" class="add" item-start></ion-icon>
       <p class="name">{{contact.name}}</p>

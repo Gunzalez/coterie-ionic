@@ -4,6 +4,7 @@ import { NavController, ToastController } from 'ionic-angular';
 import { PlansProvider } from '../../providers/plans/plans';
 
 import { getIcon } from  '../../helpers/helpers';
+
 const DURATION = 1000;
 
 @Component({

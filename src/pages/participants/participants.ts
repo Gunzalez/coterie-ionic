@@ -2,6 +2,18 @@ import { Component } from '@angular/core';
 
 import { Contacts } from '@ionic-native/contacts';
 
+import { NavController, ToastController, reorderArray } from 'ionic-angular';
+
+const DURATION = 1000;
+
+const sortList = list => {
+    list.sort(function(a, b){
+        if(a.name < b.name) return -1;
+        if(a.name > b.name) return 1;
+        return 0;
+    });
+};
+
 @Component({
   selector: 'page-participants',
   templateUrl: 'participants.html'
@@ -456,7 +468,7 @@ export class ParticipantsPage {
     public contactList = [];
     public participantList = [];
 
-    constructor(private contacts: Contacts) {}
+    constructor(private contacts: Contacts, public navCtrl: NavController, private toastCtrl: ToastController) {}
 
     ionViewDidLoad(){
 
@@ -476,7 +488,7 @@ export class ParticipantsPage {
                 };
                 this.contactList.push(displayContact);
             });
-            this.sortBothLists();
+            sortList(this.contactList);
         })
     }
 
@@ -489,32 +501,32 @@ export class ParticipantsPage {
             };
             this.contactList.push(displayContact);
         });
-        this.sortBothLists();
+        sortList(this.contactList);
     }
 
     onAddParticipant(index){
         let participant = this.contactList.splice(index, 1).pop();
         this.participantList.push(participant);
-      this.sortBothLists();
+        sortList(this.contactList);
     }
 
     onRemoveParticipant(index){
         let participant = this.participantList.splice(index, 1).pop();
         this.contactList.push(participant);
-        this.sortBothLists();
+        sortList(this.contactList);
     }
 
-    sortBothLists(){
-      this.sortTheList(this.participantList);
-      this.sortTheList(this.contactList);
+    reorderItems(indexes) {
+      this.participantList = reorderArray(this.participantList, indexes);
     }
 
-    sortTheList(list){
-      list.sort(function(a, b){
-        if(a.name < b.name) return -1;
-        if(a.name > b.name) return 1;
-        return 0;
-      });
+    onSaveParticipants(){
+        let doneReorderToast = this.toastCtrl.create({
+          message: this.participantList.length + ' participants saved',
+          duration: DURATION
+        });
+        doneReorderToast.present();
+        this.navCtrl.pop();
     }
 
 }
