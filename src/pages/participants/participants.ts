@@ -4,15 +4,9 @@ import { Contacts } from '@ionic-native/contacts';
 
 import { NavController, ToastController, reorderArray } from 'ionic-angular';
 
-const DURATION = 1000;
+import { sortList, isEquivalent } from '../../helpers/helpers';
 
-const sortList = list => {
-    list.sort(function(a, b){
-        if(a.name < b.name) return -1;
-        if(a.name > b.name) return 1;
-        return 0;
-    });
-};
+const DURATION = 1000;
 
 @Component({
   selector: 'page-participants',
@@ -466,6 +460,7 @@ export class ParticipantsPage {
     // ];
     private allContacts = [];
     public contactList = [];
+    public groupedContactsList = [];
     public participantList = [];
 
     constructor(private contacts: Contacts, public navCtrl: NavController, private toastCtrl: ToastController) {}
@@ -473,7 +468,6 @@ export class ParticipantsPage {
     ionViewDidLoad(){
 
         this.getContacts();
-
         //this.getContactsLocal()
     }
 
@@ -488,7 +482,7 @@ export class ParticipantsPage {
                 };
                 this.contactList.push(displayContact);
             });
-            sortList(this.contactList);
+            this.groupContacts();
         })
     }
 
@@ -501,37 +495,59 @@ export class ParticipantsPage {
             };
             this.contactList.push(displayContact);
         });
-        sortList(this.contactList);
+        this.groupContacts();
     }
 
-    onAddParticipant(index){
-        let participant = this.contactList.splice(index, 1).pop();
-        this.participantList.push(participant);
-        sortList(this.contactList);
+    onAddParticipant(contact){
+        this.contactList.map((contactInList, index) => {
+            if(isEquivalent(contactInList, contact)){
+              let participant = this.contactList.splice(index, 1).pop();
+              this.participantList.push(participant);
+              this.groupContacts();
+            }
+        });
     }
 
     onRemoveParticipant(index){
         let participant = this.participantList.splice(index, 1).pop();
         this.contactList.push(participant);
-        sortList(this.contactList);
+        this.groupContacts();
     }
 
     reorderItems(indexes) {
-      this.participantList = reorderArray(this.participantList, indexes);
+        this.participantList = reorderArray(this.participantList, indexes);
     }
 
     onSaveParticipants(){
-        let doneReorderToast = this.toastCtrl.create({
+        let doneSaving = this.toastCtrl.create({
           message: this.participantList.length + ' participants saved',
           duration: DURATION
         });
-        doneReorderToast.present();
+        doneSaving.present();
         this.navCtrl.pop();
     }
 
+    groupContacts(){
+        sortList(this.contactList);
+        this.groupedContactsList.length = 0;
+        let groupedCollection = {};
+        this.contactList.map(contact => {
+            let firstLetter = contact.name.charAt(0);
+            if(groupedCollection[firstLetter] == undefined){
+                groupedCollection[firstLetter] = [];
+            }
+            groupedCollection[firstLetter].push(contact);
+        });
+
+        Object.keys(groupedCollection).map( key => {
+            let group = {
+                letter: key,
+                contacts: groupedCollection[key]
+            };
+            this.groupedContactsList.push(group);
+        });
+    }
 }
-
-
 
 
 
