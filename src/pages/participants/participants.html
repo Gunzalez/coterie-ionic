@@ -17,7 +17,7 @@
     <ion-list-header>
       Participant list
     </ion-list-header>
-    <ion-item *ngFor="let participant of participants; let i = index">
+    <ion-item *ngFor="let participant of participantList; let i = index">
       <ion-icon name="remove-circle" (click)="onRemoveParticipant(i)" class="remove" item-start></ion-icon>
       <p class="name">{{participant.name}}</p>
       <span class="number" item-end>{{participant.number}}</span>

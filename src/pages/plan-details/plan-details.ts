@@ -6,7 +6,9 @@ import { ParticipantsPage } from '../participants/participants';
 import { CollectionsPage } from '../collections/collections';
 
 import { getIcon } from '../../helpers/helpers';
-const DURATION = 1000;
+
+const DURATION = 2000;
+const CURRENCY = '£';
 
 @Component({
   selector: 'page-plan-details',
@@ -97,10 +99,10 @@ export class PlanDetailsPage {
     let next = response => {
       if( response.ok ){
         // set screen properties
-        this.savingsAmount = parseInt(this.savingsAmount)
+        this.savingsAmount = parseInt(this.savingsAmount);
         this.initialAmt = parseInt(this.savingsAmount);
         let amountSaveToast = this.toastCtrl.create({
-          message: 'Amount set',
+          message: 'Saving amount set at ' + CURRENCY + this.savingsAmount,
           duration: DURATION
         });
         amountSaveToast.present();
