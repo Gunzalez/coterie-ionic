@@ -7,11 +7,8 @@ import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { PlansPage } from '../pages/plans/plans';
 import { PlanDetailsPage } from '../pages/plan-details/plan-details';
 import { ParticipantsPage } from '../pages/participants/participants';
-import { CollectionsPage } from '../pages/collections/collections';
-
 import { Contacts } from '@ionic-native/contacts';
 
 import { PlansProvider } from '../providers/plans/plans';
@@ -20,10 +17,8 @@ import { PlansProvider } from '../providers/plans/plans';
   declarations: [
     MyApp,
     HomePage,
-    PlansPage,
     PlanDetailsPage,
-    ParticipantsPage,
-    CollectionsPage
+    ParticipantsPage
   ],
   imports: [
     BrowserModule,
@@ -40,10 +35,8 @@ import { PlansProvider } from '../providers/plans/plans';
   entryComponents: [
     MyApp,
     HomePage,
-    PlansPage,
     PlanDetailsPage,
-    ParticipantsPage,
-    CollectionsPage
+    ParticipantsPage
   ],
   providers: [
     StatusBar,

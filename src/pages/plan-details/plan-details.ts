@@ -3,7 +3,6 @@ import { NavController, NavParams, ToastController, AlertController } from 'ioni
 
 import { PlansProvider } from '../../providers/plans/plans';
 import { ParticipantsPage } from '../participants/participants';
-import { CollectionsPage } from '../collections/collections';
 
 import { getIcon } from '../../helpers/helpers';
 
@@ -206,9 +205,9 @@ export class PlanDetailsPage {
     this.navCtrl.push(ParticipantsPage);
   }
 
-  viewAmountsCollection(){
-    this.navCtrl.push(CollectionsPage);
-  }
+  // viewAmountsCollection(){
+  //   this.navCtrl.push(CollectionsPage);
+  // }
 
   startPlan(){
 

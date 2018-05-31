@@ -1,8 +1,9 @@
-import {Component, ViewChild} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 
 import { PlanDetailsPage as PotDetailsPage } from '../plan-details/plan-details';
 import { PlansProvider } from '../../providers/plans/plans';
+
 import { getIcon } from "../../helpers/helpers";
 
 @Component({

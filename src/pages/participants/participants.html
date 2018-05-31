@@ -1,6 +1,8 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Participants</ion-title>
+    <ion-title>
+      Participants
+    </ion-title>
 
     <ion-buttons end>
       <button ion-button (click)="onSaveParticipants()">
@@ -28,16 +30,14 @@
     Contact list
   </ion-list-header>
   <ion-list>
-
     <ion-item-group *ngFor="let group of groupedContactsList">
-      <ion-item-divider color="light">{{group.letter}}</ion-item-divider>
+      <ion-item-divider class="divider">{{group.letter}}</ion-item-divider>
       <ion-item *ngFor="let contact of group.contacts">
         <ion-icon name="add-circle" (click)="onAddParticipant(contact)" class="add" item-start></ion-icon>
         <p class="name">{{contact.name}}</p>
         <span class="number" item-end>{{contact.number}}</span>
       </ion-item>
     </ion-item-group>
-
   </ion-list>
 
 </ion-content>
