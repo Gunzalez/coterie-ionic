@@ -16,7 +16,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content #Content>
 
   <ion-list-header>
     Participant list
@@ -24,7 +24,7 @@
   <ion-list reorder="true" (ionItemReorder)="reorderItems($event)">
     <ion-item *ngFor="let participant of participantList; let i = index">
       <ion-icon name="remove-circle" (click)="onRemoveParticipant(i)" class="remove" item-start></ion-icon>
-      <p class="name">{{participant.name}}</p>
+      <p class="name participant">{{participant.name}}</p>
       <p class="number">{{participant.number}}</p>
     </ion-item>
   </ion-list>
@@ -42,5 +42,11 @@
       </ion-item>
     </ion-item-group>
   </ion-list>
+
+  <ion-fab bottom right>
+    <button ion-fab mini (click)="scrollToTop()">
+      <ion-icon name="arrow-up"></ion-icon>
+    </button>
+  </ion-fab>
 
 </ion-content>
