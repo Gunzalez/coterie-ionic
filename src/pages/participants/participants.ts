@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { Contacts } from '@ionic-native/contacts';
 
-import { NavController, ToastController, reorderArray } from 'ionic-angular';
+import { ViewController, NavController, ToastController, reorderArray, NavParams } from 'ionic-angular';
 
 import { sortList, isEquivalent } from '../../helpers/helpers';
 
@@ -463,20 +463,24 @@ export class ParticipantsPage {
     public groupedContactsList = [];
     public participantList = [];
 
-    constructor(private contacts: Contacts, public navCtrl: NavController, private toastCtrl: ToastController) {}
+    constructor(private contacts: Contacts, private viewCtrl: ViewController, public navCtrl: NavController, private toastCtrl: ToastController, public navParams: NavParams) {
+
+        console.log(this.navParams.get('list'))
+
+    }
 
     ionViewDidLoad(){
-
         //this.getContacts();
         this.getContactsLocal()
     }
 
     getContacts(){
 
-        this.contacts.find(["displayName", "phoneNumbers"], {multiple: true, hasPhoneNumber: true}).then((contacts) => {
+        this.contacts.find(["displayName", "phoneNumbers"], { multiple: true, hasPhoneNumber: true }).then((contacts) => {
 
             contacts.map(contact => {
                 let displayContact = {
+                    "platformId": contact["_objectInstance"].id,
                     "name": contact["_objectInstance"].name.formatted,
                     "number": contact["_objectInstance"].phoneNumbers[0].value
                 };
@@ -490,6 +494,7 @@ export class ParticipantsPage {
 
         this.allContacts.map(contact => {
             let displayContact = {
+                "platformId": contact["_objectInstance"].id,
                 "name": contact["_objectInstance"].name.formatted,
                 "number": contact["_objectInstance"].phoneNumbers[0].value
             };
@@ -519,18 +524,28 @@ export class ParticipantsPage {
     }
 
     onSaveParticipants(){
-        let doneSaving = this.toastCtrl.create({
-          message: this.participantList.length + ' participants saved',
-          duration: DURATION
-        });
-        doneSaving.present();
-        this.navCtrl.pop();
+        // console.log('Saves: ');
+        // console.log(this.participantList);
+        if(this.participantList.length){
+            let doneSaving = this.toastCtrl.create({
+                message: this.participantList.length + ' participants saved',
+                duration: DURATION
+            });
+            doneSaving.present();
+            this.viewCtrl.dismiss(this.participantList)
+        }
+    }
+
+    onDismiss(){
+      this.navCtrl.pop();
     }
 
     groupContacts(){
+
         sortList(this.contactList);
         this.groupedContactsList.length = 0;
         let groupedCollection = {};
+
         this.contactList.map(contact => {
             let firstLetter = contact.name.charAt(0);
             if(groupedCollection[firstLetter] == undefined){

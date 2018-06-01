@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, AlertController, ModalController } from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
 import { ParticipantsPage } from '../participants/participants';
@@ -35,7 +35,7 @@ export class PlanDetailsPage {
   public savingsAmount:any = 0;
   public initialAmt:any = 0;
 
-  constructor(private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private modalCtrl: ModalController, private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.id = this.navParams.get('id');
   }
 
@@ -201,16 +201,17 @@ export class PlanDetailsPage {
     return getIcon(this.plan);
   }
 
+
   viewParticipants(){
-    this.navCtrl.push(ParticipantsPage);
+      let participantsModal = this.modalCtrl.create(ParticipantsPage, { list: ['Eggs', 'Bacon']});
+      participantsModal.onDidDismiss( participants => {
+          console.log('Stuff back from modal');
+          console.log(participants)
+      });
+      participantsModal.present();
   }
 
-  // viewAmountsCollection(){
-  //   this.navCtrl.push(CollectionsPage);
-  // }
-
   startPlan(){
-
     let next = result => {
       if (result){
         this.icon = 'rainy';
@@ -223,4 +224,5 @@ export class PlanDetailsPage {
     };
     this.plansProvider.startPlan(this.plan['id']).subscribe(next)
   }
+
 }

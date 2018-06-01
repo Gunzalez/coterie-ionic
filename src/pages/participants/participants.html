@@ -1,15 +1,18 @@
 <ion-header>
   <ion-navbar>
+    <ion-buttons>
+      <button ion-button (click)="onDismiss()">
+        Cancel
+      </button>
+    </ion-buttons>
     <ion-title>
       Participants
     </ion-title>
-
-    <ion-buttons end>
+    <ion-buttons end *ngIf="participantList.length">
       <button ion-button (click)="onSaveParticipants()">
         Done
       </button>
     </ion-buttons>
-
   </ion-navbar>
 </ion-header>
 
