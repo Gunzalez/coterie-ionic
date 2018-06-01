@@ -205,24 +205,23 @@ export class PlanDetailsPage {
   viewParticipants(){
       let participantsModal = this.modalCtrl.create(ParticipantsPage, { list: ['Eggs', 'Bacon']});
       participantsModal.onDidDismiss( participants => {
-          console.log('Stuff back from modal');
-          console.log(participants)
+          //console.log(participants)
       });
       participantsModal.present();
   }
 
   startPlan(){
-    let next = result => {
-      if (result){
-        this.icon = 'rainy';
-        let startPlanToast = this.toastCtrl.create({
-          message: 'Plan started',
-          duration: DURATION,
-        });
-        startPlanToast.present();
-      }
-    };
-    this.plansProvider.startPlan(this.plan['id']).subscribe(next)
+      let next = result => {
+          if (result){
+              this.icon = 'rainy';
+              let startPlanToast = this.toastCtrl.create({
+                  message: 'Plan started',
+                  duration: DURATION,
+              });
+              startPlanToast.present();
+          }
+      };
+      this.plansProvider.startPlan(this.plan['id']).subscribe(next)
   }
 
 }
