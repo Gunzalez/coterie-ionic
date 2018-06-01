@@ -484,7 +484,7 @@ export class ParticipantsPage {
             contacts.map(contact => {
                 let displayContact = {
                     "platformId": contact["_objectInstance"].id,
-                    "name": contact["_objectInstance"].name.formatted,
+                    "name": contact["_objectInstance"].name.givenName + ' ' + contact["_objectInstance"].name.familyName,
                     "number": contact["_objectInstance"].phoneNumbers[0].value
                 };
                 this.contactList.push(displayContact);
