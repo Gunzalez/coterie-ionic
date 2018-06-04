@@ -36,4 +36,15 @@ page-participants {
         }
     }
 
+    .isParticipant {
+        .name, .number {
+            opacity: 0.3;
+        }
+    }
+
+    .sp-header {
+        border-bottom: 0.55px solid #488aff;
+        margin-bottom: 2px;
+    }
+
 }

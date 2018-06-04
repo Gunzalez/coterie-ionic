@@ -6,7 +6,7 @@
       </button>
     </ion-buttons>
     <ion-title>
-      Participants <span>({{participantList.length}})</span>
+      Participants <span *ngIf="participantList.length > 1">({{participantList.length}})</span>
     </ion-title>
     <ion-buttons end *ngIf="participantList.length > 1">
       <button ion-button (click)="onSaveParticipants()">
@@ -23,25 +23,35 @@
 
 <ion-content #Content>
 
-  <ion-list-header>
-    Participant list
+  <ion-list-header class="sp-header">
+    Participant list <span *ngIf="participantList.length > 1">({{participantList.length}})</span>
   </ion-list-header>
+
   <ion-list reorder="true" (ionItemReorder)="reorderItems($event)">
-    <ion-item *ngFor="let participant of participantList; let i = index">
-      <ion-icon name="remove-circle" (click)="onRemoveParticipant(i)" class="remove" item-start></ion-icon>
-      <p class="name participant">{{participant.name}}</p>
-      <p class="number">{{participant.number}}</p>
-    </ion-item>
+    <ion-item-sliding *ngFor="let participant of participantList; let i = index">
+      <ion-item>
+        <!--<ion-icon name="remove-circle" (click)="onRemoveParticipant(i)" class="remove" item-start></ion-icon>-->
+        <p class="name participant">{{participant.name}}</p>
+        <p class="number">{{participant.number}}</p>
+      </ion-item>
+
+      <ion-item-options side="left">
+        <button ion-button color="danger" (click)="onRemoveParticipant(i)" icon-only>
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+
+    </ion-item-sliding>
   </ion-list>
 
-  <ion-list-header>
+  <ion-list-header class="sp-header">
     Contact list
   </ion-list-header>
   <ion-list>
     <ion-item-group *ngFor="let group of groupedContactsList">
       <ion-item-divider class="divider">{{group.letter}}</ion-item-divider>
-      <ion-item *ngFor="let contact of group.contacts">
-        <ion-icon name="add-circle" (click)="onAddParticipant(contact)" class="add" item-start></ion-icon>
+      <ion-item *ngFor="let contact of group.contacts" [ngClass]="{'isParticipant': contact.isParticipant}">
+        <ion-icon name="{{ contact.isParticipant ? 'remove-circle' : 'add-circle' }}" (click)="onClickParticipant(contact)" [ngClass]="[contact.isParticipant ? 'remove' : 'add']" item-start></ion-icon>
         <p class="name">{{contact.name}}</p>
         <span class="number" item-end>{{contact.number}}</span>
       </ion-item>
