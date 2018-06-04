@@ -6,9 +6,9 @@
       </button>
     </ion-buttons>
     <ion-title>
-      Participants
+      Participants <span>({{participantList.length}})</span>
     </ion-title>
-    <ion-buttons end *ngIf="participantList.length">
+    <ion-buttons end *ngIf="participantList.length > 1">
       <button ion-button (click)="onSaveParticipants()">
         Done
       </button>
@@ -17,8 +17,7 @@
   <ion-searchbar
     [(ngModel)]="myInput"
     [showCancelButton]="false"
-    (ionInput)="onInput($event)"
-    (ionCancel)="onCancel($event)">
+    (ionInput)="onInput()">
   </ion-searchbar>
 </ion-header>
 

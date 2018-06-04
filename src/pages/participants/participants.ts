@@ -503,7 +503,7 @@ export class ParticipantsPage {
         })
     }
 
-    onInput($event){
+    onInput(){
         this.contactList = filtered(this.myInput, this.contactListCopy);
         this.groupContacts();
     }
