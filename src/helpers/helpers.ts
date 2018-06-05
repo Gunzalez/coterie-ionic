@@ -41,9 +41,9 @@ export function isEquivalent(a, b) {
 }
 
 export function filtered(query, list) {
-  return list.filter((el) =>
-    el.name.toLowerCase().indexOf(query.toLowerCase()) > -1
-  );
+    return list.filter((el) =>
+        el.name.toLowerCase().indexOf(query.toLowerCase()) > -1
+    );
 }
 
 

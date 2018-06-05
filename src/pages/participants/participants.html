@@ -6,9 +6,9 @@
       </button>
     </ion-buttons>
     <ion-title>
-      Participants <span *ngIf="participantList.length > 1">({{participantList.length}})</span>
+      Participants <span *ngIf="participantsList.length > 1">({{participantsList.length}})</span>
     </ion-title>
-    <ion-buttons end *ngIf="participantList.length > 1">
+    <ion-buttons end *ngIf="participantsList.length > 1">
       <button ion-button (click)="onSaveParticipants()">
         Done
       </button>
@@ -24,11 +24,11 @@
 <ion-content #Content>
 
   <ion-list-header class="sp-header">
-    Participant list <span *ngIf="participantList.length > 1">({{participantList.length}})</span>
+    Participant list <span *ngIf="participantsList.length > 1">({{participantsList.length}})</span>
   </ion-list-header>
 
   <ion-list reorder="true" (ionItemReorder)="reorderItems($event)">
-    <ion-item-sliding *ngFor="let participant of participantList; let i = index">
+    <ion-item-sliding *ngFor="let participant of participantsList; let i = index">
       <ion-item>
         <!--<ion-icon name="remove-circle" (click)="onRemoveParticipant(i)" class="remove" item-start></ion-icon>-->
         <p class="name participant">{{participant.name}}</p>
@@ -48,7 +48,7 @@
     Contact list
   </ion-list-header>
   <ion-list>
-    <ion-item-group *ngFor="let group of groupedContactsList">
+    <ion-item-group *ngFor="let group of contactsGrouped">
       <ion-item-divider class="divider">{{group.letter}}</ion-item-divider>
       <ion-item *ngFor="let contact of group.contacts" [ngClass]="{'isParticipant': contact.isParticipant}">
         <ion-icon name="{{ contact.isParticipant ? 'remove-circle' : 'add-circle' }}" (click)="onClickParticipant(contact)" [ngClass]="[contact.isParticipant ? 'remove' : 'add']" item-start></ion-icon>
