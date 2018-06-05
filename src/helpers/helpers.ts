@@ -39,3 +39,12 @@ export function isEquivalent(a, b) {
     // If we made it this far, objects are considered equivalent
     return true;
 }
+
+export function filtered(query, list) {
+  return list.filter((el) =>
+    el.name.toLowerCase().indexOf(query.toLowerCase()) > -1
+  );
+}
+
+
+

@@ -4,15 +4,9 @@ import { Contacts } from '@ionic-native/contacts';
 
 import { ViewController, NavController, ToastController, NavParams, Content, reorderArray } from 'ionic-angular';
 
-import { sortList, isEquivalent } from '../../helpers/helpers';
+import { sortList, isEquivalent, filtered } from '../../helpers/helpers';
 
 const DURATION = 1000;
-
-const filtered = (query, list) => {
-    return list.filter((el) =>
-        el.name.toLowerCase().indexOf(query.toLowerCase()) > -1
-    );
-};
 
 @Component({
   selector: 'page-participants',
@@ -479,8 +473,8 @@ export class ParticipantsPage {
     }
 
     ionViewDidLoad(){
-        //this.getContacts();
-        this.getContactsLocal();
+        this.getContacts();
+        //this.getContactsLocal();
     }
 
     getContacts(){
@@ -496,6 +490,15 @@ export class ParticipantsPage {
                 };
                 this.contactList.push(displayContact);
             });
+
+            this.participantList.map(participant => {
+                this.contactList.map(contact => {
+                    if(participant.platformId === contact.platformId){
+                        contact.isParticipant = true;
+                    }
+                })
+            });
+
             this.contactListCopy = this.contactList.slice();
             this.groupContacts();
         })
@@ -517,7 +520,6 @@ export class ParticipantsPage {
             this.contactList.map(contact => {
                 if(participant.platformId === contact.platformId){
                     contact.isParticipant = true;
-                    //console.log(participant.id);
                 }
             })
         });
