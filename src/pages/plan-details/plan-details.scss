@@ -5,8 +5,9 @@ page-plan-details {
   }
 
   .btn {
-    font-weight: bold;
+    //font-weight: bold;
     font-size: 1.8rem;
+    width: 100%;
   }
 
   .input {
@@ -16,6 +17,7 @@ page-plan-details {
       height: 40px;
       text-align: center;
       font-size: 3.2rem;
+      margin-right: 0;
       color: #666666;
     }
   }

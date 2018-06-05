@@ -16,11 +16,12 @@
   </ion-fab>
 
   <ion-card>
+
     <ion-card-header>
       <h1>{{ getPlanName() }}&nbsp;</h1>
       <p>Created: {{ created }}</p>
       <p>Started: {{ started }} </p>
-      <p>Round: {{ round }} </p>
+      <p>Round: 1 of {{ schedule.length }} </p>
       <p>Next to collect: {{ nextToCollect }}</p>
     </ion-card-header>
 
@@ -28,29 +29,25 @@
       <ion-grid>
         <ion-row>
           <ion-col col-3>
-            <button ion-button full class="btn" [disabled]="hasReachedMin()" (click)="amountMinus()">-</button>
+            <button ion-button class="btn" [disabled]="hasReachedMin()" (click)="amountMinus()">-</button>
           </ion-col>
           <ion-col col-6>
             <ion-input type="number" maxlength="4" pattern="\d{1,15}" max="1000" min="1" [(ngModel)]="savingsAmount" class="input"></ion-input>
           </ion-col>
           <ion-col col-3>
-            <button ion-button full class="btn" [disabled]="hasReachedMax()" (click)="amountPlus()">+</button>
+            <button ion-button class="btn" [disabled]="hasReachedMax()" (click)="amountPlus()">+</button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-12>
+            <button ion-button large class="btn" (click)="viewParticipants()">
+              <h3 *ngIf="schedule.length < 1">Add participants to this plan</h3>
+              <h3 *ngIf="schedule.length">This plan has {{schedule.length}} participants</h3>
+            </button>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-content>
-
-    <ion-list>
-
-        <button ion-item icon-left (click)="viewParticipants()" [disabled]="canAddMembers()">
-          <ion-icon name="people" item-start></ion-icon>
-          <h2>Participants</h2>
-          <h3 *ngIf="schedule.length > 1">This plan has {{schedule.length}} participants</h3>
-          <h3 *ngIf="schedule.length > 0 && schedule.length < 2">1 participant added, add more</h3>
-          <h3 *ngIf="schedule.length < 1">Add participants to this plan</h3>
-        </button>
-
-      </ion-list>
 
   </ion-card>
 
@@ -58,7 +55,7 @@
   <ion-grid>
     <ion-row>
       <ion-col col-12>
-          <button ion-button full [disabled]="!canStartPlan()" (click)="startPlan()" color="{{ getPlanStatusColor() }}">
+          <button ion-button class="btn" [disabled]="!canStartPlan()" (click)="startPlan()" color="{{ getPlanStatusColor() }}">
             {{ getStartButtonLabel() }}
           </button>
       </ion-col>

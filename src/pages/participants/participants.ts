@@ -475,14 +475,12 @@ export class ParticipantsPage {
     @ViewChild('Content') content: Content;
 
     constructor(private contacts: Contacts, private viewCtrl: ViewController, public navCtrl: NavController, private toastCtrl: ToastController, public navParams: NavParams) {
-
-        //console.log(this.navParams.get('list'))
-
+        this.participantList = this.navParams.get('list');
     }
 
     ionViewDidLoad(){
-        this.getContacts();
-        //this.getContactsLocal()
+        //this.getContacts();
+        this.getContactsLocal();
     }
 
     getContacts(){
@@ -508,12 +506,22 @@ export class ParticipantsPage {
         this.allContacts.map(contact => {
             let displayContact = {
                 "platformId": contact["_objectInstance"].id,
-                "name": contact["_objectInstance"].name.formatted,
+                "name": contact["_objectInstance"].name.givenName + ' ' + contact["_objectInstance"].name.familyName,
                 "number": contact["_objectInstance"].phoneNumbers[0].value,
                 "isParticipant": false
             };
             this.contactList.push(displayContact);
         });
+
+        this.participantList.map(participant => {
+            this.contactList.map(contact => {
+                if(participant.platformId === contact.platformId){
+                    contact.isParticipant = true;
+                    //console.log(participant.id);
+                }
+            })
+        });
+
         this.contactListCopy = this.contactList.slice();
         this.groupContacts();
     }
