@@ -14,7 +14,7 @@ const DURATION = 1000;
 })
 export class ParticipantsPage {
 
-    private allContacts = [
+    private contactsLocal = [
       {
 
         "_objectInstance":{
@@ -479,11 +479,11 @@ export class ParticipantsPage {
     }
 
     ionViewDidLoad(){
-        this.getContacts();
-        //this.getContactsLocal();
+        //this.getContacts();
+        this.getContactsLocal();
     }
 
-      getContacts(){
+    getContacts(){
 
         let fields:ContactFieldType[] = ['*'];
 
@@ -511,11 +511,11 @@ export class ParticipantsPage {
             this.contactsFiltered = this.contactsList.slice();
             this.groupContacts();
         })
-      }
+    }
 
     getContactsLocal(){
 
-        this.contactsList = this.allContacts.map(contact => ({
+        this.contactsList = this.contactsLocal.map(contact => ({
             "platformId": contact["_objectInstance"].id,
             "name": contact["_objectInstance"].name.givenName + ' ' + contact["_objectInstance"].name.familyName,
             "number": contact["_objectInstance"].phoneNumbers[0].value,
@@ -594,7 +594,7 @@ export class ParticipantsPage {
     onSaveParticipants(){
         // console.log('Saves: ');
         // console.log(this.participantsList);
-        if(this.participantsList.length){
+        if(this.participantsList.length > 2){
             let doneSaving = this.toastCtrl.create({
                 message: this.participantsList.length + ' participants saved',
                 duration: DURATION
