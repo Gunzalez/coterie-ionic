@@ -62,7 +62,6 @@ export class HomePage {
 
           let whatComesNext = registrationString => {
 
-
             let whatComesNext = authorisationToken  => {
 
               // save new token in local storage

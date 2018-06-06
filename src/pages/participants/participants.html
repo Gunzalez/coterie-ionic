@@ -2,11 +2,11 @@
   <ion-navbar>
     <ion-buttons>
       <button ion-button (click)="onDismiss()">
-        Cancel
+        Danke
       </button>
     </ion-buttons>
     <ion-title>
-      Participants <span *ngIf="participantsList.length > 1">({{participantsList.length}})</span>
+      Participants <span *ngIf="participantsList.length">({{participantsList.length}})</span>
     </ion-title>
     <ion-buttons end *ngIf="participantsList.length > 1">
       <button ion-button (click)="onSaveParticipants()">
@@ -24,13 +24,12 @@
 <ion-content #Content>
 
   <ion-list-header class="sp-header">
-    Participant list <span *ngIf="participantsList.length > 1">({{participantsList.length}})</span>
+    Participant list <span *ngIf="participantsList.length">({{participantsList.length}})</span>
   </ion-list-header>
 
   <ion-list reorder="true" (ionItemReorder)="reorderItems($event)">
     <ion-item-sliding *ngFor="let participant of participantsList; let i = index">
       <ion-item>
-        <!--<ion-icon name="remove-circle" (click)="onRemoveParticipant(i)" class="remove" item-start></ion-icon>-->
         <p class="name participant">{{participant.name}}</p>
         <p class="number">{{participant.number}}</p>
       </ion-item>

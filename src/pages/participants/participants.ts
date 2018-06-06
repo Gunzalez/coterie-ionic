@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Contacts } from '@ionic-native/contacts';
+import { Contacts, ContactFieldType, ContactFindOptions } from '@ionic-native/contacts';
 
 import { ViewController, NavController, ToastController, NavParams, Content, reorderArray } from 'ionic-angular';
 
@@ -16,6 +16,7 @@ export class ParticipantsPage {
 
     private allContacts = [
       {
+
         "_objectInstance":{
           "id":5,
           "rawId":null,
@@ -81,6 +82,11 @@ export class ParticipantsPage {
         },
         "rawId":null
       },
+
+
+
+
+
       {
         "_objectInstance":{
           "id":1,
@@ -477,9 +483,15 @@ export class ParticipantsPage {
         //this.getContactsLocal();
     }
 
-    getContacts(){
+      getContacts(){
 
-        this.contacts.find(["displayName", "phoneNumbers"], { multiple: true, hasPhoneNumber: true }).then((contacts) => {
+        let fields:ContactFieldType[] = ['*'];
+
+        const options = new ContactFindOptions();
+        options.multiple = true;
+        options.hasPhoneNumber = true;
+
+        this.contacts.find(fields, options).then((contacts) => {
 
             this.contactsList = contacts.map(contact => ({
                 "platformId": contact["_objectInstance"].id,

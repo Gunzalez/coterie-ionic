@@ -18,11 +18,11 @@
       <ion-list>
         <ion-item>
           <ion-input type="text"
-                     [(ngModel)]="newPlanName"
-                     #input placeholder="New saving pot name"></ion-input>
+             [(ngModel)]="newPlanName"
+             #input placeholder="New saving pot name"></ion-input>
 
-          <button ion-button (click)="resignFocus()" color="grey" outline small item-right>
-            <ion-icon name="close"></ion-icon>
+          <button ion-button class="btn-close" (click)="resignFocus()" color="grey" outline small item-right icon-only>
+            <ion-icon name="close-circle"></ion-icon>
           </button>
 
         </ion-item>

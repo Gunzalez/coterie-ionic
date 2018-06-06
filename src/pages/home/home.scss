@@ -1,27 +1,31 @@
 page-home {
 
-}
 
-.hidden-input {
-  background: #cccccc;
-  position: relative;
-  height: 0;
-  transition: height 0.33s;
+  .hidden-input {
+    background: #cccccc;
+    position: relative;
+    height: 0;
+    transition: height 0.33s;
 
-  .input-container {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+    .input-container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
 
-    > * {
-      margin-bottom: 0;
+      > * {
+        margin-bottom: 0;
+      }
     }
+
+    &.add-mode {
+      height: 45px;
+    }
+
+
   }
 
-  &.add-mode {
-    height: 45px;
+  .btn-close {
+    border: none;
   }
-
-
 }
