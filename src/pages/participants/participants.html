@@ -9,7 +9,7 @@
       Participants <span *ngIf="participantsList.length">({{participantsList.length}})</span>
     </ion-title>
     <ion-buttons end>
-      <button ion-button (click)="onSaveParticipants()" [disabled]="participantsList.length < 2" [ngClass]="{disabled: participantsList.length < 2}">
+      <button ion-button (click)="onSaveParticipants()" [disabled]="participantsList.length < 1" [ngClass]="{disabled: participantsList.length < 1}">
         Done
       </button>
     </ion-buttons>

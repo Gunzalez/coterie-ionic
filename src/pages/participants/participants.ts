@@ -82,11 +82,6 @@ export class ParticipantsPage {
         },
         "rawId":null
       },
-
-
-
-
-
       {
         "_objectInstance":{
           "id":1,
@@ -479,8 +474,8 @@ export class ParticipantsPage {
     }
 
     ionViewDidLoad(){
-        //this.getContacts();
-        this.getContactsLocal();
+        this.getContacts();
+        //this.getContactsLocal();
     }
 
     getContacts(){
@@ -493,12 +488,16 @@ export class ParticipantsPage {
 
         this.contacts.find(fields, options).then((contacts) => {
 
-            this.contactsList = contacts.map(contact => ({
-                "platformId": contact["_objectInstance"].id,
-                "name": contact["_objectInstance"].name.givenName + ' ' + contact["_objectInstance"].name.familyName,
-                "number": contact["_objectInstance"].phoneNumbers[0].value,
-                "isParticipant": false
-            }));
+            contacts.forEach(contact => {
+                if(contact.name.givenName.length){
+                    this.contactsList.push({
+                        "platformId": contact.id,
+                        "name": contact.name.givenName + ' ' + contact.name.familyName,
+                        "number": contact.phoneNumbers[0].value,
+                        "isParticipant": false
+                    })
+                }
+            });
 
             this.participantsList.forEach(participant => {
                 this.contactsList.forEach(contact => {
@@ -516,10 +515,10 @@ export class ParticipantsPage {
     getContactsLocal(){
 
         this.contactsList = this.contactsLocal.map(contact => ({
-            "platformId": contact["_objectInstance"].id,
-            "name": contact["_objectInstance"].name.givenName + ' ' + contact["_objectInstance"].name.familyName,
-            "number": contact["_objectInstance"].phoneNumbers[0].value,
-            "isParticipant": false
+            // "platformId": contact.id,
+            // "name": contact.name.givenName + ' ' + contact.name.familyName,
+            // "number": contact.phoneNumbers[0].value,
+            // "isParticipant": false
         }));
 
         this.participantsList.forEach(participant => {
