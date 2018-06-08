@@ -778,16 +778,23 @@ export class ParticipantsPage {
 
     public contactsGrouped:any[] = [];
     public participantsList:any[] = [];
+    public participantsListInitial:any[] = [];
 
     @ViewChild('Content') content: Content;
 
     constructor(private contacts: Contacts, private viewCtrl: ViewController, public navCtrl: NavController, private toastCtrl: ToastController, public navParams: NavParams) {
         this.participantsList = this.navParams.get('list');
+        this.participantsListInitial = this.participantsList.slice();
+
     }
 
     ionViewDidLoad(){
         this.getContacts();
         //this.getContactsLocal();
+    }
+
+    participantsChanged(){
+        return JSON.stringify(this.participantsList) === JSON.stringify(this.participantsListInitial);
     }
 
     getContacts(){
@@ -802,7 +809,7 @@ export class ParticipantsPage {
 
             contacts.forEach(contact => {
 
-                let nameToUse:string = '';
+                let nameToUse:any = null;
 
                 if(contact.displayName && contact.displayName.length){
                     nameToUse = contact.displayName;
@@ -814,14 +821,24 @@ export class ParticipantsPage {
                     nameToUse = contact.name.givenName + ' ' + contact.name.familyName
                 }
 
-                if(nameToUse !== ''){
-                    this.contactsList.push({
-                        "platformId": contact.id,
-                        "name": nameToUse,
-                        "number": contact.phoneNumbers[0].value,
-                        "isParticipant": false
-                    })
-                }
+                // if(nameToUse && nameToUse.length){
+                //     this.contactsList.push({
+                //         "platformId": contact.id,
+                //         "name": nameToUse,
+                //         "number": contact.phoneNumbers[0].value,
+                //         "isParticipant": false
+                //     })
+                // }
+
+                // console.log(contact);
+                // console.log('===');
+
+                this.contactsList.push({
+                    "platformId": contact.id,
+                    "name": nameToUse,
+                    "number": contact.phoneNumbers[0].value,
+                    "isParticipant": false
+                })
 
             });
 
@@ -942,7 +959,7 @@ export class ParticipantsPage {
         // console.log(this.participantsList);
         if(this.participantsList.length){
             let doneSaving = this.toastCtrl.create({
-                message: this.participantsList.length + ' participants saved',
+                message: 'Participants saved',
                 duration: DURATION
             });
             doneSaving.present();
@@ -955,7 +972,7 @@ export class ParticipantsPage {
     }
 
     scrollToTop() {
-        this.content.scrollToTop();
+        this.content.scrollToTop(1000);
     }
 
     groupContacts(){
