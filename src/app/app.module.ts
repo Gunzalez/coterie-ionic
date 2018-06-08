@@ -13,12 +13,15 @@ import { Contacts } from '@ionic-native/contacts';
 
 import { PlansProvider } from '../providers/plans/plans';
 
+import { AutoHideDirective } from '../directives/auto-hide/auto-hide';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     PlanDetailsPage,
-    ParticipantsPage
+    ParticipantsPage,
+    AutoHideDirective
   ],
   imports: [
     BrowserModule,

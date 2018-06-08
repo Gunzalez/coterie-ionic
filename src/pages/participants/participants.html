@@ -21,7 +21,7 @@
   </ion-searchbar>
 </ion-header>
 
-<ion-content #Content>
+<ion-content #Content auto-hide>
 
   <ion-list-header class="sp-header">
     Participant list
@@ -57,7 +57,7 @@
     </ion-item-group>
   </ion-list>
 
-  <ion-fab bottom right>
+  <ion-fab bottom right #fab>
     <button ion-fab mini (click)="scrollToTop()">
       <ion-icon name="arrow-up"></ion-icon>
     </button>
