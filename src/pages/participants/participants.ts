@@ -15,9 +15,7 @@ const DURATION = 1000;
 export class ParticipantsPage {
 
     private contactsLocal = [
-      {
-
-        "_objectInstance":{
+        {
           "id":5,
           "rawId":null,
           "displayName":null,
@@ -80,10 +78,7 @@ export class ParticipantsPage {
           "categories":null,
           "urls":null
         },
-        "rawId":null
-      },
-      {
-        "_objectInstance":{
+        {
           "id":1,
           "rawId":null,
           "displayName":null,
@@ -153,10 +148,7 @@ export class ParticipantsPage {
             }
           ]
         },
-        "rawId":null
-      },
-      {
-        "_objectInstance":{
+        {
           "id":6,
           "rawId":null,
           "displayName":null,
@@ -206,10 +198,7 @@ export class ParticipantsPage {
           "categories":null,
           "urls":null
         },
-        "rawId":null
-      },
-      {
-        "_objectInstance":{
+        {
           "id":2,
           "rawId":null,
           "displayName":null,
@@ -278,10 +267,7 @@ export class ParticipantsPage {
           "categories":null,
           "urls":null
         },
-        "rawId":null
-      },
-      {
-        "_objectInstance":{
+        {
           "id":7,
           "rawId":null,
           "displayName":null,
@@ -320,10 +306,7 @@ export class ParticipantsPage {
           "categories":null,
           "urls":null
         },
-        "rawId":null
-      },
-      {
-        "_objectInstance":{
+        {
           "id":3,
           "rawId":null,
           "displayName":null,
@@ -396,10 +379,7 @@ export class ParticipantsPage {
           "categories":null,
           "urls":null
         },
-        "rawId":null
-      },
-      {
-        "_objectInstance":{
+        {
           "id":4,
           "rawId":null,
           "displayName":null,
@@ -455,9 +435,7 @@ export class ParticipantsPage {
           "photos":null,
           "categories":null,
           "urls":null
-        },
-        "rawId":null
-      }
+        }
     ];
     private contactsList = [];
     private contactsFiltered = [];
@@ -474,8 +452,8 @@ export class ParticipantsPage {
     }
 
     ionViewDidLoad(){
-        this.getContacts();
-        //this.getContactsLocal();
+        //this.getContacts();
+        this.getContactsLocal();
     }
 
     getContacts(){
@@ -526,12 +504,28 @@ export class ParticipantsPage {
 
     getContactsLocal(){
 
-        this.contactsList = this.contactsLocal.map(contact => ({
-            // "platformId": contact.id,
-            // "name": contact.name.givenName + ' ' + contact.name.familyName,
-            // "number": contact.phoneNumbers[0].value,
-            // "isParticipant": false
-        }));
+        this.contactsLocal.forEach(contact => {
+
+            let nameToUse:string = '';
+
+            if(contact.displayName){
+                nameToUse = contact.displayName;
+            } else {
+                if(contact.name.givenName && contact.name.givenName.length){
+                    nameToUse = contact.name.givenName + ' ' + contact.name.familyName
+                }
+            }
+
+            if(nameToUse !== ''){
+                this.contactsList.push({
+                    "platformId": contact.id,
+                    "name": nameToUse,
+                    "number": contact.phoneNumbers[0].value,
+                    "isParticipant": false
+                })
+            }
+
+        });
 
         this.participantsList.forEach(participant => {
             this.contactsList.forEach(contact => {
@@ -608,7 +602,7 @@ export class ParticipantsPage {
     onSaveParticipants(){
         // console.log('Saves: ');
         // console.log(this.participantsList);
-        if(this.participantsList.length > 1){
+        if(this.participantsList.length){
             let doneSaving = this.toastCtrl.create({
                 message: this.participantsList.length + ' participants saved',
                 duration: DURATION
