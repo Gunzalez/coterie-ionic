@@ -79,6 +79,125 @@ export class ParticipantsPage {
           "urls":null
         },
         {
+          "id":13,
+          "rawId":null,
+          "displayName":"Adam Zapple",
+          "name":{
+            "givenName":"Hank",
+            "honorificSuffix":"",
+            "formatted":"Hank M. Zakroff",
+            "middleName":"M.",
+            "familyName":"Zakroff",
+            "honorificPrefix":""
+          },
+          "nickname":"",
+          "phoneNumbers":[
+            {
+              "value":"(555) 766-4823",
+              "pref":false,
+              "id":0,
+              "type":"work"
+            },
+            {
+              "value":"(707) 555-1854",
+              "pref":false,
+              "id":1,
+              "type":"other"
+            }
+          ],
+          "emails":[
+            {
+              "value":"hank-zakroff@mac.com",
+              "pref":false,
+              "id":0,
+              "type":"work"
+            }
+          ],
+          "addresses":[
+            {
+              "pref":"false",
+              "locality":"San Rafael",
+              "region":"CA",
+              "id":0,
+              "postalCode":"94901",
+              "country":"",
+              "type":"work",
+              "streetAddress":"1741 Kearny Street"
+            }
+          ],
+          "ims":null,
+          "organizations":[
+            {
+              "pref":"false",
+              "title":"Portfolio Manager",
+              "name":"Financial Services Inc.",
+              "department":"",
+              "type":null
+            }
+          ],
+          "birthday":null,
+          "note":"",
+          "photos":null,
+          "categories":null,
+          "urls":null
+        },
+        {
+          "id":15,
+          "rawId":null,
+          "displayName":null,
+          "name":{
+            "givenName":"Captain",
+            "honorificSuffix":"",
+            "formatted":null,
+            "middleName":"M.",
+            "familyName":"Caveman",
+            "honorificPrefix":""
+          },
+          "nickname":"",
+          "phoneNumbers":[
+            {
+              "value":"(555) 766-4823",
+              "pref":false,
+              "id":0,
+              "type":"work"
+            },
+            {
+              "value":"(707) 555-1854",
+              "pref":false,
+              "id":1,
+              "type":"other"
+            }
+          ]
+        },
+        {
+          "id":16,
+          "rawId":null,
+          "displayName":null,
+          "name":{
+            "givenName":"",
+            "honorificSuffix":"",
+            "formatted":null,
+            "middleName":"M.",
+            "familyName":"",
+            "honorificPrefix":""
+          },
+          "nickname":"Eric Li-Koo",
+          "phoneNumbers":[
+            {
+              "value":"(555) 766-4823",
+              "pref":false,
+              "id":0,
+              "type":"work"
+            },
+            {
+              "value":"(707) 555-1854",
+              "pref":false,
+              "id":1,
+              "type":"other"
+            }
+          ]
+        },
+        {
           "id":1,
           "rawId":null,
           "displayName":null,
@@ -268,6 +387,75 @@ export class ParticipantsPage {
           "urls":null
         },
         {
+          "id":12,
+          "rawId":null,
+          "displayName":null,
+          "name":{
+            "givenName":"Philip",
+            "honorificSuffix":"Jr.",
+            "formatted":"",
+            "middleName":"",
+            "familyName":"Fry",
+            "honorificPrefix":""
+          },
+          "nickname":"",
+          "phoneNumbers":[
+            {
+              "value":"555-478-7672",
+              "pref":false,
+              "id":0,
+              "type":"home"
+            },
+            {
+              "value":"(408) 555-5270",
+              "pref":false,
+              "id":1,
+              "type":"mobile"
+            },
+            {
+              "value":"(408) 555-3514",
+              "pref":false,
+              "id":2,
+              "type":"home fax"
+            }
+          ],
+          "emails":[
+            {
+              "value":"d-higgins@mac.com",
+              "pref":false,
+              "id":0,
+              "type":"home"
+            }
+          ],
+          "addresses":[
+            {
+              "pref":"false",
+              "locality":"Corte Madera",
+              "region":"CA",
+              "id":0,
+              "postalCode":"94925",
+              "country":"USA",
+              "type":"home",
+              "streetAddress":"332 Laguna Street"
+            }
+          ],
+          "ims":null,
+          "organizations":[
+            {
+              "pref":"false",
+              "title":"",
+              "name":"",
+              "department":"",
+              "type":null
+            }
+          ],
+          "birthday":null,
+          "note":"Sister: Emily",
+          "photos":null,
+          "categories":null,
+          "urls":null
+        },
+        {
           "id":7,
           "rawId":null,
           "displayName":null,
@@ -310,6 +498,152 @@ export class ParticipantsPage {
           "id":3,
           "rawId":null,
           "displayName":null,
+          "name":{
+            "givenName":"John",
+            "honorificSuffix":"",
+            "formatted":"John Appleseed",
+            "middleName":"",
+            "familyName":"Appleseed",
+            "honorificPrefix":""
+          },
+          "nickname":"",
+          "phoneNumbers":[
+            {
+              "value":"888-555-5512",
+              "pref":false,
+              "id":0,
+              "type":"mobile"
+            },
+            {
+              "value":"888-555-1212",
+              "pref":false,
+              "id":1,
+              "type":"home"
+            }
+          ],
+          "emails":[
+            {
+              "value":"John-Appleseed@mac.com",
+              "pref":false,
+              "id":0,
+              "type":"work"
+            }
+          ],
+          "addresses":[
+            {
+              "pref":"false",
+              "locality":"Atlanta",
+              "region":"GA",
+              "id":0,
+              "postalCode":"30303",
+              "country":"USA",
+              "type":"work",
+              "streetAddress":"3494 Kuhl Avenue"
+            },
+            {
+              "pref":"false",
+              "locality":"Atlanta",
+              "region":"GA",
+              "id":1,
+              "postalCode":"30303",
+              "country":"USA",
+              "type":"home",
+              "streetAddress":"1234 Laurel Street"
+            }
+          ],
+          "ims":null,
+          "organizations":[
+            {
+              "pref":"false",
+              "title":"",
+              "name":"",
+              "department":"",
+              "type":null
+            }
+          ],
+          "birthday":"1980-06-22T12:00:00.000Z",
+          "note":"College roommate",
+          "photos":null,
+          "categories":null,
+          "urls":null
+        },
+        {
+          "id":14,
+          "rawId":null,
+          "displayName":null,
+          "name":{
+            "givenName":"Lets-Go",
+            "honorificSuffix":"",
+            "formatted":"",
+            "middleName":"",
+            "familyName":"Dancin",
+            "honorificPrefix":""
+          },
+          "nickname":"",
+          "phoneNumbers":[
+            {
+              "value":"888-555-5512",
+              "pref":false,
+              "id":0,
+              "type":"mobile"
+            },
+            {
+              "value":"888-555-1212",
+              "pref":false,
+              "id":1,
+              "type":"home"
+            }
+          ],
+          "emails":[
+            {
+              "value":"John-Appleseed@mac.com",
+              "pref":false,
+              "id":0,
+              "type":"work"
+            }
+          ],
+          "addresses":[
+            {
+              "pref":"false",
+              "locality":"Atlanta",
+              "region":"GA",
+              "id":0,
+              "postalCode":"30303",
+              "country":"USA",
+              "type":"work",
+              "streetAddress":"3494 Kuhl Avenue"
+            },
+            {
+              "pref":"false",
+              "locality":"Atlanta",
+              "region":"GA",
+              "id":1,
+              "postalCode":"30303",
+              "country":"USA",
+              "type":"home",
+              "streetAddress":"1234 Laurel Street"
+            }
+          ],
+          "ims":null,
+          "organizations":[
+            {
+              "pref":"false",
+              "title":"",
+              "name":"",
+              "department":"",
+              "type":null
+            }
+          ],
+          "birthday":"1980-06-22T12:00:00.000Z",
+          "note":"College roommate",
+          "photos":null,
+          "categories":null,
+          "urls":null
+        },
+        {
+          "id":11,
+          "rawId":null,
+          "displayName":"John Cena",
           "name":{
             "givenName":"John",
             "honorificSuffix":"",
@@ -452,8 +786,8 @@ export class ParticipantsPage {
     }
 
     ionViewDidLoad(){
-        this.getContacts();
-        //this.getContactsLocal();
+        //this.getContacts();
+        this.getContactsLocal();
     }
 
     getContacts(){
@@ -470,12 +804,14 @@ export class ParticipantsPage {
 
                 let nameToUse:string = '';
 
-                if(contact.displayName){
+                if(contact.displayName && contact.displayName.length){
                     nameToUse = contact.displayName;
-                } else {
-                    if(contact.name.givenName && contact.name.givenName.length){
-                        nameToUse = contact.name.givenName + ' ' + contact.name.familyName
-                    }
+                } else if (contact.nickname && contact.nickname.length) {
+                    nameToUse = contact.nickname;
+                } else if (contact.name.formatted && contact.name.formatted) {
+                    nameToUse = contact.name.formatted;
+                } else if (contact.name.givenName && contact.name.givenName.length) {
+                    nameToUse = contact.name.givenName + ' ' + contact.name.familyName
                 }
 
                 if(nameToUse !== ''){
@@ -508,15 +844,17 @@ export class ParticipantsPage {
 
             let nameToUse:string = '';
 
-            if(contact.displayName){
+            if(contact.displayName && contact.displayName.length){
                 nameToUse = contact.displayName;
-            } else {
-                if(contact.name.givenName && contact.name.givenName.length){
-                    nameToUse = contact.name.givenName + ' ' + contact.name.familyName
-                }
+            } else if (contact.nickname && contact.nickname.length) {
+                nameToUse = contact.nickname;
+            } else if (contact.name.formatted && contact.name.formatted) {
+                nameToUse = contact.name.formatted;
+            } else if (contact.name.givenName && contact.name.givenName.length) {
+                nameToUse = contact.name.givenName + ' ' + contact.name.familyName
             }
 
-            if(nameToUse !== ''){
+            if(nameToUse.length){
                 this.contactsList.push({
                     "platformId": contact.id,
                     "name": nameToUse,
