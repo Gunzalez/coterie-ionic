@@ -154,8 +154,6 @@ export class PlansProvider {
       }
 
 
-
-
       // ----------------------
       // set savings amount
       setSavingsAmount(value, id){
@@ -211,7 +209,7 @@ export class PlansProvider {
       startPlan(id){
 
         let options = { headers: this.headers };
-        let url = URL + '/plans.start'
+        let url = URL + '/plans.start';
         let body = { planId : id };
 
         return this.http.post(url, body, options)

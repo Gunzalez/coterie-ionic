@@ -489,14 +489,26 @@ export class ParticipantsPage {
         this.contacts.find(fields, options).then((contacts) => {
 
             contacts.forEach(contact => {
-                if(contact.name.givenName.length){
+
+                let nameToUse:string = '';
+
+                if(contact.displayName){
+                    nameToUse = contact.displayName;
+                } else {
+                    if(contact.name.givenName && contact.name.givenName.length){
+                        nameToUse = contact.name.givenName + ' ' + contact.name.familyName
+                    }
+                }
+
+                if(nameToUse !== ''){
                     this.contactsList.push({
                         "platformId": contact.id,
-                        "name": contact.name.givenName + ' ' + contact.name.familyName,
+                        "name": nameToUse,
                         "number": contact.phoneNumbers[0].value,
                         "isParticipant": false
                     })
                 }
+
             });
 
             this.participantsList.forEach(participant => {
@@ -538,10 +550,11 @@ export class ParticipantsPage {
         this.groupContacts();
     }
 
-    onClickParticipant(contact){
+    onClickContact(contact){
 
         if(contact.isParticipant){
 
+            // remove from participants
             this.participantsList.forEach((participant, index) => {
 
                 this.contactsFiltered.forEach(contactCopy => {
@@ -552,6 +565,7 @@ export class ParticipantsPage {
 
                 participant.isParticipant = false;
                 contact.isParticipant = false;
+
                 if(isEquivalent(participant, contact)){
                     this.participantsList.splice(index, 1).pop();
                 }
@@ -559,6 +573,7 @@ export class ParticipantsPage {
 
         } else {
 
+            // add to participants
             this.contactsFiltered.forEach(contactCopy => {
                 if(isEquivalent(contactCopy, contact)){
                     contactCopy.isParticipant = true;
@@ -593,7 +608,7 @@ export class ParticipantsPage {
     onSaveParticipants(){
         // console.log('Saves: ');
         // console.log(this.participantsList);
-        if(this.participantsList.length > 2){
+        if(this.participantsList.length > 1){
             let doneSaving = this.toastCtrl.create({
                 message: this.participantsList.length + ' participants saved',
                 duration: DURATION
