@@ -14,7 +14,7 @@ const DURATION = 1000;
 })
 export class ParticipantsPage {
 
-    private contactsLocal = [
+    private contactsLocal:any[] = [
         {
           "id":5,
           "rawId":null,
@@ -437,13 +437,13 @@ export class ParticipantsPage {
           "urls":null
         }
     ];
-    private contactsList = [];
-    private contactsFiltered = [];
+    private contactsList:any[] = [];
+    private contactsFiltered:any[] = [];
 
     public myInput:string = '';
 
-    public contactsGrouped = [];
-    public participantsList = [];
+    public contactsGrouped:any[] = [];
+    public participantsList:any[] = [];
 
     @ViewChild('Content') content: Content;
 

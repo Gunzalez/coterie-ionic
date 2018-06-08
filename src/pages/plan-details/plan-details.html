@@ -10,7 +10,7 @@
 <ion-content>
 
   <ion-fab top right edge *ngIf="canSetAmount()">
-    <button ion-fab mini (click)="setAmount()">
+    <button ion-fab mini color="primary" (click)="setAmount()">
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
@@ -19,9 +19,10 @@
 
     <ion-card-header>
       <h1>{{ getPlanName() }}&nbsp;</h1>
+      <p>Max savings: £{{max}}</p>
       <p>Created: {{ created }}</p>
       <p>Started: {{ started }} </p>
-      <p>Round: 1 of {{ schedule.length }} </p>
+      <p>Round: {{ schedule.length }}</p>
       <p>Next to collect: {{ nextToCollect }}</p>
     </ion-card-header>
 
@@ -32,7 +33,7 @@
             <button ion-button class="btn" [disabled]="hasReachedMin()" (click)="amountMinus()">-</button>
           </ion-col>
           <ion-col col-6>
-            <ion-input type="number" maxlength="4" pattern="\d{1,15}" max="1000" min="1" [(ngModel)]="savingsAmount" class="input"></ion-input>
+            <ion-input type="number" maxlength="4" pattern="\d{1,15}" max={{max}} min="1" [(ngModel)]="savingsAmount" class="input"></ion-input>
           </ion-col>
           <ion-col col-3>
             <button ion-button class="btn" [disabled]="hasReachedMax()" (click)="amountPlus()">+</button>

@@ -19,8 +19,8 @@ export class PlanDetailsPage {
     private name:string = '';
     private status:string = '';
 
-    private inc = 50;
-    private max = 1000;
+    private inc = 100;
+    public max = 2500;
     private min = 1;
 
     public schedule = [];
@@ -66,7 +66,7 @@ export class PlanDetailsPage {
     }
 
     hasReachedMax(){
-        return this.savingsAmount >= (this.max + 1)
+        return this.savingsAmount >= (this.max)
     }
 
     hasReachedMin(){
