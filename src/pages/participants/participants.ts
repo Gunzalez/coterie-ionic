@@ -452,8 +452,8 @@ export class ParticipantsPage {
     }
 
     ionViewDidLoad(){
-        //this.getContacts();
-        this.getContactsLocal();
+        this.getContacts();
+        //this.getContactsLocal();
     }
 
     getContacts(){
