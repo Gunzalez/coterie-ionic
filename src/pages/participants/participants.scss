@@ -49,6 +49,11 @@ page-participants {
     .disabled {
         color: #cccccc;
         opacity: 1;
+        font-weight: normal;
+    }
+
+    .enabled {
+        font-weight: bold;
     }
 
     .title-span {

@@ -25,8 +25,9 @@ export class PlanDetailsPage {
 
     public schedule = [];
     public created = "Monday";
-    public started:string = "-no date-";
-    public nextToCollect:string = "-no participant-";
+    public started:string = "not started";
+    public rounds:string = "not set";
+    public nextToCollect:string = "no participant";
 
     public savingsAmount:any = 0;
     public initialAmt:any = 0;
@@ -183,7 +184,8 @@ export class PlanDetailsPage {
       participantsModal.onDidDismiss( participants => {
           if(participants){
               this.schedule = participants;
-              this.nextToCollect = this.schedule[0].name
+              this.nextToCollect = this.schedule[0].name;
+              this.rounds = "1 of " + this.schedule.length;
           }
       });
       participantsModal.present();

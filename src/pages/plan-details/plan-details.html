@@ -22,7 +22,7 @@
       <p>Max savings: £{{max}}</p>
       <p>Created: {{ created }}</p>
       <p>Started: {{ started }} </p>
-      <p>Round: {{ schedule.length }}</p>
+      <p>Round: {{ rounds }}</p>
       <p>Next to collect: {{ nextToCollect }}</p>
     </ion-card-header>
 
@@ -43,7 +43,7 @@
           <ion-col col-12>
             <button ion-button large class="btn" (click)="viewParticipants()">
               <h3 *ngIf="schedule.length < 1">Add participants to this plan</h3>
-              <h3 *ngIf="schedule.length">This plan has {{schedule.length}} participants</h3>
+              <h3 *ngIf="schedule.length">Edit {{schedule.length}} participants</h3>
             </button>
           </ion-col>
         </ion-row>

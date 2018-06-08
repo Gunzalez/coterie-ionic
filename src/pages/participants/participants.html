@@ -9,7 +9,7 @@
       Participants <span *ngIf="participantsList.length" class="title-span">({{participantsList.length}})</span>
     </ion-title>
     <ion-buttons end>
-      <button ion-button (click)="onSaveParticipants()" [disabled]="!participantsList.length" [ngClass]="{disabled: !participantsList.length}">
+      <button ion-button (click)="onSaveParticipants()" [disabled]="!participantsList.length" [ngClass]="{ disabled: !participantsList.length, enabled: participantsList.length}">
         Done
       </button>
     </ion-buttons>
@@ -24,7 +24,7 @@
 <ion-content #Content>
 
   <ion-list-header class="sp-header">
-    Participant list <span *ngIf="participantsList.length">({{participantsList.length}})</span>
+    Participant list
   </ion-list-header>
 
   <ion-list reorder="true" (ionItemReorder)="reorderItems($event)">
