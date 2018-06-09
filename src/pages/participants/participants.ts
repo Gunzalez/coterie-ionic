@@ -821,24 +821,14 @@ export class ParticipantsPage {
                     nameToUse = contact.name.givenName + ' ' + contact.name.familyName
                 }
 
-                // if(nameToUse && nameToUse.length){
-                //     this.contactsList.push({
-                //         "platformId": contact.id,
-                //         "name": nameToUse,
-                //         "number": contact.phoneNumbers[0].value,
-                //         "isParticipant": false
-                //     })
-                // }
-
-                // console.log(contact);
-                // console.log('===');
-
-                this.contactsList.push({
-                    "platformId": contact.id,
-                    "name": nameToUse,
-                    "number": contact.phoneNumbers[0].value,
-                    "isParticipant": false
-                })
+                if(nameToUse && nameToUse.length){
+                    this.contactsList.push({
+                        "platformId": contact.id,
+                        "name": nameToUse,
+                        "number": contact.phoneNumbers[0].value,
+                        "isParticipant": false
+                    })
+                }
 
             });
 

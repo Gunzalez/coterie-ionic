@@ -1,6 +1,5 @@
 page-participants {
 
-
     .groupLetter {
         font-size: 1.4rem;
     }
@@ -31,12 +30,12 @@ page-participants {
         font-size: 1.4rem;
 
         .label-ios {
-
               margin: 0;
         }
     }
 
     .isParticipant {
+
         .name, .number {
             opacity: 0.3;
         }
@@ -54,5 +53,9 @@ page-participants {
     .title-span {
         font-weight: normal;
         font-size: 0.8em;
+    }
+
+    .positive {
+        font-weight: bold;
     }
 }

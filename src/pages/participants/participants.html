@@ -9,7 +9,7 @@
       Participants <span *ngIf="participantsList.length" class="title-span">({{participantsList.length}})</span>
     </ion-title>
     <ion-buttons end>
-      <button ion-button (click)="onSaveParticipants()" [disabled]="participantsChanged()" [ngClass]="{ disabled: participantsChanged() }">
+      <button ion-button (click)="onSaveParticipants()" [disabled]="participantsChanged()" [ngClass]="{ disabled: participantsChanged(), positive: true }">
         Done
       </button>
     </ion-buttons>
