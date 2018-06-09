@@ -23,7 +23,33 @@ export class PlanDetailsPage {
     public max = 2500;
     private min = 1;
 
-    public schedule = [];
+    public schedule = [
+      {
+        "id":5,
+        "name":"Andrew",
+        "number":"07851236201"
+      },
+      {
+        "id":1,
+        "name":"Segun",
+        "number":"07851246201"
+      },
+      {
+        "id":2,
+        "name":"Hasan",
+        "number":"02084001826"
+      },
+      {
+        "id":6,
+        "name":"Karl",
+        "number":"0800836201"
+      },
+      {
+        "id":9,
+        "name":"Keon",
+        "number":"0760451236"
+      }
+    ];
     public created = "Monday";
     public started:string = "not started";
     public rounds:string = "not set";

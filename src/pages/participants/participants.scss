@@ -1,58 +1,72 @@
+
+@mixin background(){
+    background: rgba(147,206,222,1);
+    background: -moz-linear-gradient(top, rgba(147,206,222,1) 0%, rgba(47,122,143,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(147,206,222,1)), color-stop(100%, rgba(47,122,143,1)));
+    background: -webkit-linear-gradient(top, rgba(147,206,222,1) 0%, rgba(47,122,143,1) 100%);
+    background: -o-linear-gradient(top, rgba(147,206,222,1) 0%, rgba(47,122,143,1) 100%);
+    background: -ms-linear-gradient(top, rgba(147,206,222,1) 0%, rgba(47,122,143,1) 100%);
+    background: linear-gradient(to bottom, rgba(147,206,222,1) 0%, rgba(47,122,143,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#2f7a8f', GradientType=0 );
+}
+
 page-participants {
 
-    .groupLetter {
-        font-size: 1.4rem;
+    .horizontal-list {
+        background-color: white;
+        padding-top: 15px;
     }
 
-    .add {
-        color: #32db64;
-    }
-
-    .remove {
-        color: #f53d3d;
-    }
-
-    .number {
-        font-size: 1.4rem;
-        color: #666666;
-    }
-
-    .name {
-        color: #000000;
-        font-size: 1.6rem;
+    .participants {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .participant {
-        font-size: 1.4rem;
-    }
+        padding: 0 20px 0 0;
+        margin-bottom: 15px;
+        white-space: nowrap;
 
-    .divider {
-        font-size: 1.4rem;
+        &:first-child {
+            padding-left: 16px;
+        }
 
-        .label-ios {
-              margin: 0;
+        &:last-child {
+            padding-right: 16px;
+        }
+
+        &:first-child {
+
+            .avatar {
+                //opacity: 0;
+                transition: all 0.4s ease-out;
+            }
         }
     }
 
-    .isParticipant {
-
-        .name, .number {
-            opacity: 0.3;
-        }
+    .avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: red;
+        font-size: 3.2rem;
+        line-height: 60px;
+        color: white;
+        text-align: center;
+        @include background();
     }
 
-    .sp-header {
-        background: #dedede;
+    .name {
+        padding-top: 5px;
+        text-align: center;
+        display: block;
+        color: #666666;
     }
 
     .disabled {
         color: #cccccc;
         opacity: 1;
-    }
-
-    .title-span {
-        font-weight: normal;
-        font-size: 0.8em;
     }
 
     .positive {

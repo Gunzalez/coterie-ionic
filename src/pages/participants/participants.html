@@ -6,7 +6,7 @@
       </button>
     </ion-buttons>
     <ion-title>
-      Participants <span *ngIf="participantsList.length" class="title-span">({{participantsList.length}})</span>
+      Participants
     </ion-title>
     <ion-buttons end>
       <button ion-button (click)="onSaveParticipants()" [disabled]="participantsChanged()" [ngClass]="{ disabled: participantsChanged(), positive: true }">
@@ -14,53 +14,67 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-  <ion-searchbar
-    [(ngModel)]="myInput"
-    [showCancelButton]="false"
-    (ionInput)="onInput()">
-  </ion-searchbar>
+
 </ion-header>
 
-<ion-content #Content auto-hide>
+<ion-content>
 
-  <ion-list-header class="sp-header">
-    Participant list
+  <ion-list-header>
+    Participant list <span *ngIf="participantsList.length">({{participantsList.length}})</span>
   </ion-list-header>
 
-  <ion-list reorder="true" (ionItemReorder)="reorderItems($event)">
-    <ion-item-sliding *ngFor="let participant of participantsList; let i = index">
-      <ion-item>
-        <p class="name participant">{{participant.name}}</p>
-        <p class="number">{{participant.number}}</p>
-      </ion-item>
+  <div class="horizontal-list">
+      <div class="participants">
+        <div class="participant" *ngFor="let participant of participantsList" [@fadeIn]="''">
+            <div class="avatar">
+                {{ participant.name.charAt(0).toUpperCase() }}
+            </div>
+            <span class="name">{{ participant.name }}</span>
+            <span class="remove"></span>
+            <span class="left"></span>
+            <span class="right"></span>
+        </div>
+      </div>
+  </div>
 
-      <ion-item-options side="left">
-        <button ion-button color="danger" (click)="onRemoveParticipant(i)" icon-only>
-          <ion-icon name="trash"></ion-icon>
-        </button>
-      </ion-item-options>
-
-    </ion-item-sliding>
-  </ion-list>
-
-  <ion-list-header class="sp-header">
-    Contact list
+  <ion-list-header>
+    Participant details
   </ion-list-header>
+
   <ion-list>
-    <ion-item-group *ngFor="let group of contactsGrouped">
-      <ion-item-divider class="divider">{{group.letter}}</ion-item-divider>
-      <ion-item *ngFor="let contact of group.contacts" [ngClass]="{'isParticipant': contact.isParticipant}">
-        <ion-icon name="{{ contact.isParticipant ? 'remove-circle' : 'add-circle' }}" (click)="onClickContact(contact)" [ngClass]="[contact.isParticipant ? 'remove' : 'add']" item-start></ion-icon>
-        <p class="name">{{contact.name}}</p>
-        <span class="number" item-end>{{contact.number}}</span>
-      </ion-item>
-    </ion-item-group>
-  </ion-list>
 
-  <ion-fab bottom right #fab>
-    <button ion-fab mini (click)="scrollToTop()">
-      <ion-icon name="arrow-up"></ion-icon>
-    </button>
-  </ion-fab>
+    <ion-item>
+      <ion-input type="text" [(ngModel)]="participantName" placeholder="Username"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input type="tel" [(ngModel)]="participantNumber" placeholder="Phone number"></ion-input>
+    </ion-item>
+
+  </ion-list>
+  <button ion-button (click)="onAddParticipant()">Add</button>
+
+
+
+
+  <!--<ion-list>-->
+    <!--<ion-item-sliding *ngFor="let participant of participantsList; let i = index">-->
+      <!--<ion-item>-->
+        <!--<p class="name participant">{{participant.name}}</p>-->
+        <!--<p class="number">{{participant.number}}</p>-->
+      <!--</ion-item>-->
+
+      <!--<ion-item-options side="left">-->
+        <!--<button ion-button color="danger" (click)="onRemoveParticipant(i)" icon-only>-->
+          <!--<ion-icon name="trash"></ion-icon>-->
+        <!--</button>-->
+      <!--</ion-item-options>-->
+
+    <!--</ion-item-sliding>-->
+  <!--</ion-list>-->
+
+
+
+
 
 </ion-content>

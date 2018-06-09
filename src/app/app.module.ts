@@ -15,6 +15,8 @@ import { PlansProvider } from '../providers/plans/plans';
 
 import { AutoHideDirective } from '../directives/auto-hide/auto-hide';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -25,6 +27,7 @@ import { AutoHideDirective } from '../directives/auto-hide/auto-hide';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpModule,
     IonicModule.forRoot(MyApp, {
       platforms:{

@@ -12,6 +12,7 @@
     "ionic:serve": "ionic-app-scripts serve"
   },
   "dependencies": {
+    "@angular/animations": "^4.4.7",
     "@angular/common": "^4.4.3",
     "@angular/compiler": "^4.4.3",
     "@angular/compiler-cli": "^4.4.3",
@@ -47,6 +48,7 @@
     "tslib": "^1.8.1",
     "tslint": "^5.9.1",
     "tslint-eslint-rules": "^5.1.0",
+    "web-animations-js": "^2.3.1",
     "zone.js": "^0.8.17"
   },
   "devDependencies": {
