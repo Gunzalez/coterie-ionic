@@ -53,7 +53,6 @@ export class PlanDetailsPage {
     public created = "Monday";
     public started:string = "not started";
     public rounds:string = "not set";
-    public nextToCollect:string = "no participant";
 
     public savingsAmount:any = 0;
     public initialAmt:any = 0;
@@ -83,6 +82,10 @@ export class PlanDetailsPage {
         if(this.savingsAmount < this.min){
             this.savingsAmount = this.min
         }
+    }
+
+    nextToCollect(){
+        return this.schedule.length ? this.schedule[0].name : "no participant";
     }
 
     amountPlus(){
@@ -206,11 +209,10 @@ export class PlanDetailsPage {
 
 
   viewParticipants(){
-      let participantsModal = this.modalCtrl.create(ParticipantsPage, { list: this.schedule });
+      let participantsModal = this.modalCtrl.create(ParticipantsPage, { list: this.schedule, potId: this.id });
       participantsModal.onDidDismiss( participants => {
           if(participants){
               this.schedule = participants;
-              this.nextToCollect = this.schedule[0].name;
               this.rounds = "1 of " + this.schedule.length;
           }
       });

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-buttons>
-      <button ion-button (click)="onDismiss()">
+      <button ion-button [disabled]="!participantsChanged()" (click)="onDismiss()">
         Cancel
       </button>
     </ion-buttons>

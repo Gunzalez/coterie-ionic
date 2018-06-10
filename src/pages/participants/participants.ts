@@ -3,6 +3,7 @@ import { Component, trigger, transition, style, animate } from '@angular/core';
 import { ViewController, NavController, ToastController, NavParams, reorderArray } from 'ionic-angular';
 
 import { isEquivalent, filtered } from '../../helpers/helpers';
+import {PlansProvider} from "../../providers/plans/plans";
 
 const DURATION = 1000;
 
@@ -20,6 +21,7 @@ const DURATION = 1000;
 })
 export class ParticipantsPage {
 
+    private potId:string = '';
     private contactsList:any[] = [];
     private contactsFiltered:any[] = [];
 
@@ -62,8 +64,9 @@ export class ParticipantsPage {
     public participantName:string = '';
     public participantNumber:string = '';
 
-    constructor(private viewCtrl: ViewController, public navCtrl: NavController, private toastCtrl: ToastController, public navParams: NavParams) {
-        //this.participantsList = this.navParams.get('list');
+    constructor(private viewCtrl: ViewController, public navCtrl: NavController, private toastCtrl: ToastController, public navParams: NavParams, private plansProvider: PlansProvider) {
+        this.participantsList = this.navParams.get('list');
+        this.potId = this.navParams.get('potId');
         this.participantsListInitial = this.participantsList.slice();
 
         //console.log(this.participantsList);
@@ -119,14 +122,17 @@ export class ParticipantsPage {
     }
 
     onAddParticipant(){
-        let newParticipant = {
-            id: 55,
-            name: this.participantName,
-            number: this.participantNumber
-        };
-        this.participantsList.unshift(newParticipant);
-        this.participantName = '';
-        this.participantNumber = '';
+        let participantName = this.participantName;
+        this.plansProvider.addParticipant(participantName, this.potId).subscribe(participantId =>{
+            let newParticipant = {
+                id: participantId,
+                name: this.participantName,
+                number: this.participantNumber
+            };
+            this.participantsList.unshift(newParticipant);
+            this.participantName = '';
+            this.participantNumber = '';
+        });
     }
 
     onRemoveParticipant(index){
@@ -150,23 +156,25 @@ export class ParticipantsPage {
     }
 
     onSaveParticipants(){
-        // console.log('Saves: ');
-        // console.log(this.participantsList);
-        if(this.participantsList.length){
-            let doneSaving = this.toastCtrl.create({
-                message: 'Participants saved',
-                duration: DURATION
-            });
-            doneSaving.present();
-            this.viewCtrl.dismiss(this.participantsList)
-        }
+        let schedule:any = [];
+        schedule = this.participantsList.map(participant => {
+            return participant.id
+        });
+        this.plansProvider.setSchedule(schedule, this.potId).subscribe(response =>{
+            if(response.ok){
+                let doneSaving = this.toastCtrl.create({
+                    message: 'Participants saved',
+                    duration: DURATION
+                });
+                doneSaving.present();
+                this.viewCtrl.dismiss(this.participantsList)
+            }
+        });
     }
 
     onDismiss(){
         this.navCtrl.pop();
     }
-
-
 }
 
 
