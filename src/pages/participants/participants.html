@@ -28,9 +28,11 @@
         <div class="participant" *ngFor="let participant of participantsList" [@fadeIn]="''">
             <div class="avatar">
                 {{ participant.name.charAt(0).toUpperCase() }}
+                <span class="remove" (click)="onRemoveParticipant(participant)">
+                  <ion-icon name="close-circle"></ion-icon>
+                </span>
             </div>
             <span class="name">{{ participant.name }}</span>
-            <span class="remove"></span>
             <span class="left"></span>
             <span class="right"></span>
         </div>
@@ -52,7 +54,8 @@
     </ion-item>
 
   </ion-list>
-  <button ion-button (click)="onAddParticipant()">Add</button>
+
+  <button ion-button full (click)="onAddParticipant()">Add</button>
 
 
 

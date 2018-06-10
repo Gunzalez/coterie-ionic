@@ -1,13 +1,13 @@
 
 @mixin background(){
-    background: rgba(147,206,222,1);
-    background: -moz-linear-gradient(top, rgba(147,206,222,1) 0%, rgba(47,122,143,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(147,206,222,1)), color-stop(100%, rgba(47,122,143,1)));
-    background: -webkit-linear-gradient(top, rgba(147,206,222,1) 0%, rgba(47,122,143,1) 100%);
-    background: -o-linear-gradient(top, rgba(147,206,222,1) 0%, rgba(47,122,143,1) 100%);
-    background: -ms-linear-gradient(top, rgba(147,206,222,1) 0%, rgba(47,122,143,1) 100%);
-    background: linear-gradient(to bottom, rgba(147,206,222,1) 0%, rgba(47,122,143,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#2f7a8f', GradientType=0 );
+    background: rgba(120,112,112,1);
+    background: -moz-radial-gradient(center, ellipse cover, rgba(120,112,112,1) 0%, rgba(71,65,65,1) 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(120,112,112,1)), color-stop(100%, rgba(71,65,65,1)));
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(120,112,112,1) 0%, rgba(71,65,65,1) 100%);
+    background: -o-radial-gradient(center, ellipse cover, rgba(120,112,112,1) 0%, rgba(71,65,65,1) 100%);
+    background: -ms-radial-gradient(center, ellipse cover, rgba(120,112,112,1) 0%, rgba(71,65,65,1) 100%);
+    background: radial-gradient(ellipse at center, rgba(120,112,112,1) 0%, rgba(71,65,65,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#787070', endColorstr='#474141', GradientType=1 );
 }
 
 page-participants {
@@ -55,6 +55,7 @@ page-participants {
         color: white;
         text-align: center;
         @include background();
+        position: relative;
     }
 
     .name {
@@ -64,12 +65,31 @@ page-participants {
         color: #666666;
     }
 
-    .disabled {
+    [disabled] {
         color: #cccccc;
-        opacity: 1;
     }
 
     .positive {
         font-weight: bold;
+    }
+
+    .remove {
+        position: absolute;
+        display: block;
+        top: -1px;
+        right: -2px;
+        width: 22px;
+        //line-height: 16px;
+        height: 22px;
+        //background-color: red;
+        color: red;
+        background-color: white;
+        font-size: 0.6em;
+        border-radius: 50%;
+        //border: 2px solid #ffffff;
+
+        ion-icon {
+            display: block;
+        }
     }
 }

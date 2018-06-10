@@ -123,30 +123,28 @@ export class ParticipantsPage {
 
     onAddParticipant(){
         let participantName = this.participantName;
-        this.plansProvider.addParticipant(participantName, this.potId).subscribe(participantId =>{
-            let newParticipant = {
-                id: participantId,
-                name: this.participantName,
-                number: this.participantNumber
-            };
-            this.participantsList.unshift(newParticipant);
-            this.participantName = '';
-            this.participantNumber = '';
-        });
+        if(participantName.trim().length){
+            this.plansProvider.addParticipant(participantName, this.potId).subscribe(participantId =>{
+                let newParticipant = {
+                    id: participantId,
+                    name: this.participantName,
+                    number: this.participantNumber
+                };
+                this.participantsList.unshift(newParticipant);
+                this.participantName = '';
+                this.participantNumber = '';
+            });
+        }
     }
 
-    onRemoveParticipant(index){
-        let participant = this.participantsList.splice(index, 1).pop();
-        this.contactsList.forEach(contact => {
-            if(isEquivalent(participant, contact)){
-
-                this.contactsFiltered.forEach(contactCopy => {
-                    if(isEquivalent(contactCopy, contact)){
-                      contactCopy.isParticipant = false
+    onRemoveParticipant(participant){
+        this.plansProvider.removeParticipant(participant).subscribe(response => {
+            if(response.ok){
+                this.participantsList.forEach((participantInList, index) => {
+                    if(isEquivalent(participantInList, participant)){
+                        this.participantsList.splice(index, 1).pop();
                     }
                 });
-
-                delete contact["isParticipant"];
             }
         });
     }
@@ -156,10 +154,7 @@ export class ParticipantsPage {
     }
 
     onSaveParticipants(){
-        let schedule:any = [];
-        schedule = this.participantsList.map(participant => {
-            return participant.id
-        });
+        let schedule = this.participantsList.map(participant => { return participant.id });
         this.plansProvider.setSchedule(schedule, this.potId).subscribe(response =>{
             if(response.ok){
                 let doneSaving = this.toastCtrl.create({
