@@ -1,9 +1,10 @@
-import { Component, trigger, transition, style, animate } from '@angular/core';
+import { Component, ViewChild, trigger, transition, style, animate } from '@angular/core';
 
-import { ViewController, NavController, ToastController, NavParams, reorderArray } from 'ionic-angular';
+import { ViewController, NavController, ToastController, NavParams, TextInput, reorderArray } from 'ionic-angular';
 
-import { isEquivalent, filtered } from '../../helpers/helpers';
-import {PlansProvider} from "../../providers/plans/plans";
+import { PlansProvider } from "../../providers/plans/plans";
+
+import { isEquivalent } from '../../helpers/helpers';
 
 const DURATION = 1000;
 
@@ -22,103 +23,40 @@ const DURATION = 1000;
 export class ParticipantsPage {
 
     private potId:string = '';
-    private contactsList:any[] = [];
-    private contactsFiltered:any[] = [];
 
-    public myInput:string = '';
-
-    public participantsList:any[] = [
-      {
-        "id":5,
-        "name":"Andrew",
-        "number":"07851236201"
-      },
-      {
-        "id":1,
-        "name":"Segun",
-        "number":"07851246201"
-      },
-      {
-        "id":2,
-        "name":"Hasan",
-        "number":"02084001826"
-      },
-      {
-        "id":6,
-        "name":"Karl",
-        "number":"0800836201"
-      },
-      {
-        "id":9,
-        "name":"Keon",
-        "number":"0760451236"
-      },
-      {
-        "id":4,
-        "name":"Titi",
-        "number":"0700051236"
-      }
-    ];
+    public participantsList:any[] = [];
     public participantsListInitial:any[] = [];
-
     public participantName:string = '';
     public participantNumber:string = '';
+
+    @ViewChild('nameInput') nameInput: TextInput;
 
     constructor(private viewCtrl: ViewController, public navCtrl: NavController, private toastCtrl: ToastController, public navParams: NavParams, private plansProvider: PlansProvider) {
         this.participantsList = this.navParams.get('list');
         this.potId = this.navParams.get('potId');
         this.participantsListInitial = this.participantsList.slice();
-
-        //console.log(this.participantsList);
-
     }
 
     ionViewDidLoad(){
+        let timer = setTimeout(()=>{
+          this.nameInput.setFocus();
+          console.log('M--onday')
+          clearTimeout(timer);
 
+        }, 1000)
+
+
+
+        this.nameInput.setFocus();
+
+    }
+
+    ionViewDidEnter(){
+        //console.log('Did')
     }
 
     participantsChanged(){
         return JSON.stringify(this.participantsList) === JSON.stringify(this.participantsListInitial);
-    }
-
-
-    onInput(){
-        this.contactsFiltered = filtered(this.myInput, this.contactsList);
-    }
-
-    onClickContact(contact){
-
-        if(contact.isParticipant){
-
-            // remove from participants
-            this.participantsList.forEach((participant, index) => {
-
-                this.contactsFiltered.forEach(contactCopy => {
-                    if(isEquivalent(contactCopy, contact)){
-                        contactCopy.isParticipant = false
-                    }
-                });
-
-                participant.isParticipant = false;
-                contact.isParticipant = false;
-
-                if(isEquivalent(participant, contact)){
-                    this.participantsList.splice(index, 1).pop();
-                }
-            })
-
-        } else {
-
-            // add to participants
-            this.contactsFiltered.forEach(contactCopy => {
-                if(isEquivalent(contactCopy, contact)){
-                    contactCopy.isParticipant = true;
-                    contact.isParticipant = true;
-                    let participant = Object.assign({}, contact);
-                    this.participantsList.push(participant);
-                }
-            });
-        }
     }
 
     onAddParticipant(){
@@ -133,6 +71,7 @@ export class ParticipantsPage {
                 this.participantsList.unshift(newParticipant);
                 this.participantName = '';
                 this.participantNumber = '';
+                this.nameInput.setFocus();
             });
         }
     }

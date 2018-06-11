@@ -208,22 +208,22 @@ export class PlansProvider {
       // starts a plan
       startPlan(id){
 
-        let options = { headers: this.headers };
-        let url = URL + '/plans.start';
-        let body = { planId : id };
+          let options = { headers: this.headers };
+          let url = URL + '/plans.start';
+          let body = { planId : id };
 
-        return this.http.post(url, body, options)
-            .map( response => {
-                // return response.status === 200 ? true : false
-                if (response.status === 200){
-                    this.plan['status'] = 'in-progress';
-                    return true
-                } else {
-                    return false;
-                }
-          }, error => {
-              console.log(error);
-            return error
-          })
+          return this.http.post(url, body, options)
+              .map( response => {
+                  // return response.status === 200 ? true : false
+                  if (response.status === 200){
+                      this.plan['status'] = 'in-progress';
+                      return true
+                  } else {
+                      return false;
+                  }
+            }, error => {
+                console.log(error);
+              return error
+            })
       }
 }

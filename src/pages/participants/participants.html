@@ -25,7 +25,7 @@
 
   <div class="horizontal-list">
       <div class="participants">
-        <div class="participant" *ngFor="let participant of participantsList" [@fadeIn]="''">
+        <div class="participant" *ngFor="let participant of participantsList" [@fadeIn]>
             <div class="avatar">
                 {{ participant.name.charAt(0).toUpperCase() }}
                 <span class="remove" (click)="onRemoveParticipant(participant)">
@@ -40,13 +40,13 @@
   </div>
 
   <ion-list-header>
-    Participant details
+    New participant
   </ion-list-header>
 
   <ion-list>
 
     <ion-item>
-      <ion-input type="text" [(ngModel)]="participantName" placeholder="Username"></ion-input>
+      <ion-input type="text" [(ngModel)]="participantName" placeholder="Username" #nameInput></ion-input>
     </ion-item>
 
     <ion-item>
@@ -55,7 +55,14 @@
 
   </ion-list>
 
-  <button ion-button full (click)="onAddParticipant()">Add</button>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <button ion-button class="btn" (click)="onAddParticipant()">Add participant</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 
 
 
