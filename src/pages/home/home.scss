@@ -25,7 +25,13 @@ page-home {
 
   }
 
-  .btn-close {
-    border: none;
-  }
+    .btn-close {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        right: 10px;
+        top: 15px;
+        display: block;
+        color: #488aff;
+    }
 }
