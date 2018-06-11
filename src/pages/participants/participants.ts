@@ -799,6 +799,8 @@ export class ParticipantsPage {
 
     getContacts(){
 
+        console.log('called');
+
         let fields:ContactFieldType[] = ['*'];
 
         const options = new ContactFindOptions();
@@ -813,19 +815,19 @@ export class ParticipantsPage {
 
                 if(contact.displayName && contact.displayName.length){
                     nameToUse = contact.displayName;
+                } else if (contact.name.formatted && contact.name.formatted) {
+                  nameToUse = contact.name.formatted;
+                } else if (contact.name.givenName && contact.name.givenName.length) {
+                  nameToUse = contact.name.givenName + ' ' + contact.name.familyName
                 } else if (contact.nickname && contact.nickname.length) {
                     nameToUse = contact.nickname;
-                } else if (contact.name.formatted && contact.name.formatted) {
-                    nameToUse = contact.name.formatted;
-                } else if (contact.name.givenName && contact.name.givenName.length) {
-                    nameToUse = contact.name.givenName + ' ' + contact.name.familyName
                 }
 
                 if(nameToUse && nameToUse.length){
                     this.contactsList.push({
                         "platformId": contact.id,
                         "name": nameToUse,
-                        "number": contact.phoneNumbers[0].value,
+                        //"number": contact.phoneNumbers[0].value,
                         "isParticipant": false
                     })
                 }
