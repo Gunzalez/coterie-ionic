@@ -180,7 +180,7 @@ export class PlanDetailsPage {
 
 
   viewParticipants(){
-      let participantsModal = this.modalCtrl.create(ParticipantsPage, { list: this.schedule });
+      let participantsModal = this.modalCtrl.create(ParticipantsPage, { list: this.schedule, potId: this.id  });
       participantsModal.onDidDismiss( participants => {
           if(participants){
               this.schedule = participants;

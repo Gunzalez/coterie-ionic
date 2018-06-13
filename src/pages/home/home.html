@@ -20,13 +20,9 @@
           <ion-input type="text"
              [(ngModel)]="newPlanName"
              #input placeholder="New saving pot name"></ion-input>
-
-          <button ion-button class="btn-close" (click)="resignFocus()" color="grey" outline small item-right icon-only>
-            <ion-icon name="close-circle"></ion-icon>
-          </button>
-
         </ion-item>
       </ion-list>
+      <ion-icon name="close-circle" class="btn-close" (click)="resignFocus()"></ion-icon>
     </div>
   </div>
 
@@ -49,8 +45,8 @@
     </ion-item-sliding>
 
     <ion-item *ngIf="plans.length < 1 && plansHasLoaded">
-      <h2>No plans</h2>
-      <p>Add plans with the add button</p>
+      <h2>No pots</h2>
+      <p>Add pots with the add button</p>
     </ion-item>
 
   </ion-list>

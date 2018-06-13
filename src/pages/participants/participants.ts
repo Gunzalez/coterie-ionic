@@ -789,8 +789,8 @@ export class ParticipantsPage {
     }
 
     ionViewDidLoad(){
-        this.getContacts();
-        //this.getContactsLocal();
+        //this.getContacts();
+        this.getContactsLocal();
     }
 
     participantsChanged(){
@@ -798,8 +798,6 @@ export class ParticipantsPage {
     }
 
     getContacts(){
-
-        console.log('called');
 
         let fields:ContactFieldType[] = ['*'];
 
