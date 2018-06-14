@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, AlertController, ModalController } from 'ionic-angular';
+import { NavParams, ToastController, AlertController, ModalController } from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
 import { ParticipantsPage } from '../participants/participants';
@@ -12,7 +12,7 @@ const CURRENCY = '£';
     templateUrl: 'plan-details.html'
 })
 export class PlanDetailsPage {
-    private id;
+    public id;
     private plan = {};
 
     private icon:string= '';
@@ -32,7 +32,7 @@ export class PlanDetailsPage {
     public savingsAmount:any = 0;
     public initialAmt:any = 0;
 
-    constructor(private modalCtrl: ModalController, private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navCtrl: NavController, public navParams: NavParams) {
+    constructor(private modalCtrl: ModalController, private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navParams: NavParams) {
         this.id = this.navParams.get('id');
     }
 
@@ -77,7 +77,15 @@ export class PlanDetailsPage {
     ionViewWillEnter(){
         let next = plan => {
             this.plan = plan;
-            this.schedule = this.plan['participants'];
+
+            // correction
+            //this.schedule = this.plan['participants'];
+            this.plan['participants'].forEach(participant => {
+                this.schedule.push({
+                    contactId: participant.name,
+                    id: participant.id,
+                })
+            });
             this.plansProvider.plan = this.plan;
             this.savingsAmount = this.plan['savingsAmount'];
             this.initialAmt = this.savingsAmount;
@@ -178,14 +186,16 @@ export class PlanDetailsPage {
     return this.plan['status'] === 'in-progress' ? 'secondary' : null
   }
 
-
   viewParticipants(){
       let participantsModal = this.modalCtrl.create(ParticipantsPage, { list: this.schedule, potId: this.id  });
       participantsModal.onDidDismiss( participants => {
           if(participants){
               this.schedule = participants;
-              this.nextToCollect = this.schedule[0].name;
-              this.rounds = "1 of " + this.schedule.length;
+              if(this.schedule.length){
+                  this.nextToCollect = this.schedule[0].name;
+                  this.rounds = "1 of " + this.schedule.length;
+              }
+
           }
       });
       participantsModal.present();

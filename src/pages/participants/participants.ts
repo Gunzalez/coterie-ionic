@@ -4,6 +4,8 @@ import { Contacts, ContactFieldType, ContactFindOptions } from '@ionic-native/co
 
 import { ViewController, NavController, ToastController, NavParams, Content, reorderArray } from 'ionic-angular';
 
+import { PlansProvider } from '../../providers/plans/plans';
+
 import { sortList, isEquivalent, filtered } from '../../helpers/helpers';
 
 const DURATION = 1000;
@@ -13,6 +15,8 @@ const DURATION = 1000;
   templateUrl: 'participants.html'
 })
 export class ParticipantsPage {
+
+    private potId:string = null;
 
     private contactsLocal:any[] = [
         {
@@ -774,18 +778,20 @@ export class ParticipantsPage {
     private contactsList:any[] = [];
     private contactsFiltered:any[] = [];
 
+    public contactsGrouped:any[] = [];
+
     public myInput:string = '';
 
-    public contactsGrouped:any[] = [];
+    public participants:any[] = [];
     public participantsList:any[] = [];
     public participantsListInitial:any[] = [];
 
     @ViewChild('Content') content: Content;
 
-    constructor(private contacts: Contacts, private viewCtrl: ViewController, public navCtrl: NavController, private toastCtrl: ToastController, public navParams: NavParams) {
+    constructor(private contacts: Contacts, private viewCtrl: ViewController, public navCtrl: NavController, private toastCtrl: ToastController, public navParams: NavParams, private plansProvider: PlansProvider) {
         this.participantsList = this.navParams.get('list');
         this.participantsListInitial = this.participantsList.slice();
-
+        this.potId = this.navParams.get('potId');
     }
 
     ionViewDidLoad(){
@@ -809,35 +815,52 @@ export class ParticipantsPage {
 
             contacts.forEach(contact => {
 
-                let nameToUse:any = null;
+                let nameToUse:string = '';
+                let numberToUse:any = '';
+                let participantId:string = null;
 
                 if(contact.displayName && contact.displayName.length){
                     nameToUse = contact.displayName;
-                } else if (contact.name.formatted && contact.name.formatted) {
-                  nameToUse = contact.name.formatted;
-                } else if (contact.name.givenName && contact.name.givenName.length) {
-                  nameToUse = contact.name.givenName + ' ' + contact.name.familyName
                 } else if (contact.nickname && contact.nickname.length) {
                     nameToUse = contact.nickname;
+                } else if (contact.name.formatted && contact.name.formatted) {
+                    nameToUse = contact.name.formatted;
+                } else if (contact.name.givenName && contact.name.givenName.length) {
+                   nameToUse = contact.name.givenName + ' ' + contact.name.familyName
+                }
+
+                if(contact.phoneNumbers && contact.phoneNumbers[0].value.length){
+                    numberToUse = contact.phoneNumbers[0].value;
                 }
 
                 if(nameToUse && nameToUse.length){
-                    this.contactsList.push({
-                        "platformId": contact.id,
-                        "name": nameToUse,
-                        //"number": contact.phoneNumbers[0].value,
-                        "isParticipant": false
-                    })
+
+                  this.participantsList.forEach(participant => {
+                      if(contact.id === participant.contactId){
+                          participantId = participant.id;
+                      }
+                  });
+
+                  // add new contact
+                  let newContact = {
+                      "contactId": contact.id,
+                      "name": nameToUse,
+                      "number": numberToUse,
+                      "id": participantId
+                  };
+
+                  this.contactsList.push(newContact);
                 }
 
             });
 
             this.participantsList.forEach(participant => {
                 this.contactsList.forEach(contact => {
-                    if(participant.platformId === contact.platformId){
-                        contact.isParticipant = true;
+                    if(contact.contactId === parseInt(participant.contactId)){
+                        let newParticipant = Object.assign({}, contact);
+                        this.participants.push(newParticipant);
                     }
-                })
+                });
             });
 
             this.contactsFiltered = this.contactsList.slice();
@@ -850,6 +873,8 @@ export class ParticipantsPage {
         this.contactsLocal.forEach(contact => {
 
             let nameToUse:string = '';
+            let numberToUse:any = '';
+            let participantId:string = null;
 
             if(contact.displayName && contact.displayName.length){
                 nameToUse = contact.displayName;
@@ -861,23 +886,38 @@ export class ParticipantsPage {
                 nameToUse = contact.name.givenName + ' ' + contact.name.familyName
             }
 
-            if(nameToUse.length){
-                this.contactsList.push({
-                    "platformId": contact.id,
+            if(contact.phoneNumbers && contact.phoneNumbers[0].value.length){
+                numberToUse = contact.phoneNumbers[0].value;
+            }
+
+            if(nameToUse && nameToUse.length){
+
+                this.participantsList.forEach(participant => {
+                    if(contact.id === parseInt(participant.contactId)){
+                        participantId = participant.id;
+                    }
+                });
+
+                // add new contact
+                let newContact = {
+                    "contactId": contact.id,
                     "name": nameToUse,
-                    "number": contact.phoneNumbers[0].value,
-                    "isParticipant": false
-                })
+                    "number": numberToUse,
+                    "id": participantId
+                };
+
+                this.contactsList.push(newContact);
             }
 
         });
 
         this.participantsList.forEach(participant => {
             this.contactsList.forEach(contact => {
-                if(participant.platformId === contact.platformId){
-                    contact.isParticipant = true;
+                if(contact.contactId === parseInt(participant.contactId)){
+                    let newParticipant = Object.assign({}, contact);
+                    this.participants.push(newParticipant);
                 }
-            })
+            });
         });
 
         this.contactsFiltered = this.contactsList.slice();
@@ -889,72 +929,94 @@ export class ParticipantsPage {
         this.groupContacts();
     }
 
+    isParticipant(contact){
+        return contact.id && contact.id.length;
+    }
+
     onClickContact(contact){
 
-        if(contact.isParticipant){
+        if(contact.id){
 
-            // remove from participants
-            this.participantsList.forEach((participant, index) => {
-
-                this.contactsFiltered.forEach(contactCopy => {
-                    if(isEquivalent(contactCopy, contact)){
-                        contactCopy.isParticipant = false
+            let callback = () => {
+                this.participants.forEach((participant, index) => {
+                    if(participant.id === contact.id){
+                        this.participants.splice(index, 1);
+                        this.participantsList.splice(index, 1);
                     }
                 });
-
-                participant.isParticipant = false;
-                contact.isParticipant = false;
-
-                if(isEquivalent(participant, contact)){
-                    this.participantsList.splice(index, 1).pop();
-                }
-            })
+                this.contactsFiltered.forEach(contactCopy => {
+                    if(isEquivalent(contactCopy, contact)){
+                        contactCopy.id = null;
+                        contact.id = null;
+                    }
+                });
+            };
+            this.removeParticipant(contact, callback);
 
         } else {
 
-            // add to participants
-            this.contactsFiltered.forEach(contactCopy => {
-                if(isEquivalent(contactCopy, contact)){
-                    contactCopy.isParticipant = true;
-                    contact.isParticipant = true;
-                    let participant = Object.assign({}, contact);
-                    this.participantsList.push(participant);
-                }
-            });
-        }
-    }
-
-    onRemoveParticipant(index){
-        let participant = this.participantsList.splice(index, 1).pop();
-        this.contactsList.forEach(contact => {
-            if(isEquivalent(participant, contact)){
+            this.plansProvider.addParticipant(contact.contactId, this.potId).subscribe(participantId => {
 
                 this.contactsFiltered.forEach(contactCopy => {
                     if(isEquivalent(contactCopy, contact)){
-                      contactCopy.isParticipant = false
+                        contactCopy.id = participantId;
+                        contact.id = participantId;
+
+                        let newParticipant = Object.assign({}, contact);
+                        this.participants.push(newParticipant);
+                        this.participantsList.push(newParticipant);
                     }
                 });
+            });
 
-                delete contact["isParticipant"];
+        }
+    }
+
+    onSwipeRemoveParticipant(participant, index){
+        let callback = () => {
+            this.contactsList.forEach(contact => {
+                if(isEquivalent(participant, contact)){
+
+                    this.contactsFiltered.forEach(contactCopy => {
+                        if(isEquivalent(contactCopy, contact)){
+                            contactCopy.id = null
+                        }
+                    });
+
+                    contact.id = null;
+                    this.participants.splice(index, 1);
+                    this.participantsList.splice(index, 1);
+                }
+            });
+        };
+        this.removeParticipant(participant, callback)
+    }
+
+    removeParticipant(participant, callback){
+        this.plansProvider.removeParticipant(participant).subscribe(response => {
+            if(response.ok){
+                callback();
             }
         });
     }
 
     reorderItems(indexes) {
+        this.participants = reorderArray(this.participants, indexes);
         this.participantsList = reorderArray(this.participantsList, indexes);
     }
 
     onSaveParticipants(){
-        // console.log('Saves: ');
-        // console.log(this.participantsList);
-        if(this.participantsList.length){
-            let doneSaving = this.toastCtrl.create({
-                message: 'Participants saved',
-                duration: DURATION
-            });
-            doneSaving.present();
-            this.viewCtrl.dismiss(this.participantsList)
-        }
+        let schedule = this.participants.map(participant => { return participant.id });
+        this.plansProvider.setSchedule(schedule, this.potId).subscribe(response => {
+            if(response.ok){
+                let doneSaving = this.toastCtrl.create({
+                    message: 'Participants saved',
+                    duration: DURATION
+                });
+                doneSaving.present();
+                this.viewCtrl.dismiss(this.participants)
+            }
+        });
     }
 
     onDismiss(){

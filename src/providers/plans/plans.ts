@@ -112,12 +112,12 @@ export class PlansProvider {
 
 
       // ----------------------
-      // add a participant to a plan, accepts a name + plan id
-      addParticipant(name, id){
+      // add a participant to a plan, accepts a contactId:string + plan id
+      addParticipant(contactId, id){
 
           let options = { headers: this.headers };
           let url = API + id + '/participants';
-          let body = { name: name };
+          let body = { name: contactId };
 
           return this.http.post(url, body, options)
               .map( response => {

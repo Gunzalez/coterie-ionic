@@ -58,4 +58,11 @@ page-participants {
     .positive {
         font-weight: bold;
     }
+
+    button {
+
+        &[disabled] {
+            color: #666666;
+        }
+    }
 }

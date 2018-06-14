@@ -19,11 +19,11 @@
 
     <ion-card-header>
       <h1>{{ getPlanName() }}&nbsp;</h1>
-      <p>Max savings: £{{max}}</p>
+      <p>Current round: {{ rounds }}</p>
+      <p>Max savings/turn: £{{max}}</p>
+      <p>Next to collect: {{ nextToCollect }}</p>
       <p>Created: {{ created }}</p>
       <p>Started: {{ started }} </p>
-      <p>Round: {{ rounds }}</p>
-      <p>Next to collect: {{ nextToCollect }}</p>
     </ion-card-header>
 
     <ion-card-content>
