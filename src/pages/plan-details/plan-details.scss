@@ -21,10 +21,19 @@ page-plan-details {
   }
 
   .savingAmount {
-    font-size: 5rem;
+    font-size: 6.2rem;
+    font-weight: lighter;
   }
 
   .potName {
-    font-size: 5rem;
+    font-size: 4rem;
+    font-weight: lighter;
+  }
+
+  .my-label {
+    display: block;
+    text-transform: uppercase;
+    color: #666666;
+    font-size: 0.9em;
   }
 }

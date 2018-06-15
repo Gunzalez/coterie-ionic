@@ -9,36 +9,44 @@
 
 <ion-content>
 
-  <ion-fab top right edge *ngIf="canSetAmount()">
-    <button ion-fab mini color="primary" (click)="setAmount()">
-      <ion-icon name="add"></ion-icon>
-    </button>
-  </ion-fab>
-
   <ion-grid>
     <ion-row>
-      <ion-col col-12>
+      <ion-col col-10>
+        <span class="my-label">Pot name</span>
         <span class="potName">{{ getPlanName() }}&nbsp;</span>
+      </ion-col>
+      <ion-col col-2>
+        <span class="my-label">&nbsp;</span>
+        <button ion-button full class="btn" (click)="setAmount()" *ngIf="canSetAmount()" icon-only>
+          <ion-icon name="checkmark"></ion-icon>
+        </button>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col col-10>
+        <span class="my-label">Saving Amount</span>
         <!--<ion-input type="number" maxlength="4" pattern="\d{1,15}" max={{max}} min="1" [(ngModel)]="savingsAmount" class="input"></ion-input>-->
         <span class="savingAmount">
         £{{savingsAmount}}.00</span>
       </ion-col>
       <ion-col col-2>
-        <button ion-button full class="btn" [disabled]="hasReachedMax()" (click)="amountPlus()">+</button>
-        <button ion-button full class="btn" [disabled]="hasReachedMin()" (click)="amountMinus()">-</button>
+        <button ion-button full class="btn" [disabled]="hasReachedMax() || isPlanInProgress()" (click)="amountPlus()" icon-only>
+          <ion-icon name="add"></ion-icon>
+        </button>
+        <button ion-button full class="btn" [disabled]="hasReachedMin() || isPlanInProgress()" (click)="amountMinus()" icon-only>
+          <ion-icon name="remove"></ion-icon>
+        </button>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col col-12>
-        <button ion-button full (click)="viewParticipants()">
-          <span *ngIf="schedule.length < 1">Add participants to this plan</span>
-          <span *ngIf="schedule.length">Edit {{schedule.length}} participants</span>
+        <button ion-button full (click)="viewParticipants()" *ngIf="!isPlanInProgress()">
+          <span>Add/Remove participants ({{schedule.length}})</span>
+        </button>
+        <button ion-button full disabled *ngIf="isPlanInProgress()">
+          Pot started
         </button>
       </ion-col>
     </ion-row>
@@ -55,9 +63,11 @@
         <p class="number">{{participant.number}}</p>
       </ion-item>
       <ion-item-options side="left">
-        <button ion-button color="danger" (click)="onSwipeRemoveParticipant(participant, index)" icon-only>
-          <ion-icon name="trash"></ion-icon>
+
+        <button ion-button [color]="isPlanInProgress() ? 'secondary' : 'danger'" (click)="onSwipeRemoveParticipant(participant, index)" icon-only>
+          <ion-icon [name]="isPlanInProgress() ? 'cash' : 'trash'"></ion-icon>
         </button>
+
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
@@ -65,8 +75,8 @@
   <ion-grid>
     <ion-row>
       <ion-col col-12>
-        <button ion-button full [disabled]="true" (click)="startPlan()" color="{{ getPlanStatusColor() }}">
-          {{ getStartButtonLabel() }}
+        <button ion-button full [disabled]="!canStartPlan() || isPlanInProgress()" (click)="startPlan()" color="{{ getPlanStatusColor() }}">
+          <ion-icon name="power"></ion-icon>&nbsp;{{ getStartButtonLabel() }}
         </button>
       </ion-col>
     </ion-row>

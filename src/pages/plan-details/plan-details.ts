@@ -3,7 +3,6 @@ import {NavParams, ToastController, AlertController, ModalController, reorderArr
 
 import { PlansProvider } from '../../providers/plans/plans';
 import { ParticipantsPage } from '../participants/participants';
-import {isEquivalent} from "../../helpers/helpers";
 
 const DURATION = 2000;
 const CURRENCY = '£';
@@ -26,8 +25,6 @@ export class PlanDetailsPage {
     private min = 1;
 
     public schedule = [];
-    public rounds:string = "not set";
-
     private contactsLocal:any[] = [
     {
       "id":5,
@@ -896,11 +893,14 @@ export class PlanDetailsPage {
   }
 
   onSwipeRemoveParticipant(participant, index){
-    this.plansProvider.removeParticipant(participant).subscribe(response => {
-      if(response.ok){
-        this.schedule.splice(index, 1);
+      if(!this.isPlanInProgress()){
+        this.plansProvider.removeParticipant(participant).subscribe(response => {
+          if(response.ok){
+            this.schedule.splice(index, 1);
+          }
+        });
       }
-    });
+
   }
 
 
@@ -909,7 +909,7 @@ export class PlanDetailsPage {
     }
 
     setAmount(){
-        this.plansProvider.setSavingsAmount(this.savingsAmount, this.plan['id']).subscribe(response => {
+        this.plansProvider.setSavingsAmount(this.savingsAmount, this.id).subscribe(response => {
             if( response.ok ){
                 // set screen properties
                 this.savingsAmount = parseInt(this.savingsAmount);
@@ -978,14 +978,14 @@ export class PlanDetailsPage {
   }
 
   isPlanInProgress(){
-    if(this.status !== ''){
-      return this.status === 'in-progress'
-    }
-    return this.plan['status'] === 'in-progress';
+      if(this.status !== ''){
+          return this.status === 'in-progress'
+      }
+      return this.plan['status'] === 'in-progress';
   }
 
   canStartPlan(){
-    return this.savingsAmount > 0 && this.schedule.length;
+    return this.initialAmt > 0 && this.schedule.length;
   }
 
   getPlanStatusColor(){
@@ -997,17 +997,13 @@ export class PlanDetailsPage {
       participantsModal.onDidDismiss( participants => {
           if(participants){
               this.schedule = participants;
-              if(this.schedule.length){
-                  this.rounds = "1 of " + this.schedule.length;
-              }
-
           }
       });
       participantsModal.present();
   }
 
   startPlan(){
-      let next = result => {
+      this.plansProvider.startPlan(this.plan['id']).subscribe(result => {
           if (result){
               this.icon = 'rainy';
               let startPlanToast = this.toastCtrl.create({
@@ -1016,8 +1012,7 @@ export class PlanDetailsPage {
               });
               startPlanToast.present();
           }
-      };
-      this.plansProvider.startPlan(this.plan['id']).subscribe(next)
+      })
   }
 
 }
