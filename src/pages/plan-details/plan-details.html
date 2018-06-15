@@ -51,16 +51,22 @@
     </ion-card-content>
 
   </ion-card>
+</ion-content>
 
+<ion-footer>
+    <ion-toolbar>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col col-12>
-          <button ion-button class="btn" [disabled]="!canStartPlan()" (click)="startPlan()" color="{{ getPlanStatusColor() }}">
+        <ion-buttons start>
+          <button ion-button [disabled]="true" icon-start>
+          Save <ion-icon name="save"></ion-icon>
+          </button>
+        </ion-buttons>
+
+        <ion-buttons end>
+          <button ion-button class="btn" [disabled]="true" (click)="startPlan()" color="{{ getPlanStatusColor() }}">
             {{ getStartButtonLabel() }}
           </button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+        </ion-buttons>
 
-</ion-content>
+    </ion-toolbar>
+</ion-footer>

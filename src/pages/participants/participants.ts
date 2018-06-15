@@ -835,28 +835,29 @@ export class ParticipantsPage {
 
                 if(nameToUse && nameToUse.length){
 
-                  this.participantsList.forEach(participant => {
-                      if(contact.id === participant.contactId){
-                          participantId = participant.id;
-                      }
-                  });
+                    this.participantsList.forEach(participant => {
+                        // console.log('contact id = ' + contact.id + ' and of type: ' + typeof contact.id);
+                        // console.log('participant contact id = ' + participant.contactId + ' and of type: ' + typeof participant.contactId);
+                        // console.log('========');
+                        if(contact.id === participant.contactId){
+                            participantId = participant.id;
+                        }
+                    });
 
-                  // add new contact
-                  let newContact = {
-                      "contactId": contact.id,
-                      "name": nameToUse,
-                      "number": numberToUse,
-                      "id": participantId
-                  };
-
-                  this.contactsList.push(newContact);
+                    let newContact = {
+                        "contactId": contact.id,
+                        "name": nameToUse,
+                        "number": numberToUse,
+                        "id": participantId
+                    };
+                    this.contactsList.push(newContact);
                 }
 
             });
 
             this.participantsList.forEach(participant => {
                 this.contactsList.forEach(contact => {
-                    if(contact.contactId === parseInt(participant.contactId)){
+                    if(contact.contactId === participant.contactId){
                         let newParticipant = Object.assign({}, contact);
                         this.participants.push(newParticipant);
                     }
@@ -893,7 +894,10 @@ export class ParticipantsPage {
             if(nameToUse && nameToUse.length){
 
                 this.participantsList.forEach(participant => {
-                    if(contact.id === parseInt(participant.contactId)){
+                    // console.log('c' + participant.contactId + typeof participant.contactId);
+                    // console.log('p' + contact.id + typeof contact.id);
+                    // console.log('==]=');
+                    if(contact.id === participant.contactId){
                         participantId = participant.id;
                     }
                 });
@@ -911,9 +915,10 @@ export class ParticipantsPage {
 
         });
 
+
         this.participantsList.forEach(participant => {
             this.contactsList.forEach(contact => {
-                if(contact.contactId === parseInt(participant.contactId)){
+                if(contact.contactId === participant.contactId){
                     let newParticipant = Object.assign({}, contact);
                     this.participants.push(newParticipant);
                 }
@@ -1007,6 +1012,8 @@ export class ParticipantsPage {
 
     onSaveParticipants(){
         let schedule = this.participants.map(participant => { return participant.id });
+        // console.log(this.participants);
+        // console.log(schedule);
         this.plansProvider.setSchedule(schedule, this.potId).subscribe(response => {
             if(response.ok){
                 let doneSaving = this.toastCtrl.create({

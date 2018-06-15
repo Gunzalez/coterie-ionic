@@ -82,8 +82,8 @@ export class PlanDetailsPage {
             //this.schedule = this.plan['participants'];
             this.plan['participants'].forEach(participant => {
                 this.schedule.push({
-                    contactId: participant.name,
-                    id: participant.id,
+                    contactId: parseInt(participant.contactId),
+                    id: participant.id
                 })
             });
             this.plansProvider.plan = this.plan;
@@ -99,7 +99,7 @@ export class PlanDetailsPage {
     }
 
     setAmount(){
-        let next = response => {
+        this.plansProvider.setSavingsAmount(this.savingsAmount, this.plan['id']).subscribe(response => {
             if( response.ok ){
                 // set screen properties
                 this.savingsAmount = parseInt(this.savingsAmount);
@@ -110,8 +110,7 @@ export class PlanDetailsPage {
                 });
                 amountSaveToast.present();
             }
-        };
-        this.plansProvider.setSavingsAmount(this.savingsAmount, this.plan['id']).subscribe(next);
+        });
     }
 
   editPlanName(){
@@ -165,7 +164,7 @@ export class PlanDetailsPage {
   }
 
   getStartButtonLabel(){
-    return this.plan['status'] === 'in-progress' ? 'Started' : 'Start plan';
+      return this.plan['status'] === 'in-progress' ? 'Started' : 'Start Plan';
   }
 
   isPlanInProgress(){
@@ -176,10 +175,7 @@ export class PlanDetailsPage {
   }
 
   canStartPlan(){
-    if(this.isPlanInProgress()){
-      return false;
-    }
-    return this.plan['_capabilities'] && this.plan['_capabilities'].indexOf('startPlan') !== -1 && this.plan['savingsAmount'] > 0 && this.plan['participants'].length > 0;
+    return this.savingsAmount > 0 && this.schedule.length;
   }
 
   getPlanStatusColor(){
