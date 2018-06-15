@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import {NavParams, ToastController, AlertController, ModalController, reorderArray} from 'ionic-angular';
+
+import { Contacts, ContactFieldType, ContactFindOptions } from '@ionic-native/contacts';
+
+import { NavParams, ToastController, AlertController, ModalController, reorderArray} from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
 import { ParticipantsPage } from '../participants/participants';
@@ -787,7 +790,7 @@ export class PlanDetailsPage {
     public savingsAmount:any = 0;
     public initialAmt:any = 0;
 
-    constructor(private modalCtrl: ModalController, private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navParams: NavParams) {
+    constructor(private contacts: Contacts, private modalCtrl: ModalController, private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navParams: NavParams) {
         this.id = this.navParams.get('id');
     }
 
@@ -829,7 +832,7 @@ export class PlanDetailsPage {
             this.initialAmt = this.savingsAmount;
 
             if(this.schedule.length){
-                this.getContactsLocal();
+                this.getContacts();
             }
         };
         this.plansProvider.getAPlan(this.id).subscribe(next);
@@ -878,6 +881,64 @@ export class PlanDetailsPage {
         }
       });
     })
+
+  }
+
+
+  getContacts(){
+
+    let fields:ContactFieldType[] = ['*'];
+
+    const options = new ContactFindOptions();
+    options.multiple = true;
+    options.hasPhoneNumber = true;
+
+    this.contacts.find(fields, options).then((contacts) => {
+
+      contacts.forEach(contact => {
+
+        let nameToUse:string = '';
+        let numberToUse:any = '';
+
+        if(contact.displayName && contact.displayName.length){
+          nameToUse = contact.displayName;
+        } else if (contact.nickname && contact.nickname.length) {
+          nameToUse = contact.nickname;
+        } else if (contact.name.formatted && contact.name.formatted) {
+          nameToUse = contact.name.formatted;
+        } else if (contact.name.givenName && contact.name.givenName.length) {
+          nameToUse = contact.name.givenName + ' ' + contact.name.familyName
+        }
+
+        if(contact.phoneNumbers && contact.phoneNumbers[0].value.length){
+          numberToUse = contact.phoneNumbers[0].value;
+        }
+
+        if(nameToUse && nameToUse.length){
+
+          // add new contact
+          let newContact = {
+            "contactId": contact.id,
+            "name": nameToUse,
+            "number": numberToUse
+          };
+
+          this.contactsList.push(newContact);
+        }
+
+      });
+
+      this.schedule.forEach(participant => {
+        this.contactsList.forEach(contact => {
+          if(participant.contactId === contact.contactId){
+            Object.assign(participant, contact);
+          }
+        });
+      })
+
+
+    });
+
 
   }
 
@@ -1007,7 +1068,7 @@ export class PlanDetailsPage {
           if (result){
               this.icon = 'rainy';
               let startPlanToast = this.toastCtrl.create({
-                  message: 'Plan started',
+                  message: 'Pot started',
                   duration: DURATION,
               });
               startPlanToast.present();
