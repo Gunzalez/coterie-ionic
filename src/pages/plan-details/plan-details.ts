@@ -832,8 +832,8 @@ export class PlanDetailsPage {
             this.initialAmt = this.savingsAmount;
 
             if(this.schedule.length){
-                //this.getContacts();
-                this.getContactsLocal();
+                this.getContacts();
+                //this.getContactsLocal();
             }
         };
         this.plansProvider.getAPlan(this.id).subscribe(next);
