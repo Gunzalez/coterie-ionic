@@ -1,7 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Contacts, ContactFieldType, ContactFindOptions } from '@ionic-native/contacts';
-
 import { ViewController, NavController, ToastController, NavParams, Content, reorderArray } from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
@@ -28,7 +26,7 @@ export class ParticipantsPage {
 
     @ViewChild('Content') content: Content;
 
-    constructor(private contacts: Contacts, private viewCtrl: ViewController, public navCtrl: NavController, private toastCtrl: ToastController, public navParams: NavParams, private plansProvider: PlansProvider) {
+    constructor(private viewCtrl: ViewController, public navCtrl: NavController, private toastCtrl: ToastController, public navParams: NavParams, private plansProvider: PlansProvider) {
         this.participantsList = this.navParams.get('list');
         this.participantsListInitial = this.participantsList.slice();
         this.potId = this.navParams.get('potId');
