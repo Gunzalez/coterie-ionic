@@ -819,7 +819,11 @@ export class PlanDetailsPage {
     }
 
     ionViewWillEnter(){
-        let next = plan => {
+        this.fetchPlan();
+    }
+
+    fetchPlan(){
+        this.plansProvider.getAPlan(this.id).subscribe(plan => {
             this.plan = plan;
             this.plan['participants'].forEach(participant => {
                 this.schedule.push({
@@ -831,56 +835,61 @@ export class PlanDetailsPage {
             this.savingsAmount = this.plan['savingsAmount'];
             this.initialAmt = this.savingsAmount;
 
-            if(this.schedule.length){
+            if(!this.contactsList.length) {
+                // this.getContactsLocal();
                 this.getContacts();
-                //this.getContactsLocal();
             }
-        };
-        this.plansProvider.getAPlan(this.id).subscribe(next);
+        });
     }
 
+
+
   getContactsLocal(){
+      this.contactsLocal.forEach(contact => {
 
-    this.contactsLocal.forEach(contact => {
+        let nameToUse:string = '';
+        let numberToUse:any = '';
 
-      let nameToUse:string = '';
-      let numberToUse:any = '';
-
-      if(contact.displayName && contact.displayName.length){
-        nameToUse = contact.displayName;
-      } else if (contact.nickname && contact.nickname.length) {
-        nameToUse = contact.nickname;
-      } else if (contact.name.formatted && contact.name.formatted) {
-        nameToUse = contact.name.formatted;
-      } else if (contact.name.givenName && contact.name.givenName.length) {
-        nameToUse = contact.name.givenName + ' ' + contact.name.familyName
-      }
-
-      if(contact.phoneNumbers && contact.phoneNumbers[0].value.length){
-        numberToUse = contact.phoneNumbers[0].value;
-      }
-
-      if(nameToUse && nameToUse.length){
-
-        // add new contact
-        let newContact = {
-            "contactId": contact.id,
-            "name": nameToUse,
-            "number": numberToUse
-        };
-
-        this.contactsList.push(newContact);
-      }
-
-    });
-
-    this.schedule.forEach(participant => {
-      this.contactsList.forEach(contact => {
-        if(participant.contactId === contact.contactId){
-          Object.assign(participant, contact);
+        if(contact.displayName && contact.displayName.length){
+          nameToUse = contact.displayName;
+        } else if (contact.nickname && contact.nickname.length) {
+          nameToUse = contact.nickname;
+        } else if (contact.name.formatted && contact.name.formatted) {
+          nameToUse = contact.name.formatted;
+        } else if (contact.name.givenName && contact.name.givenName.length) {
+          nameToUse = contact.name.givenName + ' ' + contact.name.familyName
         }
+
+        if(contact.phoneNumbers && contact.phoneNumbers[0].value.length){
+          numberToUse = contact.phoneNumbers[0].value;
+        }
+
+        if(nameToUse && nameToUse.length){
+
+          // add new contact
+          let newContact = {
+              "contactId": contact.id,
+              "name": nameToUse,
+              "number": numberToUse
+          };
+
+          this.contactsList.push(newContact);
+        }
+
       });
-    })
+      if(this.schedule.length){
+          this.mergeContactDetails();
+      }
+  }
+
+  mergeContactDetails(){
+      this.schedule.forEach(participant => {
+          this.contactsList.forEach(contact => {
+              if(participant.contactId === contact.contactId){
+                  Object.assign(participant, contact);
+              }
+          });
+      })
   }
 
   getContacts(){
@@ -926,13 +935,9 @@ export class PlanDetailsPage {
 
       });
 
-      this.schedule.forEach(participant => {
-        this.contactsList.forEach(contact => {
-          if(participant.contactId === contact.contactId){
-            Object.assign(participant, contact);
-          }
-        });
-      })
+      if(this.schedule.length){
+        this.mergeContactDetails();
+      }
 
 
     });
@@ -940,25 +945,25 @@ export class PlanDetailsPage {
   }
 
   reorderItems(indexes) {
-    this.schedule = reorderArray(this.schedule, indexes);
-
-    let schedule = this.schedule.map(participant => { return participant.id });
-    this.plansProvider.setSchedule(schedule, this.id).subscribe(response => {
-      if(response.ok){
-        // schedule saved
-      }
-    });
+      // set new schedule
+      this.schedule = reorderArray(this.schedule, indexes);
+      // save new schedule
+      let schedule = this.schedule.map(participant => { return participant.id });
+      this.plansProvider.setSchedule(schedule, this.id).subscribe(response => {
+          if(!response.ok){
+              console.log('schedule error')
+          }
+      });
   }
 
   onSwipeRemoveParticipant(participant, index){
       if(!this.isPlanInProgress()){
-        this.plansProvider.removeParticipant(participant).subscribe(response => {
-          if(response.ok){
-            this.schedule.splice(index, 1);
-          }
-        });
+          this.plansProvider.removeParticipant(participant).subscribe(response => {
+              if(response.ok){
+                  this.schedule.splice(index, 1);
+              }
+          });
       }
-
   }
 
 
@@ -1051,7 +1056,7 @@ export class PlanDetailsPage {
   }
 
   viewParticipants(){
-      let participantsModal = this.modalCtrl.create(ParticipantsPage, { list: this.schedule, potId: this.id  });
+      let participantsModal = this.modalCtrl.create(ParticipantsPage, { list: this.schedule, potId: this.id, contacts: this.contactsList });
       participantsModal.onDidDismiss( participants => {
           if(participants){
               this.schedule = participants;

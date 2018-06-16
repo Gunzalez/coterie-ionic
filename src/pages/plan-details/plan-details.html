@@ -42,7 +42,7 @@
 
     <ion-row>
       <ion-col col-12>
-        <button ion-button full (click)="viewParticipants()" *ngIf="!isPlanInProgress()">
+        <button ion-button full (click)="viewParticipants()" [disabled]="!contactsList.length" *ngIf="!isPlanInProgress()">
           <span>Add/Remove participants</span>
         </button>
         <button ion-button full disabled *ngIf="isPlanInProgress()">
