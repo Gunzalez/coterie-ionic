@@ -13,12 +13,18 @@ page-participants {
     }
 
     .number {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         color: #666666;
+        display: block;
+        padding-top: 2px;
     }
 
+  .sp-label {
+    font-size: 1.5rem;
+  }
+
     .name {
-        color: #000000;
+        color: #666666;
         font-size: 1.6rem;
     }
 
@@ -31,13 +37,6 @@ page-participants {
 
         .label-ios {
               margin: 0;
-        }
-    }
-
-    .isParticipant {
-
-        .name, .number {
-            opacity: 0.3;
         }
     }
 

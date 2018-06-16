@@ -43,28 +43,29 @@
     <ion-row>
       <ion-col col-12>
         <button ion-button full (click)="viewParticipants()" *ngIf="!isPlanInProgress()">
-          <span>Add/Remove participants ({{schedule.length}})</span>
+          <span>Add/Remove participants</span>
         </button>
         <button ion-button full disabled *ngIf="isPlanInProgress()">
-          Pot started
+          Participants locked
         </button>
       </ion-col>
     </ion-row>
   </ion-grid>
 
   <ion-list-header class="sp-header">
-    Schedule
+    Schedule ({{schedule.length}})
   </ion-list-header>
 
   <ion-list reorder="true" (ionItemReorder)="reorderItems($event)">
     <ion-item-sliding *ngFor="let participant of schedule; let index = index">
       <ion-item>
         <p class="name participant">{{participant.name}}</p>
-        <p class="number">{{participant.number}}</p>
       </ion-item>
       <ion-item-options side="left">
 
-        <button ion-button [color]="isPlanInProgress() ? 'secondary' : 'danger'" (click)="onSwipeRemoveParticipant(participant, index)" icon-only>
+
+
+        <button ion-button [color]="isPlanInProgress() ? 'secondary' : 'danger'" (click)="onSwipeRemoveParticipant(participant, index)">
           <ion-icon [name]="isPlanInProgress() ? 'cash' : 'trash'"></ion-icon>
         </button>
 

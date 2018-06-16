@@ -31,11 +31,11 @@
     <ion-item-sliding *ngFor="let participant of participants; let index = index">
       <ion-item>
         <p class="name participant">{{participant.name}}</p>
-        <p class="number">{{participant.number}}</p>
+        <!--<p class="number">{{participant.number}}</p>-->
       </ion-item>
 
       <ion-item-options side="left">
-        <button ion-button color="danger" (click)="onSwipeRemoveParticipant(participant, index)" icon-only>
+        <button ion-button color="danger" (click)="onSwipeRemoveParticipant(participant, index)">
           <ion-icon name="trash"></ion-icon>
         </button>
       </ion-item-options>
@@ -49,8 +49,8 @@
   <ion-list>
     <ion-item-group *ngFor="let group of contactsGrouped">
       <ion-item-divider class="divider">{{group.letter}}</ion-item-divider>
-      <ion-item *ngFor="let contact of group.contacts" [ngClass]="{'isParticipant': isParticipant(contact)}">
-        <ion-icon name="{{ isParticipant(contact) ? 'remove-circle' : 'add-circle' }}" (click)="onClickContact(contact)" [ngClass]="[isParticipant(contact) ? 'remove' : 'add']" item-start></ion-icon>
+      <ion-item *ngFor="let contact of group.contacts" [ngClass]="{'isParticipant': isParticipant(contact)}" (click)="onClickContact(contact)">
+        <ion-icon name="{{ isParticipant(contact) ? 'radio-button-on' : 'radio-button-off' }}" color="primary" item-start></ion-icon>
         <p class="name">{{contact.name}}</p>
         <span class="number" item-end>{{contact.number}}</span>
       </ion-item>

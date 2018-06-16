@@ -832,7 +832,8 @@ export class PlanDetailsPage {
             this.initialAmt = this.savingsAmount;
 
             if(this.schedule.length){
-                this.getContacts();
+                //this.getContacts();
+                this.getContactsLocal();
             }
         };
         this.plansProvider.getAPlan(this.id).subscribe(next);
@@ -873,7 +874,6 @@ export class PlanDetailsPage {
 
     });
 
-
     this.schedule.forEach(participant => {
       this.contactsList.forEach(contact => {
         if(participant.contactId === contact.contactId){
@@ -881,9 +881,7 @@ export class PlanDetailsPage {
         }
       });
     })
-
   }
-
 
   getContacts(){
 
@@ -938,7 +936,6 @@ export class PlanDetailsPage {
 
 
     });
-
 
   }
 
@@ -1035,7 +1032,7 @@ export class PlanDetailsPage {
   }
 
   getStartButtonLabel(){
-      return this.plan['status'] === 'in-progress' ? 'Started' : 'Start Plan';
+      return this.plan['status'] === 'in-progress' ? 'Pot started' : 'Start this pot';
   }
 
   isPlanInProgress(){
