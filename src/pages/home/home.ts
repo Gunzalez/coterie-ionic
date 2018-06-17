@@ -18,7 +18,7 @@ export class HomePage {
     public newPlanName:string = 'New';
 
     private addMode:boolean = false;
-    private plansHasLoaded:boolean = false;
+    // private potsHaveLoaded:boolean = false;
     private loading:any = null;
 
     @ViewChild('input') myInput;
@@ -98,7 +98,7 @@ export class HomePage {
     }
 
     displayLoadingSpinner() {
-      this.plansHasLoaded = false;
+      // this.potsHaveLoaded = false;
       this.loading = this.loadingCtrl.create({
         content: 'Please wait...'
       });
@@ -106,11 +106,10 @@ export class HomePage {
     }
 
     getAllPlans(){
-        this.plansProvider.getPlans().subscribe(data =>
-        {
+        this.plansProvider.getPlans().subscribe(data => {
             this.plans = data.plans.reverse();
             this.loading.dismiss();
-            this.plansHasLoaded = true;
+            // this.potsHaveLoaded = true;
         });
     }
 

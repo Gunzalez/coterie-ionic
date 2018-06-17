@@ -160,6 +160,7 @@ export class ParticipantsPage {
     }
 
     groupContacts(){
+      
         sortList(this.contactsFiltered);
         this.contactsGrouped.length = 0;
         let groupedCollection = {};

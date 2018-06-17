@@ -37,7 +37,7 @@
       </button>
 
       <ion-item-options side="left">
-        <button ion-button [color]="canBeDeleted(plan) ? 'danger' : 'secondary'" (click)="deleteOrArchive(plan)" icon-only>
+        <button ion-button [color]="canBeDeleted(plan) ? 'danger' : 'secondary'" (click)="deleteOrArchive(plan)">
           <ion-icon [name]="canBeDeleted(plan) ? 'trash' : 'archive'"></ion-icon>
         </button>
       </ion-item-options>

@@ -33,8 +33,10 @@ page-plan-details {
   .my-label {
     display: block;
     text-transform: uppercase;
-    color: #666666;
-    font-size: 0.9em;
+    color: rgb(51, 51, 51);
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-weight: 500;
   }
 
   .name {

@@ -2,7 +2,14 @@ import { Component } from '@angular/core';
 
 import { Contacts, ContactFieldType, ContactFindOptions } from '@ionic-native/contacts';
 
-import { NavParams, ToastController, AlertController, ModalController, reorderArray} from 'ionic-angular';
+import {
+  NavParams,
+  ToastController,
+  AlertController,
+  ModalController,
+  reorderArray,
+  LoadingController
+} from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
 import { ParticipantsPage } from '../participants/participants';
@@ -26,6 +33,9 @@ export class PlanDetailsPage {
     private inc = 100;
     public max = 2500;
     private min = 1;
+
+    // private potHasLoaded:boolean = false;
+    private loading:any = null;
 
     public schedule = [];
     private contactsLocal:any[] = [
@@ -790,11 +800,18 @@ export class PlanDetailsPage {
     public savingsAmount:any = 0;
     public initialAmt:any = 0;
 
-    constructor(private contacts: Contacts, private modalCtrl: ModalController, private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navParams: NavParams) {
+    constructor(public loadingCtrl: LoadingController, private contacts: Contacts, private modalCtrl: ModalController, private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navParams: NavParams) {
         this.id = this.navParams.get('id');
     }
 
     ionViewDidLoad() {};
+
+    displayLoadingSpinner() {
+        this.loading = this.loadingCtrl.create({
+            content: 'Pot loading...'
+        });
+        this.loading.present();
+    }
 
     amountMinus(){
         this.savingsAmount = parseInt(this.savingsAmount) - this.inc;
@@ -819,6 +836,7 @@ export class PlanDetailsPage {
     }
 
     ionViewWillEnter(){
+        this.displayLoadingSpinner();
         this.fetchPlan();
     }
 
@@ -835,14 +853,15 @@ export class PlanDetailsPage {
             this.savingsAmount = this.plan['savingsAmount'];
             this.initialAmt = this.savingsAmount;
 
+
+            this.loading.dismiss();
+
             if(!this.contactsList.length) {
-                // this.getContactsLocal();
-                this.getContacts();
+                this.getContactsLocal();
+                //this.getContacts();
             }
         });
     }
-
-
 
   getContactsLocal(){
       this.contactsLocal.forEach(contact => {
