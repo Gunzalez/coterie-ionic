@@ -856,8 +856,8 @@ export class PlanDetailsPage {
             this.loading.dismiss();
 
             if(!this.contactsList.length) {
-                //this.getContactsLocal();
-                this.getContacts();
+                this.getContactsLocal();
+                //this.getContacts();
             }
         });
     }
@@ -1004,14 +1004,14 @@ export class PlanDetailsPage {
         });
     }
 
-  editPlanName(){
+  openNameEdit(){
 
     let addPlanAlert = this.alertCtrl.create({
-      title:'Edit plan name',
+      title:'Edit pot name',
       inputs: [
         {
           type: "text",
-          name: 'planName',
+          name: 'potName',
           placeholder: '',
           value: this.getPlanName()
         }
@@ -1023,18 +1023,15 @@ export class PlanDetailsPage {
         {
           text: "Update",
           handler: (inputData)=>{
-
-            let planName = inputData.planName.trim();
-            if(planName.length > 0){
-
-              let next = response => {
+            let potName = inputData.potName.trim();
+            if(potName.length > 0){
+              this.plansProvider.updatePlan(potName, this.id).subscribe(response => {
                 if (response.ok){
-                  this.name = planName;
+                  this.name = potName;
                 } else {
                   // error handling
                 }
-              };
-              this.plansProvider.updatePlan(planName, this.id).subscribe(next);
+              });
 
             }
           }
@@ -1049,7 +1046,7 @@ export class PlanDetailsPage {
 
   getPlanName() {
     if(this.name !== ''){
-      return this.name;
+        return this.name;
     }
     return this.plan['name'];
   }

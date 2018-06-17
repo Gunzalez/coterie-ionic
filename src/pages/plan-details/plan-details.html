@@ -13,7 +13,7 @@
     <ion-row>
       <ion-col col-10>
         <span class="my-label">Pot name</span>
-        <span class="potName">{{ getPlanName() }}&nbsp;</span>
+        <span class="potName" (press)="openNameEdit()">{{ getPlanName() }}&nbsp;</span>
       </ion-col>
       <ion-col col-2>
         <span class="my-label">&nbsp;</span>
