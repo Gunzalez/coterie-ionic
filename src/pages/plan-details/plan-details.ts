@@ -853,12 +853,11 @@ export class PlanDetailsPage {
             this.savingsAmount = this.plan['savingsAmount'];
             this.initialAmt = this.savingsAmount;
 
-
             this.loading.dismiss();
 
             if(!this.contactsList.length) {
-                this.getContactsLocal();
-                //this.getContacts();
+                //this.getContactsLocal();
+                this.getContacts();
             }
         });
     }
