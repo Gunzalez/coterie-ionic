@@ -26,7 +26,6 @@ export class PlanDetailsPage {
     public id;
     private plan = {};
 
-    private icon:string= '';
     private name:string = '';
     private status:string = '';
 
@@ -34,7 +33,6 @@ export class PlanDetailsPage {
     public max = 2500;
     private min = 1;
 
-    // private potHasLoaded:boolean = false;
     private loading:any = null;
 
     public schedule = [];
@@ -797,6 +795,8 @@ export class PlanDetailsPage {
   ];
     private contactsList:any[] = [];
 
+    public reorderStatus:boolean = false;
+
     public savingsAmount:any = 0;
     public initialAmt:any = 0;
 
@@ -855,60 +855,69 @@ export class PlanDetailsPage {
 
             this.loading.dismiss();
 
+            // faking first one
+            if(this.schedule.length){
+                this.schedule[0].awaitingCollection = true;
+            }
+
             if(!this.contactsList.length) {
-                this.getContactsLocal();
-                //this.getContacts();
+                //this.getContactsLocal();
+                this.getContacts();
             }
         });
     }
 
-  getContactsLocal(){
-      this.contactsLocal.forEach(contact => {
+    getContactsLocal(){
+        this.contactsLocal.forEach(contact => {
 
-        let nameToUse:string = '';
-        let numberToUse:any = '';
+          let nameToUse:string = '';
+          let numberToUse:any = '';
 
-        if(contact.displayName && contact.displayName.length){
-          nameToUse = contact.displayName;
-        } else if (contact.nickname && contact.nickname.length) {
-          nameToUse = contact.nickname;
-        } else if (contact.name.formatted && contact.name.formatted) {
-          nameToUse = contact.name.formatted;
-        } else if (contact.name.givenName && contact.name.givenName.length) {
-          nameToUse = contact.name.givenName + ' ' + contact.name.familyName
+          if(contact.displayName && contact.displayName.length){
+            nameToUse = contact.displayName;
+          } else if (contact.nickname && contact.nickname.length) {
+            nameToUse = contact.nickname;
+          } else if (contact.name.formatted && contact.name.formatted) {
+            nameToUse = contact.name.formatted;
+          } else if (contact.name.givenName && contact.name.givenName.length) {
+            nameToUse = contact.name.givenName + ' ' + contact.name.familyName
+          }
+
+          if(contact.phoneNumbers && contact.phoneNumbers[0].value.length){
+            numberToUse = contact.phoneNumbers[0].value;
+          }
+
+          if(nameToUse && nameToUse.length){
+
+            // add new contact
+            let newContact = {
+                "contactId": contact.id,
+                "name": nameToUse,
+                "number": numberToUse
+            };
+
+            this.contactsList.push(newContact);
+          }
+
+        });
+        if(this.schedule.length){
+            this.mergeContactDetails();
         }
+    }
 
-        if(contact.phoneNumbers && contact.phoneNumbers[0].value.length){
-          numberToUse = contact.phoneNumbers[0].value;
+    mergeContactDetails(){
+        this.schedule.forEach(participant => {
+            this.contactsList.forEach(contact => {
+                if(participant.contactId === contact.contactId){
+                    Object.assign(participant, contact);
+                }
+            });
+        });
+
+        if(!this.isPlanInProgress()){
+            this.reorderStatus = true;
         }
-
-        if(nameToUse && nameToUse.length){
-
-          // add new contact
-          let newContact = {
-              "contactId": contact.id,
-              "name": nameToUse,
-              "number": numberToUse
-          };
-
-          this.contactsList.push(newContact);
-        }
-
-      });
-      if(this.schedule.length){
-          this.mergeContactDetails();
-      }
-  }
-
-  mergeContactDetails(){
-      this.schedule.forEach(participant => {
-          this.contactsList.forEach(contact => {
-              if(participant.contactId === contact.contactId){
-                  Object.assign(participant, contact);
-              }
-          });
-      })
-  }
+    }
 
   getContacts(){
 
@@ -1006,7 +1015,7 @@ export class PlanDetailsPage {
 
   openNameEdit(){
 
-    let addPlanAlert = this.alertCtrl.create({
+    let updatePotNameAlert = this.alertCtrl.create({
       title:'Edit pot name',
       inputs: [
         {
@@ -1040,15 +1049,71 @@ export class PlanDetailsPage {
       enableBackdropDismiss: false
     });
 
-    addPlanAlert.present();
+    updatePotNameAlert.present();
 
   }
 
+  openSavingsAmountEdit(){
+
+    let updateSavingsAmountAlert = this.alertCtrl.create({
+      title: 'Enter savings amount',
+      inputs: [
+        {
+          type: 'text',
+          name: 'savingsAmount',
+          max: '4',
+          placeholder: '',
+          value: this.savingsAmount
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel'
+        },
+        {
+          text: 'Save',
+          handler: (inputData) => {
+            console.log(inputData.savingsAmount)
+          }
+
+        }
+      ],
+      enableBackdropDismiss: false
+    });
+
+    updateSavingsAmountAlert.present();
+
+  }
+
+  onClickToCollect(participant){
+      participant.collected = true;
+  }
+
+  onClickToPay(participant){
+      participant.paid = true;
+  }
+
+  awaitingCollection(participant){
+      return participant.awaitingCollection
+  }
+
+  awaitingPayment(participant){
+      return !this.awaitingCollection(participant);
+  }
+
+  hasCollected(participant){
+      return participant.collected
+  }
+
+  hasPaid(participant){
+      return participant.paid
+  }
+
   getPlanName() {
-    if(this.name !== ''){
-        return this.name;
-    }
-    return this.plan['name'];
+      if(this.name !== ''){
+          return this.name;
+      }
+      return this.plan['name'];
   }
 
   getStartButtonLabel(){
@@ -1063,11 +1128,11 @@ export class PlanDetailsPage {
   }
 
   canStartPlan(){
-    return this.initialAmt > 0 && this.schedule.length;
+      return this.initialAmt > 0 && this.schedule.length;
   }
 
   getPlanStatusColor(){
-    return this.plan['status'] === 'in-progress' ? 'secondary' : null
+      return this.plan['status'] === 'in-progress' ? 'secondary' : null
   }
 
   viewParticipants(){
@@ -1075,6 +1140,12 @@ export class PlanDetailsPage {
       participantsModal.onDidDismiss( participants => {
           if(participants){
               this.schedule = participants;
+              this.reorderStatus = true;
+
+              // faking first one
+              if(this.schedule.length){
+                this.schedule[0].awaitingCollection = true;
+              }
           }
       });
       participantsModal.present();
@@ -1083,7 +1154,7 @@ export class PlanDetailsPage {
   startPlan(){
       this.plansProvider.startPlan(this.plan['id']).subscribe(result => {
           if (result){
-              this.icon = 'rainy';
+              this.reorderStatus = false;
               let startPlanToast = this.toastCtrl.create({
                   message: 'Pot started',
                   duration: DURATION,

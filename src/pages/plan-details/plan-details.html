@@ -13,7 +13,7 @@
     <ion-row>
       <ion-col col-10>
         <span class="my-label">Pot name</span>
-        <span class="potName" (press)="openNameEdit()">{{ getPlanName() }}&nbsp;</span>
+        <span class="potName">{{ getPlanName() }}&nbsp;</span>
       </ion-col>
       <ion-col col-2>
         <span class="my-label">&nbsp;</span>
@@ -56,20 +56,28 @@
     Schedule ({{schedule.length}})
   </ion-list-header>
 
-  <ion-list reorder="true" (ionItemReorder)="reorderItems($event)">
+  <ion-list [reorder]="reorderStatus" (ionItemReorder)="reorderItems($event)">
+
     <ion-item-sliding *ngFor="let participant of schedule; let index = index">
+
       <ion-item>
         <p class="name participant">{{participant.name}}</p>
+        <ion-icon *ngIf="isPlanInProgress() && awaitingCollection(participant)" name="{{ hasCollected(participant) ? 'basket' : 'basket' }}" color="secondary" item-end></ion-icon>
+        <ion-icon *ngIf="isPlanInProgress() && !awaitingCollection(participant)" name="{{ hasPaid(participant) ? 'cash' : 'cash' }}" color="primary" item-end></ion-icon>
       </ion-item>
+
       <ion-item-options side="left">
-
-
-
-        <button ion-button [color]="isPlanInProgress() ? 'secondary' : 'danger'" (click)="onSwipeRemoveParticipant(participant, index)">
-          <ion-icon [name]="isPlanInProgress() ? 'cash' : 'trash'"></ion-icon>
+        <button ion-button *ngIf="!isPlanInProgress()" color="danger" (click)="onSwipeRemoveParticipant(participant, index)">
+          <ion-icon name="trash"></ion-icon>
         </button>
-
+        <button ion-button *ngIf="isPlanInProgress() && awaitingCollection(participant)" color="secondary" (click)="onClickToCollect(participant)">
+          <ion-icon name="basket"></ion-icon>
+        </button>
+        <button ion-button *ngIf="isPlanInProgress() && awaitingPayment(participant)" color="primary" (click)="onClickToPay(participant)">
+          <ion-icon name="cash"></ion-icon>
+        </button>
       </ion-item-options>
+
     </ion-item-sliding>
   </ion-list>
 
