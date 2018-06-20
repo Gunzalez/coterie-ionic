@@ -19,6 +19,21 @@
     [showCancelButton]="false"
     (ionInput)="onInput()">
   </ion-searchbar>
+
+  <div class="horizontal-list">
+    <div class="participants">
+      <div class="participant" *ngFor="let participant of participants; let index = index">
+        <div class="avatar">
+          {{ participant.avatar }}
+            <span class="remove" (click)="onClickRemoveParticipant(participant, index)">
+                <ion-icon name="close-circle"></ion-icon>
+            </span>
+        </div>
+        <span class="name">{{ participant.name }}</span>
+      </div>
+    </div>
+  </div>
+
 </ion-header>
 
 <ion-content>
@@ -27,19 +42,7 @@
     <!--Participant list-->
   <!--</ion-list-header>-->
 
-  <div class="horizontal-list">
-      <div class="participants">
-          <div class="participant" *ngFor="let participant of participants; let index = index">
-              <div class="avatar">
-                  {{ participant.name.charAt(0).toUpperCase() }}
-                  <span class="remove" (click)="onClickRemoveParticipant(participant, index)">
-                      <ion-icon name="close-circle"></ion-icon>
-                  </span>
-              </div>
-              <span class="name">{{ participant.name }}</span>
-          </div>
-      </div>
-  </div>
+
 
   <!--<ion-list reorder="true" (ionItemReorder)="reorderItems($event)">-->
     <!--<ion-item-sliding *ngFor="let participant of participants; let index = index">-->
@@ -59,9 +62,9 @@
 
 
 
-  <ion-list-header class="sp-header">
-    Contact list
-  </ion-list-header>
+  <!--<ion-list-header class="sp-header">-->
+    <!--Contact list-->
+  <!--</ion-list-header>-->
   <ion-list>
     <ion-item-group *ngFor="let group of contactsGrouped">
       <ion-item-divider class="divider">{{group.letter}}</ion-item-divider>

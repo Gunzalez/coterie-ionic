@@ -106,11 +106,11 @@ export class PlanDetailsPage {
       "rawId":null,
       "displayName":"Adam Zapple",
       "name":{
-        "givenName":"Hank",
+        "givenName":"Adam",
         "honorificSuffix":"",
-        "formatted":"Hank M. Zakroff",
-        "middleName":"M.",
-        "familyName":"Zakroff",
+        "formatted":"",
+        "middleName":"",
+        "familyName":"Zapple",
         "honorificPrefix":""
       },
       "nickname":"",
@@ -666,13 +666,13 @@ export class PlanDetailsPage {
     {
       "id":11,
       "rawId":null,
-      "displayName":"John Cena",
+      "displayName":"Joan Cena",
       "name":{
         "givenName":"John",
         "honorificSuffix":"",
-        "formatted":"John Appleseed",
+        "formatted":"Joan Cena",
         "middleName":"",
-        "familyName":"Appleseed",
+        "familyName":"Cena",
         "honorificPrefix":""
       },
       "nickname":"",
@@ -862,8 +862,8 @@ export class PlanDetailsPage {
             }
 
             if(!this.contactsList.length) {
-                this.getContactsLocal();
-                //this.getContacts();
+                //this.getContactsLocal();
+                this.getContacts();
             }
         });
     }
@@ -872,20 +872,28 @@ export class PlanDetailsPage {
         this.contactsLocal.forEach(contact => {
 
           let nameToUse:string = '';
-          let numberToUse:any = '';
+          let numberToUse:any = 'No number';
+          let avatarLetters:string = '';
 
-          if(contact.displayName && contact.displayName.length){
-            nameToUse = contact.displayName;
+          if (contact.name.givenName && contact.name.givenName.length) {
+
+              nameToUse = contact.name.givenName + ' ' + contact.name.familyName;
+              avatarLetters = contact.name.givenName.charAt(0).toUpperCase() + contact.name.familyName.charAt(0).toUpperCase()
+
+          } else if(contact.displayName && contact.displayName.length){
+              nameToUse = contact.displayName;
           } else if (contact.nickname && contact.nickname.length) {
-            nameToUse = contact.nickname;
+              nameToUse = contact.nickname;
           } else if (contact.name.formatted && contact.name.formatted) {
-            nameToUse = contact.name.formatted;
-          } else if (contact.name.givenName && contact.name.givenName.length) {
-            nameToUse = contact.name.givenName + ' ' + contact.name.familyName
+              nameToUse = contact.name.formatted;
+          }
+
+          if(avatarLetters === ''){
+              avatarLetters = nameToUse.charAt(0).toUpperCase()
           }
 
           if(contact.phoneNumbers && contact.phoneNumbers[0].value.length){
-            numberToUse = contact.phoneNumbers[0].value;
+              numberToUse = contact.phoneNumbers[0].value;
           }
 
           if(nameToUse && nameToUse.length){
@@ -894,7 +902,8 @@ export class PlanDetailsPage {
             let newContact = {
                 "contactId": contact.id,
                 "name": nameToUse,
-                "number": numberToUse
+                "number": numberToUse,
+                "avatar": avatarLetters
             };
 
             this.contactsList.push(newContact);

@@ -14,6 +14,7 @@ page-participants {
     .horizontal-list {
         background-color: white;
         padding-top: 15px;
+        border-bottom: 1px solid #f6f6f6;;
     }
 
     .participants {
@@ -60,12 +61,13 @@ page-participants {
         width: 60px;
         height: 60px;
         border-radius: 50%;
-        background-color: red;
-        font-size: 3.2rem;
+        background-color: #488aff;
+        font-size: 2.6rem;
+        font-weight: bold;
         line-height: 60px;
+        font-family: "Comic Sans MS";
         color: white;
         text-align: center;
-        @include background();
         position: relative;
     }
 
@@ -74,15 +76,11 @@ page-participants {
         display: block;
         top: -1px;
         right: -2px;
-        width: 22px;
-        //line-height: 16px;
-        height: 22px;
-        //background-color: red;
-        color: red;
+        width: 18px;
+        height: 18px;
         background-color: white;
         font-size: 0.6em;
         border-radius: 50%;
-        //border: 2px solid #ffffff;
 
         ion-icon {
           display: block;
