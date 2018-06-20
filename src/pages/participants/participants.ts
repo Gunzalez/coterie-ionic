@@ -95,13 +95,33 @@ export class ParticipantsPage {
                         contact.id = participantId;
 
                         let newParticipant = Object.assign({}, contact);
-                        this.participants.push(newParticipant);
-                        this.participantsList.push(newParticipant);
+                        this.participants.unshift(newParticipant);
+                        this.participantsList.unshift(newParticipant);
                     }
                 });
             });
 
         }
+    }
+
+    onClickRemoveParticipant(participant, index){
+        let callback = () => {
+            this.contactsList.forEach(contact => {
+                if(isEquivalent(participant, contact)){
+
+                    this.contactsFiltered.forEach(contactCopy => {
+                        if(isEquivalent(contactCopy, contact)){
+                            contactCopy.id = null
+                        }
+                    });
+
+                    contact.id = null;
+                    this.participants.splice(index, 1);
+                    this.participantsList.splice(index, 1);
+                }
+            });
+        };
+        this.removeParticipant(participant, callback)
     }
 
     onSwipeRemoveParticipant(participant, index){
@@ -160,7 +180,7 @@ export class ParticipantsPage {
     }
 
     groupContacts(){
-      
+
         sortList(this.contactsFiltered);
         this.contactsGrouped.length = 0;
         let groupedCollection = {};

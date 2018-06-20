@@ -1,4 +1,93 @@
+@mixin background(){
+  background: rgba(56,155,242,1);
+  background: -moz-radial-gradient(center, ellipse cover, rgba(56,155,242,1) 0%, rgba(30,127,230,1) 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(56,155,242,1)), color-stop(100%, rgba(30,127,230,1)));
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(56,155,242,1) 0%, rgba(30,127,230,1) 100%);
+  background: -o-radial-gradient(center, ellipse cover, rgba(56,155,242,1) 0%, rgba(30,127,230,1) 100%);
+  background: -ms-radial-gradient(center, ellipse cover, rgba(56,155,242,1) 0%, rgba(30,127,230,1) 100%);
+  background: radial-gradient(ellipse at center, rgba(56,155,242,1) 0%, rgba(30,127,230,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#389bf2', endColorstr='#1e7fe6', GradientType=1 );
+}
+
 page-participants {
+
+    .horizontal-list {
+        background-color: white;
+        padding-top: 15px;
+    }
+
+    .participants {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        min-height: 100px;
+    }
+
+    .participant {
+        padding: 0 20px 0 0;
+        margin-bottom: 15px;
+        white-space: nowrap;
+
+        &:first-child {
+            padding-left: 16px;
+        }
+
+        &:last-child {
+            padding-right: 16px;
+        }
+
+        &:first-child {
+
+            .avatar {
+                //opacity: 0;
+                transition: all 0.4s ease-out;
+            }
+        }
+
+        .name {
+            max-width: 60px;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+            padding-top: 10px;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+        }
+    }
+
+    .avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: red;
+        font-size: 3.2rem;
+        line-height: 60px;
+        color: white;
+        text-align: center;
+        @include background();
+        position: relative;
+    }
+
+    .remove {
+        position: absolute;
+        display: block;
+        top: -1px;
+        right: -2px;
+        width: 22px;
+        //line-height: 16px;
+        height: 22px;
+        //background-color: red;
+        color: red;
+        background-color: white;
+        font-size: 0.6em;
+        border-radius: 50%;
+        //border: 2px solid #ffffff;
+
+        ion-icon {
+          display: block;
+        }
+    }
 
     .groupLetter {
         font-size: 1.4rem;
@@ -19,9 +108,9 @@ page-participants {
         padding-top: 2px;
     }
 
-  .sp-label {
-    font-size: 1.5rem;
-  }
+    .sp-label {
+        font-size: 1.5rem;
+    }
 
     .name {
         color: #666666;

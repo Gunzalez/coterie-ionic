@@ -21,27 +21,43 @@
   </ion-searchbar>
 </ion-header>
 
-<ion-content #Content auto-hide>
+<ion-content>
 
-  <ion-list-header class="sp-header">
-    Participant list
-  </ion-list-header>
+  <!--<ion-list-header class="sp-header">-->
+    <!--Participant list-->
+  <!--</ion-list-header>-->
 
-  <ion-list reorder="true" (ionItemReorder)="reorderItems($event)">
-    <ion-item-sliding *ngFor="let participant of participants; let index = index">
-      <ion-item>
-        <p class="name participant">{{participant.name}}</p>
-        <!--<p class="number">{{participant.number}}</p>-->
-      </ion-item>
+  <div class="horizontal-list">
+      <div class="participants">
+          <div class="participant" *ngFor="let participant of participants; let index = index">
+              <div class="avatar">
+                  {{ participant.name.charAt(0).toUpperCase() }}
+                  <span class="remove" (click)="onClickRemoveParticipant(participant, index)">
+                      <ion-icon name="close-circle"></ion-icon>
+                  </span>
+              </div>
+              <span class="name">{{ participant.name }}</span>
+          </div>
+      </div>
+  </div>
 
-      <ion-item-options side="left">
-        <button ion-button color="danger" (click)="onSwipeRemoveParticipant(participant, index)">
-          <ion-icon name="trash"></ion-icon>
-        </button>
-      </ion-item-options>
+  <!--<ion-list reorder="true" (ionItemReorder)="reorderItems($event)">-->
+    <!--<ion-item-sliding *ngFor="let participant of participants; let index = index">-->
+      <!--<ion-item>-->
+        <!--<p class="name participant">{{participant.name}}</p>-->
+        <!--&lt;!&ndash;<p class="number">{{participant.number}}</p>&ndash;&gt;-->
+      <!--</ion-item>-->
 
-    </ion-item-sliding>
-  </ion-list>
+      <!--<ion-item-options side="left">-->
+        <!--<button ion-button color="danger" (click)="onSwipeRemoveParticipant(participant, index)">-->
+          <!--<ion-icon name="trash"></ion-icon>-->
+        <!--</button>-->
+      <!--</ion-item-options>-->
+
+    <!--</ion-item-sliding>-->
+  <!--</ion-list>-->
+
+
 
   <ion-list-header class="sp-header">
     Contact list
@@ -56,11 +72,5 @@
       </ion-item>
     </ion-item-group>
   </ion-list>
-
-  <ion-fab bottom right #fab>
-    <button ion-fab mini (click)="scrollToTop()">
-      <ion-icon name="arrow-up"></ion-icon>
-    </button>
-  </ion-fab>
 
 </ion-content>
