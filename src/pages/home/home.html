@@ -32,11 +32,13 @@
 
       <button ion-item (click)="viewPlan(plan)">
         <ion-icon name="{{ getPlanIcon(plan) }}" color="{{ getIconColour(plan) }}" item-start></ion-icon>
-        <h2>{{plan.name}}</h2>
-        <p class="saving-participants">{{plan['participants'].length}} participants saving {{ getSavingsAmount(plan) }}</p>
-        <!--<p>Status: {{ getPlanStatus(plan) }}</p>-->
-
-        <ion-note item-end>{{ getPlanStatus(plan) }}</ion-note>
+        <h2 class="pot-name">{{plan.name}}</h2>
+        <!--<p>Created: Monday</p>-->
+        <p class="meta">
+          <span><ion-icon name="md-contacts"></ion-icon> {{plan['participants'].length}}</span>
+          <span>{{ getSavingsAmount(plan) }}</span>
+          <span *ngIf="plan['status'] === 'in-progress'"><ion-icon name="md-time"></ion-icon> 1st round</span>
+        </p>
       </button>
 
       <ion-item-options side="left">
@@ -53,5 +55,24 @@
     </ion-item>
 
   </ion-list>
+
+
+  <!--<ion-card *ngFor="let plan of plans">-->
+    <!--<ion-card-header>-->
+      <!--{{plan.name}}-->
+    <!--</ion-card-header>-->
+    <!--<ion-card-content>-->
+      <!--<ion-grid>-->
+        <!--<ion-row>-->
+          <!--<ion-col col-4>-->
+            <!--<ion-icon name="people" icon-only></ion-icon>-->
+            <!--<ion-badge color="primary">-->
+              <!--{{plan['participants'].length}}-->
+            <!--</ion-badge>-->
+          <!--</ion-col>-->
+        <!--</ion-row>-->
+      <!--</ion-grid>-->
+    <!--</ion-card-content>-->
+  <!--</ion-card>-->
 
 </ion-content>

@@ -40,4 +40,25 @@ page-home {
     align-self: flex-start;
     margin-top: 14px;
   }
+
+  .card-content {
+  }
+
+  //.pot-name {
+  //  font-size: 2.0rem;
+  //  font-weight: lighter;
+  //}
+
+  .meta {
+    border-top: 1px solid #f6f6f6;
+    padding-top: 5px;
+    margin-top: 5px;
+
+    span {
+      display: inline-block;
+      padding-right: 10px;
+    }
+
+  }
+
 }

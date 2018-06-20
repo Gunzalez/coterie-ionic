@@ -18,6 +18,7 @@ export class HomePage {
 
     private addMode:boolean = false;
     private loading:any = null;
+    public plansHasLoaded = false;
 
     @ViewChild('input') myInput;
 
@@ -92,6 +93,7 @@ export class HomePage {
         this.plansProvider.getPlans().subscribe(data => {
             this.plans = data.plans.reverse();
             this.loading.dismiss();
+            this.plansHasLoaded = true;
         });
     }
 
@@ -99,7 +101,7 @@ export class HomePage {
         if(plan.savingsAmount && plan.savingsAmount > 0){
             return '£' + plan.savingsAmount + '.00';
         }
-        return '0'
+        return '';
     }
 
     isInAddMode(){
@@ -111,13 +113,15 @@ export class HomePage {
     }
 
     getPlanStatus(plan){
-        let returnString = '';
-        if(plan['_capabilities'] && plan['_capabilities'].indexOf('startPlan') !== -1 && plan['savingsAmount'] > 0){
-          returnString = 'Ready'
-        } else if(plan['status'] === 'in-progress'){
-          returnString = 'Started'
-        }
-        return returnString
+        // let returnString = '';
+        // if(plan['_capabilities'] && plan['_capabilities'].indexOf('startPlan') !== -1 && plan['savingsAmount'] > 0){
+        //   returnString = 'Ready'
+        // } else if(plan['status'] === 'in-progress'){
+        //   returnString = 'Started'
+        // }
+        // return returnString
+
+        return plan['status'] === 'in-progress' ? 'Running' : '';
     }
 
     canBeDeleted(plan){

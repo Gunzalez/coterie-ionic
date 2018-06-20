@@ -13,7 +13,7 @@
     <ion-row>
       <ion-col col-10>
         <span class="my-label">Pot name</span>
-        <span class="potName">{{ getPlanName() }}&nbsp;</span>
+        <span class="potName" (press)="openNameEdit()">{{ getPlanName() }}&nbsp;</span>
       </ion-col>
       <ion-col col-2>
         <span class="my-label">&nbsp;</span>
@@ -43,7 +43,7 @@
     <ion-row>
       <ion-col col-12>
         <button ion-button full (click)="viewParticipants()" [disabled]="!contactsList.length" *ngIf="!isPlanInProgress()">
-          <ion-icon [name]="'people'"></ion-icon>&nbsp;Add/Remove participants
+          <ion-icon name="md-contacts"></ion-icon>&nbsp;Add/Remove participants
         </button>
         <button ion-button full disabled *ngIf="isPlanInProgress()">
           Pot started
@@ -62,7 +62,7 @@
 
       <ion-item>
         <h2 class="name participant">{{participant.name}}</h2>
-        <p *ngIf="isPlanInProgress() && awaitingCollection(participant)" class="collection">Awaiting payment, will collect £{{savingsAmount * (schedule.length - 1)}}.00</p>
+        <p *ngIf="isPlanInProgress() && awaitingCollection(participant)" class="collection">Awaiting payments, will collect £{{savingsAmount * (schedule.length - 1)}}.00</p>
         <p *ngIf="isPlanInProgress() && awaitingPayment(participant)" class="payment">Payment due</p>
       </ion-item>
 
@@ -85,7 +85,7 @@
     <ion-row>
       <ion-col col-12>
         <button ion-button full [disabled]="!canStartPlan() || isPlanInProgress()" (click)="startPlan()">
-          <ion-icon name="power"></ion-icon>&nbsp;{{ getStartButtonLabel() }}
+          <ion-icon name="md-power"></ion-icon>&nbsp;{{ getStartButtonLabel() }}
         </button>
       </ion-col>
     </ion-row>
