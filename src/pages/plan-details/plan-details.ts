@@ -861,8 +861,8 @@ export class PlanDetailsPage {
             }
 
             if(!this.contactsList.length) {
-                //this.getContactsLocal();
-                this.getContacts();
+                this.getContactsLocal();
+                //this.getContacts();
             }
         });
     }
@@ -1129,10 +1129,6 @@ export class PlanDetailsPage {
 
   canStartPlan(){
       return this.initialAmt > 0 && this.schedule.length;
-  }
-
-  getPlanStatusColor(){
-      return this.plan['status'] === 'in-progress' ? 'secondary' : null
   }
 
   viewParticipants(){

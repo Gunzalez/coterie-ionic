@@ -46,7 +46,7 @@
           <ion-icon [name]="'people'"></ion-icon>&nbsp;Add/Remove participants
         </button>
         <button ion-button full disabled *ngIf="isPlanInProgress()">
-          Participants locked
+          Pot started
         </button>
       </ion-col>
     </ion-row>
@@ -61,21 +61,21 @@
     <ion-item-sliding *ngFor="let participant of schedule; let index = index">
 
       <ion-item>
-        <p class="name participant">{{participant.name}}</p>
-        <ion-icon *ngIf="isPlanInProgress() && awaitingCollection(participant)" name="{{ hasCollected(participant) ? 'basket' : 'basket' }}" color="secondary" item-end></ion-icon>
-        <ion-icon *ngIf="isPlanInProgress() && !awaitingCollection(participant)" name="{{ hasPaid(participant) ? 'cash' : 'cash' }}" color="primary" item-end></ion-icon>
+        <h2 class="name participant">{{participant.name}}</h2>
+        <p *ngIf="isPlanInProgress() && awaitingCollection(participant)" class="collection">Awaiting payment, will collect £{{savingsAmount * (schedule.length - 1)}}.00</p>
+        <p *ngIf="isPlanInProgress() && awaitingPayment(participant)" class="payment">Payment due</p>
       </ion-item>
 
-      <ion-item-options side="left">
-        <button ion-button *ngIf="!isPlanInProgress()" color="danger" (click)="onSwipeRemoveParticipant(participant, index)">
+      <ion-item-options side="left" *ngIf="!isPlanInProgress()">
+        <button ion-button color="danger" (click)="onSwipeRemoveParticipant(participant, index)">
           <ion-icon name="trash"></ion-icon>
         </button>
-        <button ion-button *ngIf="isPlanInProgress() && awaitingCollection(participant)" color="secondary" (click)="onClickToCollect(participant)">
-          <ion-icon name="basket"></ion-icon>
-        </button>
-        <button ion-button *ngIf="isPlanInProgress() && awaitingPayment(participant)" color="primary" (click)="onClickToPay(participant)">
-          <ion-icon name="cash"></ion-icon>
-        </button>
+        <!--<button ion-button *ngIf="isPlanInProgress() && awaitingCollection(participant)" color="secondary" (click)="onClickToCollect(participant)">-->
+          <!--<ion-icon name="basket"></ion-icon>-->
+        <!--</button>-->
+        <!--<button ion-button *ngIf="isPlanInProgress() && awaitingPayment(participant)" color="primary" (click)="onClickToPay(participant)">-->
+          <!--<ion-icon name="cash"></ion-icon>-->
+        <!--</button>-->
       </ion-item-options>
 
     </ion-item-sliding>
@@ -84,7 +84,7 @@
   <ion-grid>
     <ion-row>
       <ion-col col-12>
-        <button ion-button full [disabled]="!canStartPlan() || isPlanInProgress()" (click)="startPlan()" color="{{ getPlanStatusColor() }}">
+        <button ion-button full [disabled]="!canStartPlan() || isPlanInProgress()" (click)="startPlan()">
           <ion-icon name="power"></ion-icon>&nbsp;{{ getStartButtonLabel() }}
         </button>
       </ion-col>

@@ -14,11 +14,9 @@ import { getIcon } from "../../helpers/helpers";
 export class HomePage {
 
     public plans = [];
-    public created:string = "Monday";
     public newPlanName:string = 'New';
 
     private addMode:boolean = false;
-    // private potsHaveLoaded:boolean = false;
     private loading:any = null;
 
     @ViewChild('input') myInput;
@@ -29,20 +27,6 @@ export class HomePage {
 
     ionViewDidLoad() {
         this.createAndSetAccessToken();
-
-        //just messing about with the date
-        let today = new Date();
-        let dd = today.getDate();
-        let mm = today.getMonth()+1; //January is 0!
-        let yyyy = today.getFullYear();
-
-        if(dd<10){
-          dd = 0 + dd;
-        }
-        if(mm<10){
-          mm = 0 + mm;
-        }
-        this.created  = dd + '/' + mm + '/' + yyyy;
     }
 
     ionViewWillEnter() {
@@ -94,13 +78,12 @@ export class HomePage {
     }
 
     allowedAction(){
-      return this.newPlanName.length ? "Add" : "New"
+        return this.newPlanName.length ? "Add" : "New"
     }
 
     displayLoadingSpinner() {
-      // this.potsHaveLoaded = false;
       this.loading = this.loadingCtrl.create({
-        content: 'Please wait...'
+          content: 'Please wait...'
       });
       this.loading.present();
     }
@@ -109,8 +92,14 @@ export class HomePage {
         this.plansProvider.getPlans().subscribe(data => {
             this.plans = data.plans.reverse();
             this.loading.dismiss();
-            // this.potsHaveLoaded = true;
         });
+    }
+
+    getSavingsAmount(plan){
+        if(plan.savingsAmount && plan.savingsAmount > 0){
+            return '£' + plan.savingsAmount + '.00';
+        }
+        return '0'
     }
 
     isInAddMode(){
@@ -119,6 +108,16 @@ export class HomePage {
 
     getPlanIcon(plan){
       return getIcon(plan)
+    }
+
+    getPlanStatus(plan){
+        let returnString = '';
+        if(plan['_capabilities'] && plan['_capabilities'].indexOf('startPlan') !== -1 && plan['savingsAmount'] > 0){
+          returnString = 'Ready'
+        } else if(plan['status'] === 'in-progress'){
+          returnString = 'Started'
+        }
+        return returnString
     }
 
     canBeDeleted(plan){
@@ -145,13 +144,13 @@ export class HomePage {
       let colour = 'new';
       switch(icon){
         case 'rainy':
-          colour = 'secondary';
+          colour = 'primary';
           break;
         case 'cloud':
-          colour = 'black';
+          colour = 'primary';
           break;
         default:
-          colour = 'new';
+          colour = 'primary';
           break;
       }
       return colour;
