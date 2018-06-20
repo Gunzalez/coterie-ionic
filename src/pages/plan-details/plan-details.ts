@@ -862,122 +862,96 @@ export class PlanDetailsPage {
             }
 
             if(!this.contactsList.length) {
-                //this.getContactsLocal();
-                this.getContacts();
+                this.getContactsLocal();
+                //this.getContacts();
             }
         });
     }
 
+    extractContactFromRaw(contact){
+
+      let nameToUse:string = '';
+      let numberToUse:any = 'No number';
+      let avatarLetters:string = '';
+
+      if (contact.name.givenName && contact.name.givenName.length) {
+
+        nameToUse = contact.name.givenName + ' ' + contact.name.familyName;
+        avatarLetters = contact.name.givenName.charAt(0).toUpperCase() + contact.name.familyName.charAt(0).toUpperCase()
+
+      } else if(contact.displayName && contact.displayName.length){
+        nameToUse = contact.displayName;
+      } else if (contact.nickname && contact.nickname.length) {
+        nameToUse = contact.nickname;
+      } else if (contact.name.formatted && contact.name.formatted) {
+        nameToUse = contact.name.formatted;
+      }
+
+      if(avatarLetters === ''){
+        avatarLetters = nameToUse.charAt(0).toUpperCase()
+      }
+
+      if(contact.phoneNumbers && contact.phoneNumbers[0].value.length){
+        numberToUse = contact.phoneNumbers[0].value;
+      }
+
+      if(nameToUse && nameToUse.length){
+
+        // add new contact
+        let newContact = {
+          "contactId": contact.id,
+          "name": nameToUse,
+          "number": numberToUse,
+          "avatar": avatarLetters
+        };
+
+        this.contactsList.push(newContact);
+      }
+
+    }
+
+    mergeContactDetails(){
+      this.schedule.forEach(participant => {
+        this.contactsList.forEach(contact => {
+          if(participant.contactId === contact.contactId){
+            Object.assign(participant, contact);
+          }
+        });
+      });
+
+      if(!this.isPlanInProgress()){
+        this.reorderStatus = true;
+      }
+    }
+
     getContactsLocal(){
         this.contactsLocal.forEach(contact => {
-
-          let nameToUse:string = '';
-          let numberToUse:any = 'No number';
-          let avatarLetters:string = '';
-
-          if (contact.name.givenName && contact.name.givenName.length) {
-
-              nameToUse = contact.name.givenName + ' ' + contact.name.familyName;
-              avatarLetters = contact.name.givenName.charAt(0).toUpperCase() + contact.name.familyName.charAt(0).toUpperCase()
-
-          } else if(contact.displayName && contact.displayName.length){
-              nameToUse = contact.displayName;
-          } else if (contact.nickname && contact.nickname.length) {
-              nameToUse = contact.nickname;
-          } else if (contact.name.formatted && contact.name.formatted) {
-              nameToUse = contact.name.formatted;
-          }
-
-          if(avatarLetters === ''){
-              avatarLetters = nameToUse.charAt(0).toUpperCase()
-          }
-
-          if(contact.phoneNumbers && contact.phoneNumbers[0].value.length){
-              numberToUse = contact.phoneNumbers[0].value;
-          }
-
-          if(nameToUse && nameToUse.length){
-
-            // add new contact
-            let newContact = {
-                "contactId": contact.id,
-                "name": nameToUse,
-                "number": numberToUse,
-                "avatar": avatarLetters
-            };
-
-            this.contactsList.push(newContact);
-          }
-
+            this.extractContactFromRaw(contact);
         });
         if(this.schedule.length){
             this.mergeContactDetails();
         }
     }
 
-    mergeContactDetails(){
-        this.schedule.forEach(participant => {
-            this.contactsList.forEach(contact => {
-                if(participant.contactId === contact.contactId){
-                    Object.assign(participant, contact);
-                }
-            });
-        });
-
-        if(!this.isPlanInProgress()){
-            this.reorderStatus = true;
-        }
-    }
-
     getContacts(){
 
-      let fields:ContactFieldType[] = ['*'];
+        let fields:ContactFieldType[] = ['*'];
 
-      const options = new ContactFindOptions();
-      options.multiple = true;
-      options.hasPhoneNumber = true;
+        const options = new ContactFindOptions();
+        options.multiple = true;
+        options.hasPhoneNumber = true;
 
-      this.contacts.find(fields, options).then((contacts) => {
+        this.contacts.find(fields, options).then((contacts) => {
 
-        contacts.forEach(contact => {
+            contacts.forEach(contact => {
+                this.extractContactFromRaw(contact);
+            });
 
-          let nameToUse:string = '';
-          let numberToUse:any = '';
-
-          if(contact.displayName && contact.displayName.length){
-            nameToUse = contact.displayName;
-          } else if (contact.nickname && contact.nickname.length) {
-            nameToUse = contact.nickname;
-          } else if (contact.name.formatted && contact.name.formatted) {
-            nameToUse = contact.name.formatted;
-          } else if (contact.name.givenName && contact.name.givenName.length) {
-            nameToUse = contact.name.givenName + ' ' + contact.name.familyName
-          }
-
-          if(contact.phoneNumbers && contact.phoneNumbers[0].value.length){
-            numberToUse = contact.phoneNumbers[0].value;
-          }
-
-          if(nameToUse && nameToUse.length){
-
-            // add new contact
-            let newContact = {
-              "contactId": contact.id,
-              "name": nameToUse,
-              "number": numberToUse
-            };
-
-            this.contactsList.push(newContact);
-          }
+            if(this.schedule.length){
+                this.mergeContactDetails();
+            }
 
         });
-
-        if(this.schedule.length){
-          this.mergeContactDetails();
-        }
-
-
-      });
 
     }
 

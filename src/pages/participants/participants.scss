@@ -64,8 +64,9 @@ page-participants {
         background-color: #488aff;
         font-size: 2.6rem;
         font-weight: bold;
-        line-height: 60px;
+        line-height: 58px;
         font-family: "Comic Sans MS";
+        font-family: "Thonburi";
         color: white;
         text-align: center;
         position: relative;
@@ -91,6 +92,7 @@ page-participants {
 
    .searchbar-ios {
       background: rgb(248, 248, 248);
+      padding: 0 12px;
 
      .searchbar-input {
           background-color: #e8e8ea !important;
