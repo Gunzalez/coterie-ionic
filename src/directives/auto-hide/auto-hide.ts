@@ -1,4 +1,4 @@
-import {Directive, OnInit, ElementRef, Renderer2} from '@angular/core';
+import { Directive, OnInit, ElementRef, Renderer2 } from '@angular/core';
 
 @Directive({
     selector: '[auto-hide]', // Attribute selector
@@ -16,9 +16,9 @@ export class AutoHideDirective implements OnInit {
     }
 
     ngOnInit(){
-      this.fabToHide = this.element.nativeElement.getElementsByClassName('fab')[0];
-      this.render.setStyle(this.fabToHide, 'opacity', '0');
-      this.render.setStyle(this.fabToHide, "webkitTransition", "transform 500ms, opacity 500ms");
+        this.fabToHide = this.element.nativeElement.getElementsByClassName('fab')[0];
+        this.render.setStyle(this.fabToHide, 'opacity', '0');
+        this.render.setStyle(this.fabToHide, "webkitTransition", "transform 500ms, opacity 500ms");
     }
 
     onContentScroll(e){

@@ -12,6 +12,7 @@ import {
 } from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
+
 import { ParticipantsPage } from '../participants/participants';
 
 const DURATION = 2000;
@@ -861,8 +862,8 @@ export class PlanDetailsPage {
             }
 
             if(!this.contactsList.length) {
-                //this.getContactsLocal();
-                this.getContacts();
+                this.getContactsLocal();
+                //this.getContacts();
             }
         });
     }

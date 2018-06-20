@@ -33,16 +33,15 @@
       <button ion-item (click)="viewPlan(plan)">
         <ion-icon name="{{ getPlanIcon(plan) }}" color="{{ getIconColour(plan) }}" item-start></ion-icon>
         <h2 class="pot-name">{{plan.name}}</h2>
-        <!--<p>Created: Monday</p>-->
         <p class="meta">
-          <span><ion-icon name="md-contacts"></ion-icon> {{plan['participants'].length}}</span>
-          <span>{{ getSavingsAmount(plan) }}</span>
-          <span *ngIf="plan['status'] === 'in-progress'"><ion-icon name="md-time"></ion-icon> 1st round</span>
+          <span class="participants"><ion-icon name="md-contacts"></ion-icon> {{plan['participants'].length}}</span>
+          <span class="savings">{{ getSavingsAmount(plan) }}</span>
+          <span class="rounds" *ngIf="plan['status'] === 'in-progress'"><ion-icon name="md-time"></ion-icon> 1st</span>
         </p>
       </button>
 
       <ion-item-options side="left">
-        <button ion-button [color]="canBeDeleted(plan) ? 'danger' : 'secondary'" (click)="deleteOrArchive(plan)">
+        <button ion-button [color]="canBeDeleted(plan) ? 'danger' : 'primary'" (click)="deleteOrArchive(plan)">
           <ion-icon [name]="canBeDeleted(plan) ? 'trash' : 'archive'"></ion-icon>
         </button>
       </ion-item-options>
@@ -55,7 +54,6 @@
     </ion-item>
 
   </ion-list>
-
 
   <!--<ion-card *ngFor="let plan of plans">-->
     <!--<ion-card-header>-->
@@ -74,5 +72,6 @@
       <!--</ion-grid>-->
     <!--</ion-card-content>-->
   <!--</ion-card>-->
+
 
 </ion-content>

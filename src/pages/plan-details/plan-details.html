@@ -62,7 +62,7 @@
 
       <ion-item>
         <h2 class="name participant">{{participant.name}}</h2>
-        <p *ngIf="isPlanInProgress() && awaitingCollection(participant)" class="collection">Awaiting payments, will collect £{{savingsAmount * (schedule.length - 1)}}.00</p>
+        <p *ngIf="isPlanInProgress() && awaitingCollection(participant)" class="collection">Awaiting payments, to collect £{{savingsAmount * (schedule.length - 1)}}.00</p>
         <p *ngIf="isPlanInProgress() && awaitingPayment(participant)" class="payment">Payment due</p>
       </ion-item>
 
