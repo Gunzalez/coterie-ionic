@@ -862,8 +862,8 @@ export class PlanDetailsPage {
             }
 
             if(!this.contactsList.length) {
-                this.getContactsLocal();
-                //this.getContacts();
+                //this.getContactsLocal();
+                this.getContacts();
             }
         });
     }

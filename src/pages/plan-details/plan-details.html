@@ -54,6 +54,10 @@
 
   <ion-list-header class="sp-header">
     Schedule ({{schedule.length}})
+
+    <span item-end *ngIf="isPlanInProgress()">
+      Round 1
+    </span>
   </ion-list-header>
 
   <ion-list [reorder]="reorderStatus" (ionItemReorder)="reorderItems($event)">
@@ -62,8 +66,10 @@
 
       <ion-item>
         <h2 class="name participant">{{participant.name}}</h2>
-        <p *ngIf="isPlanInProgress() && awaitingCollection(participant)" class="collection">Awaiting payments, to collect £{{savingsAmount * (schedule.length - 1)}}.00</p>
+        <p *ngIf="isPlanInProgress() && awaitingCollection(participant)" class="collection">Collection due - £{{savingsAmount * (schedule.length - 1)}}.00</p>
         <p *ngIf="isPlanInProgress() && awaitingPayment(participant)" class="payment">Payment due</p>
+        <button ion-button *ngIf="isPlanInProgress() && awaitingCollection(participant)" outline item-end>Collect</button>
+        <button ion-button *ngIf="isPlanInProgress() && awaitingPayment(participant)" outline item-end>Pay</button>
       </ion-item>
 
       <ion-item-options side="left" *ngIf="!isPlanInProgress()">
