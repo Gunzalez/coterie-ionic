@@ -100,7 +100,7 @@ export class HomePage {
 
     getSavingsAmount(plan){
         if(plan.savingsAmount && plan.savingsAmount > 0){
-            return '£' + plan.savingsAmount + '.00';
+            return '£' + plan.savingsAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '.00';
         }
         return '';
     }
