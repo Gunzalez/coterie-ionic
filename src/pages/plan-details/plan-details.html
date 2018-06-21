@@ -62,14 +62,14 @@
     <ion-item-sliding *ngFor="let participant of schedule; let index = index">
 
       <ion-item *ngIf="!isPlanInProgress()">
-        <ion-icon name="md-person" color="primary" item-start></ion-icon>
+        <ion-icon name="contact" color="primary" item-start></ion-icon>
         <h2 class="name participant">{{participant.name}}</h2>
         <p class="list-helper">Collects in round {{index + 1}}</p>
       </ion-item>
 
       <button ion-item (click)="manageFunds(participant)" *ngIf="isPlanInProgress()">
-        <ion-icon *ngIf="awaitingCollection(participant)" name="md-basket" color="primary" item-start></ion-icon>
-        <ion-icon *ngIf="awaitingPayment(participant)" name="md-cash" color="primary" item-start></ion-icon>
+        <ion-icon *ngIf="awaitingCollection(participant)" name="basket" color="primary" item-start></ion-icon>
+        <ion-icon *ngIf="awaitingPayment(participant)" name="cash" color="primary" item-start></ion-icon>
         <h2 class="name participant">{{participant.name}}</h2>
         <p *ngIf="awaitingCollection(participant)" class="list-helper">Collection due - {{ getCollection() }}</p>
         <p *ngIf="awaitingPayment(participant)" class="list-helper">Payment due</p>
