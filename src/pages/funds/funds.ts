@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { NavParams } from 'ionic-angular';
 
-import {PlansProvider} from "../../providers/plans/plans";
+// import { PlansProvider } from "../../providers/plans/plans";
 
 @Component({
   selector: 'page-funds',
@@ -14,7 +14,7 @@ export class FundsPage {
   public participant:any;
   public fundsAction:string = '';
 
-  constructor(public navParams: NavParams, private plansProvider: PlansProvider) {
+  constructor(public navParams: NavParams) {
       this.participant = this.navParams.get('participant');
       this.pot = this.navParams.get('pot');
   }
