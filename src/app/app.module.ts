@@ -9,6 +9,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { PlanDetailsPage } from '../pages/plan-details/plan-details';
 import { ParticipantsPage } from '../pages/participants/participants';
+import { FundsPage } from '../pages/funds/funds';
 import { Contacts } from '@ionic-native/contacts';
 
 import { PlansProvider } from '../providers/plans/plans';
@@ -21,6 +22,7 @@ import { AutoHideDirective } from '../directives/auto-hide/auto-hide';
     HomePage,
     PlanDetailsPage,
     ParticipantsPage,
+    FundsPage,
     AutoHideDirective
   ],
   imports: [
@@ -39,6 +41,7 @@ import { AutoHideDirective } from '../directives/auto-hide/auto-hide';
     MyApp,
     HomePage,
     PlanDetailsPage,
+    FundsPage,
     ParticipantsPage
   ],
   providers: [

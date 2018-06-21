@@ -7,6 +7,7 @@ import {
   ToastController,
   AlertController,
   ModalController,
+  NavController,
   reorderArray,
   LoadingController
 } from 'ionic-angular';
@@ -14,6 +15,7 @@ import {
 import { PlansProvider } from '../../providers/plans/plans';
 
 import { ParticipantsPage } from '../participants/participants';
+import { FundsPage } from '../funds/funds';
 
 const DURATION = 2000;
 const CURRENCY = '£';
@@ -801,11 +803,15 @@ export class PlanDetailsPage {
     public savingsAmount:any = 0;
     public initialAmt:any = 0;
 
-    constructor(public loadingCtrl: LoadingController, private contacts: Contacts, private modalCtrl: ModalController, private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navParams: NavParams) {
+    constructor(public navCtrl: NavController,public loadingCtrl: LoadingController, private contacts: Contacts, private modalCtrl: ModalController, private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navParams: NavParams) {
         this.id = this.navParams.get('id');
     }
 
-    ionViewDidLoad() {};
+    ionViewDidLoad() {
+      this.displayLoadingSpinner();
+      this.fetchPlan();
+
+    };
 
     displayLoadingSpinner() {
         this.loading = this.loadingCtrl.create({
@@ -841,8 +847,6 @@ export class PlanDetailsPage {
     }
 
     ionViewWillEnter(){
-        this.displayLoadingSpinner();
-        this.fetchPlan();
     }
 
     fetchPlan(){
@@ -1082,28 +1086,12 @@ export class PlanDetailsPage {
 
   }
 
-  onClickToCollect(participant){
-      participant.collected = true;
-  }
-
-  onClickToPay(participant){
-      participant.paid = true;
-  }
-
   awaitingCollection(participant){
       return participant.awaitingCollection
   }
 
   awaitingPayment(participant){
       return !this.awaitingCollection(participant);
-  }
-
-  hasCollected(participant){
-      return participant.collected
-  }
-
-  hasPaid(participant){
-      return participant.paid
   }
 
   getPlanName() {
@@ -1125,7 +1113,8 @@ export class PlanDetailsPage {
   }
 
   manageFunds(participant){
-      console.log(participant);
+      const params = { participant: participant, pot: this.plan };
+      this.navCtrl.push(FundsPage, params);
   }
 
   canStartPlan(){

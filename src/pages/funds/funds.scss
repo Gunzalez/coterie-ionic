@@ -1,4 +1,5 @@
-page-plan-details {
+page-funds {
+
 
   h1 {
     margin-bottom: 5px !important;
@@ -9,19 +10,9 @@ page-plan-details {
     margin: 0;
   }
 
-  .input {
 
-    input {
-      width: 100%;
-      height: 40px;
-      font-size: 8.2rem;
-      margin-right: 0;
-      color: #666666;
-    }
-  }
-
-  .savingAmount {
-    font-size: 5.8rem;
+  .participantName {
+    font-size: 2.8rem;
     font-weight: lighter;
   }
 
@@ -39,9 +30,6 @@ page-plan-details {
     font-weight: 500;
   }
 
-  .list-header-ios {
-    padding-right: 10px;
-  }
 
   .list-helper {
     text-transform: uppercase;
@@ -49,4 +37,20 @@ page-plan-details {
     padding-top: 3px;
     color: #666666;
   }
+
+  .avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #488aff;
+    font-size: 2.6rem;
+    font-weight: bold;
+    line-height: 58px;
+    font-family: "Comic Sans MS";
+    font-family: "Thonburi";
+    color: white;
+    text-align: center;
+    position: relative;
+  }
+
 }

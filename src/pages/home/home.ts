@@ -113,18 +113,6 @@ export class HomePage {
       return getIcon(plan)
     }
 
-    getPlanStatus(plan){
-        // let returnString = '';
-        // if(plan['_capabilities'] && plan['_capabilities'].indexOf('startPlan') !== -1 && plan['savingsAmount'] > 0){
-        //   returnString = 'Ready'
-        // } else if(plan['status'] === 'in-progress'){
-        //   returnString = 'Started'
-        // }
-        // return returnString
-
-        return plan['status'] === 'in-progress' ? 'Running' : '';
-    }
-
     canBeDeleted(plan){
       return plan['_capabilities'].indexOf("cancelPlan") !== -1
     }
@@ -184,7 +172,7 @@ export class HomePage {
     }
 
     viewPlan(plan){
-      let params = { id: plan.id };
-      this.navCtrl.push(PotDetailsPage, params);
+        let params = { id: plan.id };
+        this.navCtrl.push(PotDetailsPage, params);
     }
 }
