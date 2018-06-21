@@ -866,15 +866,15 @@ export class PlanDetailsPage {
             }
 
             if(!this.contactsList.length) {
-                //this.getContactsLocal();
-                this.getContacts();
+                this.getContactsLocal();
+                //this.getContacts();
             }
         });
     }
 
 
     getCollection(){
-        return '£' + (this.savingsAmount * (this.schedule.length - 1)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '.00';
+        return CURRENCY + (this.savingsAmount * (this.schedule.length - 1)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '.00';
     }
 
     extractContactFromRaw(contact){
@@ -998,7 +998,7 @@ export class PlanDetailsPage {
                 this.savingsAmount = parseInt(this.savingsAmount);
                 this.initialAmt = parseInt(this.savingsAmount);
                 let amountSaveToast = this.toastCtrl.create({
-                    message: 'Saving amount set at ' + CURRENCY + this.savingsAmount,
+                    message: 'Saving amount set at ' + CURRENCY + this.savingsAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '.00',
                     duration: DURATION
                 });
                 amountSaveToast.present();
@@ -1124,6 +1124,10 @@ export class PlanDetailsPage {
       return this.plan['status'] === 'in-progress';
   }
 
+  manageFunds(participant){
+      console.log(participant);
+  }
+
   canStartPlan(){
       return this.initialAmt > 0 && this.schedule.length;
   }
@@ -1148,7 +1152,7 @@ export class PlanDetailsPage {
 
     let startAlert = this.alertCtrl.create({
       title: 'Start this pot?',
-      message: 'You will no longer be able to edit pot name, saving amount or participants.',
+      message: 'You will no longer be able to edit the pot name, saving amount or participants.',
       buttons: [
         {
           text: 'Cancel',
@@ -1177,9 +1181,6 @@ export class PlanDetailsPage {
       ]
     });
     startAlert.present();
-
-
-
   }
 
 }

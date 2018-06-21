@@ -37,7 +37,7 @@
           <span class="participants"><ion-icon name="md-contacts"></ion-icon> {{plan['participants'].length}}</span>
           <span class="savings">{{ getSavingsAmount(plan) }}</span>
           <span class="rounds" *ngIf="plan['status'] === 'in-progress'">
-            Round 1
+            Round 1 of {{plan['participants'].length}}
             <!--<ion-icon name="md-time"></ion-icon> 1st-->
           </span>
         </p>

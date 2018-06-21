@@ -68,10 +68,10 @@
   <ion-list>
     <ion-item-group *ngFor="let group of contactsGrouped">
       <ion-item-divider class="divider">{{group.letter}}</ion-item-divider>
-      <ion-item *ngFor="let contact of group.contacts" [ngClass]="{'isParticipant': isParticipant(contact)}" (click)="onClickContact(contact)">
-        <ion-icon name="{{ isParticipant(contact) ? 'radio-button-on' : 'radio-button-off' }}" color="primary" item-start></ion-icon>
+      <ion-item *ngFor="let contact of group.contacts" [ngClass]="{'isParticipant': isParticipant(contact)}">
+        <ion-icon name="{{ isParticipant(contact) ? 'radio-button-on' : 'radio-button-off' }}" color="primary" item-end (click)="onClickContact(contact)"></ion-icon>
         <p class="name">{{contact.name}}</p>
-        <span class="number" item-end>{{contact.number}}</span>
+        <!--<p class="number">{{contact.number}}</p>-->
       </ion-item>
     </ion-item-group>
   </ion-list>
