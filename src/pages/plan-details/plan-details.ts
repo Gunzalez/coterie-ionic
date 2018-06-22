@@ -870,8 +870,8 @@ export class PlanDetailsPage {
             }
 
             if(!this.contactsList.length) {
-                //this.getContactsLocal();
-                this.getContacts();
+                this.getContactsLocal();
+                //this.getContacts();
             }
         });
     }
@@ -883,7 +883,7 @@ export class PlanDetailsPage {
 
     extractContactFromRaw(contact){
 
-      let nameToUse:string = '';
+      let nameToUse:string = 'No name';
       let numberToUse:any = 'No number';
       let avatarLetters:string = '';
 
@@ -892,7 +892,7 @@ export class PlanDetailsPage {
         nameToUse = contact.name.givenName + ' ' + contact.name.familyName;
         avatarLetters = contact.name.givenName.charAt(0).toUpperCase() + contact.name.familyName.charAt(0).toUpperCase()
 
-      } else if(contact.displayName && contact.displayName.length){
+      } else if (contact.displayName && contact.displayName.length){
         nameToUse = contact.displayName;
       } else if (contact.nickname && contact.nickname.length) {
         nameToUse = contact.nickname;

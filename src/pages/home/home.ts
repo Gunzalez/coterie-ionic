@@ -140,10 +140,10 @@ export class HomePage {
           colour = 'primary';
           break;
         case 'cloud':
-          colour = 'primary';
+          colour = 'gray';
           break;
         default:
-          colour = 'primary';
+          colour = 'gray';
           break;
       }
       return colour;

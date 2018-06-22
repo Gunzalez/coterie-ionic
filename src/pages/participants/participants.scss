@@ -62,7 +62,7 @@ page-participants {
         height: 60px;
         border-radius: 50%;
         background-color: #488aff;
-        font-size: 2.6rem;
+        font-size: 2.4rem;
         font-weight: bold;
         line-height: 58px;
         font-family: "Comic Sans MS";
@@ -77,8 +77,8 @@ page-participants {
         display: block;
         top: -1px;
         right: -2px;
-        width: 18px;
-        height: 18px;
+        width: 17px;
+        height: 17px;
         background-color: white;
         font-size: 0.6em;
         border-radius: 50%;
@@ -91,7 +91,8 @@ page-participants {
 
 
    .searchbar-ios {
-      background: rgb(248, 248, 248);
+      //background: rgb(248, 248, 248);
+     background: #f6f6f6;
       padding: 0 12px;
 
      .searchbar-input {

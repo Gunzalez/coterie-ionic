@@ -62,7 +62,7 @@
     <ion-item-sliding *ngFor="let participant of schedule; let index = index">
 
       <ion-item *ngIf="!isPlanInProgress()">
-        <ion-icon name="contact" color="primary" item-start></ion-icon>
+        <ion-icon name="contact" color="primary" item-start icon-only></ion-icon>
         <h2 class="name participant">{{participant.name}}</h2>
         <p class="list-helper">Collects in round {{index + 1}}</p>
       </ion-item>

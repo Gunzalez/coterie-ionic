@@ -25,7 +25,6 @@ export class FundsPage {
       } else {
           this.fundsAction = 'Payment'
       }
-      console.log(this.participant);
   }
 
   getPotName(){
