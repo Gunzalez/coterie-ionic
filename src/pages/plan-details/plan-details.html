@@ -31,10 +31,10 @@
         £{{ getSavingsAmount() }}.00</span>
       </ion-col>
       <ion-col col-2>
-        <button ion-button full class="btn" [disabled]="hasReachedMax() || isPlanInProgress()" (click)="amountPlus()" icon-only>
+        <button ion-button full class="btn btn-plus" [disabled]="hasReachedMax() || isPlanInProgress()" (click)="amountPlus()" icon-only>
           <ion-icon name="add"></ion-icon>
         </button>
-        <button ion-button full class="btn" [disabled]="hasReachedMin() || isPlanInProgress()" (click)="amountMinus()" icon-only>
+        <button ion-button full class="btn btn-minus" [disabled]="hasReachedMin() || isPlanInProgress()" (click)="amountMinus()" icon-only>
           <ion-icon name="remove"></ion-icon>
         </button>
       </ion-col>
@@ -43,10 +43,10 @@
     <ion-row>
       <ion-col col-12>
         <button ion-button full (click)="viewParticipants()" [disabled]="!contactsList.length" *ngIf="!isPlanInProgress()">
-          <ion-icon name="md-contacts"></ion-icon>&nbsp;Add/Remove participants
+          <ion-icon name="contacts"></ion-icon>&nbsp;Add/Remove participants
         </button>
         <button ion-button full disabled *ngIf="isPlanInProgress()">
-          Pot started
+          Pot running
         </button>
       </ion-col>
     </ion-row>

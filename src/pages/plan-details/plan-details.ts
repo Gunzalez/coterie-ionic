@@ -870,8 +870,8 @@ export class PlanDetailsPage {
             }
 
             if(!this.contactsList.length) {
-                //this.getContactsLocal();
-                this.getContacts();
+                this.getContactsLocal();
+                //this.getContacts();
             }
         });
     }
@@ -1102,7 +1102,7 @@ export class PlanDetailsPage {
   }
 
   getStartButtonLabel(){
-      return this.plan['status'] === 'in-progress' ? 'Pot started' : 'Start this pot';
+      return this.plan['status'] === 'in-progress' ? 'Pot running' : 'Start this pot';
   }
 
   isPlanInProgress(){
