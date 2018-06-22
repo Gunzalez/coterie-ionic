@@ -27,8 +27,7 @@
       <ion-col col-10>
         <span class="my-label">Saving Amount</span>
         <!--<ion-input type="number" maxlength="4" pattern="\d{1,15}" max={{max}} min="1" [(ngModel)]="savingsAmount" class="input"></ion-input>-->
-        <span class="savingAmount">
-        £{{ getSavingsAmount() }}.00</span>
+        <span class="savingAmount">{{ getSavingsAmount() }}</span>
       </ion-col>
       <ion-col col-2>
         <button ion-button full class="btn btn-plus" [disabled]="hasReachedMax() || isPlanInProgress()" (click)="amountPlus()" icon-only>
@@ -54,7 +53,7 @@
 
   <ion-list-header class="sp-header">
     Schedule
-    <span item-end *ngIf="isPlanInProgress()">Round 1 of {{schedule.length}}</span>
+    <span item-end *ngIf="isPlanInProgress()">Round 1 of {{ schedule.length }}</span>
   </ion-list-header>
 
 
@@ -71,8 +70,8 @@
         <ion-icon *ngIf="awaitingCollection(participant)" name="basket" color="primary" item-start></ion-icon>
         <ion-icon *ngIf="awaitingPayment(participant)" name="cash" color="primary" item-start></ion-icon>
         <h2 class="name participant">{{participant.name}}</h2>
-        <p *ngIf="awaitingCollection(participant)" class="list-helper">Collection due - {{ getCollection() }}</p>
-        <p *ngIf="awaitingPayment(participant)" class="list-helper">Payment due</p>
+        <p *ngIf="awaitingCollection(participant)" class="list-helper">Collects {{ getCollection() }}</p>
+        <p *ngIf="awaitingPayment(participant)" class="list-helper">Pay {{getSavingsAmount()}}</p>
       </button>
 
       <ion-item-options side="left" *ngIf="!isPlanInProgress()">

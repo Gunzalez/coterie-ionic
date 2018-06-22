@@ -820,10 +820,6 @@ export class PlanDetailsPage {
         this.loading.present();
     }
 
-  getSavingsAmount(){
-      return this.savingsAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
-
     amountMinus(){
         this.savingsAmount = parseInt(this.savingsAmount) - this.inc;
         if(this.savingsAmount < this.min){
@@ -876,9 +872,12 @@ export class PlanDetailsPage {
         });
     }
 
-
     getCollection(){
         return CURRENCY + (this.savingsAmount * (this.schedule.length - 1)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '.00';
+    }
+
+    getSavingsAmount(){
+        return CURRENCY + this.savingsAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '.00';
     }
 
     extractContactFromRaw(contact){

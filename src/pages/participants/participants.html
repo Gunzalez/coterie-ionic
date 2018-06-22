@@ -31,6 +31,10 @@
         </div>
         <span class="name">{{ participant.name }}</span>
       </div>
+      <div class="participant" *ngIf="!participants.length">
+        <div class="avatar placeholder">&nbsp;</div>
+        <span class="name">Participant</span>
+      </div>
     </div>
   </div>
 
@@ -38,40 +42,12 @@
 
 <ion-content>
 
-  <!--<ion-list-header class="sp-header">-->
-    <!--Participant list-->
-  <!--</ion-list-header>-->
-
-
-
-  <!--<ion-list reorder="true" (ionItemReorder)="reorderItems($event)">-->
-    <!--<ion-item-sliding *ngFor="let participant of participants; let index = index">-->
-      <!--<ion-item>-->
-        <!--<p class="name participant">{{participant.name}}</p>-->
-        <!--&lt;!&ndash;<p class="number">{{participant.number}}</p>&ndash;&gt;-->
-      <!--</ion-item>-->
-
-      <!--<ion-item-options side="left">-->
-        <!--<button ion-button color="danger" (click)="onSwipeRemoveParticipant(participant, index)">-->
-          <!--<ion-icon name="trash"></ion-icon>-->
-        <!--</button>-->
-      <!--</ion-item-options>-->
-
-    <!--</ion-item-sliding>-->
-  <!--</ion-list>-->
-
-
-
-  <!--<ion-list-header class="sp-header">-->
-    <!--Contact list-->
-  <!--</ion-list-header>-->
   <ion-list>
     <ion-item-group *ngFor="let group of contactsGrouped">
       <ion-item-divider class="divider">{{group.letter}}</ion-item-divider>
       <ion-item *ngFor="let contact of group.contacts" [ngClass]="{'isParticipant': isParticipant(contact)}">
         <ion-icon name="{{ isParticipant(contact) ? 'radio-button-on' : 'radio-button-off' }}" color="primary" item-end (click)="onClickContact(contact)"></ion-icon>
         <p class="name">{{contact.name}}</p>
-        <!--<p class="number">{{contact.number}}</p>-->
       </ion-item>
     </ion-item-group>
   </ion-list>

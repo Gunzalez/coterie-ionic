@@ -13,7 +13,7 @@ page-participants {
 
     .horizontal-list {
         background-color: white;
-        padding-top: 15px;
+        padding-top: 12px;
         border-bottom: 1px solid #f6f6f6;;
     }
 
@@ -21,12 +21,12 @@ page-participants {
         display: flex;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
-        min-height: 100px;
+        //min-height: 97px;
     }
 
     .participant {
         padding: 0 20px 0 0;
-        margin-bottom: 15px;
+        margin-bottom: 12px;
         white-space: nowrap;
 
         &:first-child {
@@ -52,7 +52,6 @@ page-participants {
             text-overflow: ellipsis;
             display: block;
             padding-top: 10px;
-            text-transform: uppercase;
             font-size: 1.2rem;
         }
     }
@@ -62,14 +61,20 @@ page-participants {
         height: 60px;
         border-radius: 50%;
         background-color: #488aff;
+        border: 1px solid #488aff;
         font-size: 2.4rem;
         font-weight: bold;
-        line-height: 58px;
+        line-height: 57px;
         font-family: "Comic Sans MS";
         font-family: "Thonburi";
         color: white;
         text-align: center;
         position: relative;
+
+        &.placeholder {
+            background-color: #ffffff;
+            border: 1px dashed #cccccc;
+        }
     }
 
     .remove {
