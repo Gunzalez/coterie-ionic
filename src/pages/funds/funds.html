@@ -1,34 +1,74 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{fundsAction}}</ion-title>
+    <ion-buttons>
+      <button [disabled]="controlDisabled" ion-button (click)="onDismiss()">
+        Cancel
+      </button>
+    </ion-buttons>
+    <ion-title>{{ fundsAction }}</ion-title>
   </ion-navbar>
 </ion-header>
 
+
 <ion-content>
-
   <ion-grid>
-    <ion-row>
-      <ion-col col-12>
-        <span class="my-label">Pot name</span>
-        <span class="potName">{{ getPotName() }}&nbsp;</span>
-      </ion-col>
-    </ion-row>
-
     <ion-row>
       <ion-col col-9>
         <span class="my-label">Participant</span>
         <span class="participantName">{{ getParticipantName() }}</span>
       </ion-col>
       <ion-col col-3>
-
         <div class="avatar" float-right>
           {{ participant.avatar }}
         </div>
-
       </ion-col>
     </ion-row>
 
+    <ion-row>
+      <ion-col col-12>
+        <span class="my-label">Round 1 of {{ pot.participants.length }}</span>
+      </ion-col>
+    </ion-row>
 
   </ion-grid>
 
+  <ion-list>
+    <ion-item>
+      <ion-icon [name]="getFundsActionIcon()" color="primary" item-start></ion-icon>
+        <h2>{{ getFundsAction() }}</h2>
+        <p *ngIf="fundsAction !== 'Payment'">Amount: {{ getCollection() }}</p>
+        <p *ngIf="fundsAction === 'Payment'">Amount: {{ getSavingsAmount() }}</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon item-start></ion-icon>
+      <ion-toggle [disabled]="controlDisabled" (ionChange)="setToPaidCollected()" [(ngModel)]="fundStatus"></ion-toggle>
+    </ion-item>
+  </ion-list>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <button [disabled]="!controlDisabled" ion-button full (click)="onSaveParticipants()" class="sp-button">
+          Done
+        </button>
+      </ion-col>
+    </ion-row>
+    <!--<ion-row>-->
+      <!--<ion-col col-12>-->
+        <!--<span class="cancel" (click)="onDismiss()">Cancel</span>-->
+      <!--</ion-col>-->
+    <!--</ion-row>-->
+  </ion-grid>
+
 </ion-content>
+
+<!--<ion-footer>-->
+  <!--<ion-toolbar>-->
+
+    <!--<button [disabled]="!controlDisabled" ion-button full (click)="onSaveParticipants()" class="sp-button">-->
+      <!--Done-->
+    <!--</button>-->
+
+  <!--</ion-toolbar>-->
+<!--</ion-footer>-->
+

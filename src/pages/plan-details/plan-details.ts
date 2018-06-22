@@ -9,7 +9,6 @@ import {
   ToastController,
   AlertController,
   ModalController,
-  NavController,
   reorderArray,
   LoadingController
 } from 'ionic-angular';
@@ -804,7 +803,7 @@ export class PlanDetailsPage {
     public savingsAmount:any = 0;
     public initialAmt:any = 0;
 
-    constructor(public navCtrl: NavController,public loadingCtrl: LoadingController, private contacts: Contacts, private modalCtrl: ModalController, private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navParams: NavParams) {
+    constructor(public loadingCtrl: LoadingController, private contacts: Contacts, private modalCtrl: ModalController, private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navParams: NavParams) {
         this.id = this.navParams.get('id');
     }
 
@@ -1111,7 +1110,7 @@ export class PlanDetailsPage {
   }
 
   getStartButtonLabel(){
-      return this.plan['status'] === 'in-progress' ? 'Pot running' : 'Start this pot';
+      return this.plan['status'] === 'in-progress' ? 'Pot started' : 'Start this pot';
   }
 
   isPlanInProgress(){
@@ -1121,17 +1120,27 @@ export class PlanDetailsPage {
       return this.plan['status'] === 'in-progress';
   }
 
-  manageFunds(participant){
-      const params = { participant: participant, pot: this.plan };
-      this.navCtrl.push(FundsPage, params);
-  }
-
   canStartPlan(){
       return this.initialAmt > 0 && this.schedule.length;
   }
 
+  manageFunds(participant){
+      const data = { participant: participant, pot: this.plan };
+
+      let fundsModal = this.modalCtrl.create(FundsPage, data);
+      fundsModal.onDidDismiss( returnParticipant => {
+            if(returnParticipant){
+
+              console.log(returnParticipant)
+            }
+      });
+      fundsModal.present();
+
+  }
+
   viewParticipants(){
-      let participantsModal = this.modalCtrl.create(ParticipantsPage, { list: this.schedule, potId: this.id, contacts: this.contactsList });
+      const data = { list: this.schedule, potId: this.id, contacts: this.contactsList }
+      let participantsModal = this.modalCtrl.create(ParticipantsPage, data);
       participantsModal.onDidDismiss( participants => {
           if(participants){
               this.schedule = participants;

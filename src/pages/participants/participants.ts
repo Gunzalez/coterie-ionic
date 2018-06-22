@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { ViewController, NavController, ToastController, NavParams, Content, reorderArray } from 'ionic-angular';
+import { ViewController, NavController, ToastController, NavParams, reorderArray } from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
 
@@ -23,8 +23,6 @@ export class ParticipantsPage {
     public participants:any[] = [];
     public participantsList:any[] = [];
     public participantsListInitial:any[] = [];
-
-    @ViewChild('Content') content: Content;
 
     constructor(private viewCtrl: ViewController, public navCtrl: NavController, private toastCtrl: ToastController, public navParams: NavParams, private plansProvider: PlansProvider) {
         this.participantsList = this.navParams.get('list');
@@ -173,10 +171,6 @@ export class ParticipantsPage {
 
     onDismiss(){
         this.navCtrl.pop();
-    }
-
-    scrollToTop() {
-        this.content.scrollToTop(1000);
     }
 
     groupContacts(){

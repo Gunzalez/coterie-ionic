@@ -40,3 +40,12 @@ ion-footer {
 .sp-button {
     border-radius: 4px !important;
 }
+
+.toolbar {
+    button {
+        &[disabled] {
+            color: #666666;
+        }
+    }
+}
+

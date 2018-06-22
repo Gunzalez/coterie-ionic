@@ -66,10 +66,13 @@
         <p class="list-helper">Collects in round {{index + 1}}</p>
       </ion-item>
 
-      <button ion-item (click)="manageFunds(participant)" *ngIf="isPlanInProgress()">
+      <button ion-item (click)="manageFunds(participant)" *ngIf="isPlanInProgress()" detail-none>
 
         <ion-icon *ngIf="awaitingCollection(participant)" [name]="'basket-outline'" color="primary" item-start></ion-icon>
         <ion-icon *ngIf="awaitingPayment(participant)" [name]="'cash-outline'" color="primary" item-start></ion-icon>
+
+        <ion-icon *ngIf="awaitingCollection(participant) || awaitingPayment(participant)" color="aGrey" name="arrow-up" item-end></ion-icon>
+
 
         <h2 class="name participant">{{participant.name}}</h2>
         <p *ngIf="awaitingCollection(participant)" class="list-helper">Collects {{ getCollection() }}</p>
@@ -90,7 +93,7 @@
     <ion-row>
       <ion-col col-12>
         <button ion-button full [disabled]="!canStartPlan() || isPlanInProgress()" (click)="startPlan()" class="sp-button">
-          <ion-icon name="md-power"></ion-icon>&nbsp;{{ getStartButtonLabel() }}
+          <ion-icon name="power"></ion-icon>&nbsp;{{ getStartButtonLabel() }}
         </button>
       </ion-col>
     </ion-row>
