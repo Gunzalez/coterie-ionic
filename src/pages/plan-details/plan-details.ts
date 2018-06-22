@@ -860,11 +860,6 @@ export class PlanDetailsPage {
 
             this.loading.dismiss();
 
-            // faking first one
-            if(this.schedule.length){
-                this.schedule[0].awaitingCollection = true;
-            }
-
             if(!this.contactsList.length) {
 
               /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1094,12 +1089,12 @@ export class PlanDetailsPage {
 
   }
 
-  awaitingCollection(participant){
-      return participant.awaitingCollection
+  isNextToCollect(participant){
+      return participant.id === this.plan['nextParticipantToCollect']
   }
 
-  awaitingPayment(participant){
-      return !this.awaitingCollection(participant);
+  isNextToPay(participant){
+      return this.plan['nextParticipantsToPay'].indexOf(participant.id) !== -1
   }
 
   getPlanName() {
@@ -1145,12 +1140,6 @@ export class PlanDetailsPage {
           if(participants){
               this.schedule = participants;
               this.reorderStatus = true;
-
-              // faking first one
-              if(this.schedule.length){
-                this.schedule[0].awaitingCollection = true;
-              }
-
           }
       });
       participantsModal.present();

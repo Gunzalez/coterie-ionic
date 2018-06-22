@@ -68,15 +68,18 @@
 
       <button ion-item (click)="manageFunds(participant)" *ngIf="isPlanInProgress()" detail-none>
 
-        <ion-icon *ngIf="awaitingCollection(participant)" [name]="'basket-outline'" color="primary" item-start></ion-icon>
-        <ion-icon *ngIf="awaitingPayment(participant)" [name]="'cash-outline'" color="primary" item-start></ion-icon>
+        <ion-icon *ngIf="isNextToCollect(participant)" [name]="'basket-outline'" color="primary" item-start></ion-icon>
+        <ion-icon *ngIf="isNextToPay(participant)" [name]="'cash-outline'" color="primary" item-start></ion-icon>
+        <ion-icon *ngIf="!isNextToPay(participant) && !isNextToCollect(participant)" [name]="'cash'" color="primary" item-start></ion-icon>
 
-        <ion-icon *ngIf="awaitingCollection(participant) || awaitingPayment(participant)" color="aGrey" name="arrow-up" item-end></ion-icon>
+        <ion-icon *ngIf="isNextToCollect(participant) || isNextToPay(participant)" color="aGrey" name="arrow-up" item-end></ion-icon>
 
+        <h2 class="name participant">{{ participant.name }}</h2>
 
-        <h2 class="name participant">{{participant.name}}</h2>
-        <p *ngIf="awaitingCollection(participant)" class="list-helper">Collects {{ getCollection() }}</p>
-        <p *ngIf="awaitingPayment(participant)" class="list-helper">Pays {{getSavingsAmount()}}</p>
+        <p *ngIf="isNextToCollect(participant)" class="list-helper">Collects {{ getCollection() }}</p>
+        <p *ngIf="isNextToPay(participant)" class="list-helper">Pays {{ getSavingsAmount() }}</p>
+        <p *ngIf="!isNextToPay(participant) && !isNextToCollect(participant)" class="list-helper">Paid {{ getSavingsAmount() }}</p>
+
       </button>
 
       <ion-item-options side="left" *ngIf="!isPlanInProgress()">
