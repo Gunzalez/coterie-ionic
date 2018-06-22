@@ -73,7 +73,7 @@
 
         <h2 class="name participant">{{participant.name}}</h2>
         <p *ngIf="awaitingCollection(participant)" class="list-helper">Collects {{ getCollection() }}</p>
-        <p *ngIf="awaitingPayment(participant)" class="list-helper">Pay {{getSavingsAmount()}}</p>
+        <p *ngIf="awaitingPayment(participant)" class="list-helper">Pays {{getSavingsAmount()}}</p>
       </button>
 
       <ion-item-options side="left" *ngIf="!isPlanInProgress()">

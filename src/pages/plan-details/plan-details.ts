@@ -867,8 +867,8 @@ export class PlanDetailsPage {
             }
 
             if(!this.contactsList.length) {
-                this.getContactsLocal();
-                //this.getContacts();
+                //this.getContactsLocal();
+                this.getContacts();
             }
         });
     }
@@ -1133,6 +1133,7 @@ export class PlanDetailsPage {
               if(this.schedule.length){
                 this.schedule[0].awaitingCollection = true;
               }
+
           }
       });
       participantsModal.present();
