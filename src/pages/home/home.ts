@@ -6,7 +6,7 @@ import { PlanDetailsPage as PotDetailsPage } from '../plan-details/plan-details'
 
 import { PlansProvider } from '../../providers/plans/plans';
 
-import { getIcon } from "../../helpers/helpers";
+import { getIcon, currencyConvert } from "../../helpers/helpers";
 
 @Component({
   selector: 'page-home',
@@ -100,7 +100,7 @@ export class HomePage {
 
     getSavingsAmount(plan){
         if(plan.savingsAmount && plan.savingsAmount > 0){
-            return '£' + plan.savingsAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '.00';
+            return currencyConvert(plan.savingsAmount)
         }
         return '';
     }

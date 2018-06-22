@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { Contacts, ContactFieldType, ContactFindOptions } from '@ionic-native/contacts';
 
+import { currencyConvert } from '../../helpers/helpers';
+
 import {
   NavParams,
   ToastController,
@@ -18,7 +20,6 @@ import { ParticipantsPage } from '../participants/participants';
 import { FundsPage } from '../funds/funds';
 
 const DURATION = 2000;
-const CURRENCY = '£';
 
 @Component({
     selector: 'page-plan-details',
@@ -873,11 +874,12 @@ export class PlanDetailsPage {
     }
 
     getCollection(){
-        return CURRENCY + (this.savingsAmount * (this.schedule.length - 1)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '.00';
+        const value = this.savingsAmount * (this.schedule.length - 1);
+        return currencyConvert(value);
     }
 
     getSavingsAmount(){
-        return CURRENCY + this.savingsAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '.00';
+        return currencyConvert(this.savingsAmount);
     }
 
     extractContactFromRaw(contact){
@@ -1001,7 +1003,7 @@ export class PlanDetailsPage {
                 this.savingsAmount = parseInt(this.savingsAmount);
                 this.initialAmt = parseInt(this.savingsAmount);
                 let amountSaveToast = this.toastCtrl.create({
-                    message: 'Saving amount set at ' + CURRENCY + this.savingsAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '.00',
+                    message: 'Saving amount set at ' + currencyConvert(this.savingsAmount),
                     duration: DURATION
                 });
                 amountSaveToast.present();

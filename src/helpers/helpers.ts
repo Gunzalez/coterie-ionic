@@ -46,5 +46,9 @@ export function filtered(query, list) {
     );
 }
 
+export function currencyConvert(value){
+    return '£' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '.00';
+}
+
 
 
