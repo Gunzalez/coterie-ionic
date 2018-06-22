@@ -913,10 +913,10 @@ export class PlanDetailsPage {
 
         // add new contact
         let newContact = {
-          "contactId": contact.id,
-          "name": nameToUse,
-          "number": numberToUse,
-          "avatar": avatarLetters
+            "contactId": contact.id,
+            "name": nameToUse,
+            "number": numberToUse,
+            "avatar": avatarLetters
         };
 
         this.contactsList.push(newContact);
