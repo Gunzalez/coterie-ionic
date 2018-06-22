@@ -143,11 +143,7 @@ export class PlansProvider {
 
         return this.http.post(url, body, options)
           .map( response => {
-            if (response.status === 200){
-                return true
-              } else {
-                return false;
-              }
+              return response.status === 200
             }, error => {
                 return error
             })

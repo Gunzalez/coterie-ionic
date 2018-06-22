@@ -17,7 +17,7 @@
       </ion-col>
       <ion-col col-2>
         <span class="my-label">&nbsp;</span>
-        <button ion-button full class="btn" (click)="setAmount()" *ngIf="canSetAmount()" icon-only>
+        <button ion-button full class="btn sp-button" (click)="setAmount()" *ngIf="canSetAmount()" icon-only>
           <ion-icon name="checkmark"></ion-icon>
         </button>
       </ion-col>
@@ -41,10 +41,10 @@
 
     <ion-row>
       <ion-col col-12>
-        <button ion-button full (click)="viewParticipants()" [disabled]="!contactsList.length" *ngIf="!isPlanInProgress()">
+        <button ion-button full (click)="viewParticipants()" [disabled]="!contactsList.length" *ngIf="!isPlanInProgress()" class="sp-button">
           <ion-icon name="contacts"></ion-icon>&nbsp;Add/Remove participants
         </button>
-        <button ion-button full disabled *ngIf="isPlanInProgress()">
+        <button ion-button full disabled *ngIf="isPlanInProgress()" class="sp-button">
           Pot running
         </button>
       </ion-col>
@@ -89,7 +89,7 @@
   <ion-grid>
     <ion-row>
       <ion-col col-12>
-        <button ion-button full [disabled]="!canStartPlan() || isPlanInProgress()" (click)="startPlan()">
+        <button ion-button full [disabled]="!canStartPlan() || isPlanInProgress()" (click)="startPlan()" class="sp-button">
           <ion-icon name="md-power"></ion-icon>&nbsp;{{ getStartButtonLabel() }}
         </button>
       </ion-col>
