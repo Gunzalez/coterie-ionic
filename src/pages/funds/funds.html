@@ -1,11 +1,11 @@
 <ion-header>
   <ion-navbar>
     <ion-buttons>
-      <button [disabled]="controlDisabled" ion-button (click)="onDismiss()">
+      <button [disabled]="cancelButtonDisabled" ion-button (click)="onDismiss()">
         Cancel
       </button>
     </ion-buttons>
-    <ion-title>{{ fundsAction }}</ion-title>
+    <ion-title>{{ viewHeader }}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -36,19 +36,19 @@
     <ion-item>
       <ion-icon [name]="getFundsActionIcon()" color="primary" item-start></ion-icon>
         <h2>{{ getFundsAction() }}</h2>
-        <p *ngIf="fundsAction !== 'Payment'">Amount: {{ getCollection() }}</p>
-        <p *ngIf="fundsAction === 'Payment'">Amount: {{ getSavingsAmount() }}</p>
+        <p *ngIf="actionType === 'Collection'">Amount: {{ getCollection() }}</p>
+        <p *ngIf="actionType === 'Payment'">Amount: {{ getSavingsAmount() }}</p>
     </ion-item>
     <ion-item>
       <ion-icon item-start></ion-icon>
-      <ion-toggle [disabled]="controlDisabled" (ionChange)="setToPaidCollected()" [(ngModel)]="fundStatus"></ion-toggle>
+      <ion-toggle [disabled]="toggleDisabled" (ionChange)="setToPaidCollected()" [(ngModel)]="fundStatus"></ion-toggle>
     </ion-item>
   </ion-list>
 
   <ion-grid>
     <ion-row>
       <ion-col col-12>
-        <button [disabled]="!controlDisabled" ion-button full (click)="onSaveParticipants()" class="sp-button">
+        <button [disabled]="doneButtonDisabled" ion-button full (click)="onDonePaidCollected()" class="sp-button">
           Done
         </button>
       </ion-col>
@@ -62,13 +62,4 @@
 
 </ion-content>
 
-<!--<ion-footer>-->
-  <!--<ion-toolbar>-->
-
-    <!--<button [disabled]="!controlDisabled" ion-button full (click)="onSaveParticipants()" class="sp-button">-->
-      <!--Done-->
-    <!--</button>-->
-
-  <!--</ion-toolbar>-->
-<!--</ion-footer>-->
 

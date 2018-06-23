@@ -800,6 +800,9 @@ export class PlanDetailsPage {
 
     public reorderStatus:boolean = false;
 
+    public nextParticipantToCollect:string = '';
+    public nextParticipantsToPay:any[] = [];
+
     public savingsAmount:any = 0;
     public initialAmt:any = 0;
 
@@ -855,6 +858,8 @@ export class PlanDetailsPage {
                 })
             });
             this.plansProvider.plan = this.plan;
+            this.nextParticipantsToPay = this.plan['nextParticipantsToPay'];
+            this.nextParticipantToCollect = this.plan['nextParticipantToCollect'];
             this.savingsAmount = this.plan['savingsAmount'];
             this.initialAmt = this.savingsAmount;
 
@@ -1090,11 +1095,11 @@ export class PlanDetailsPage {
   }
 
   isNextToCollect(participant){
-      return participant.id === this.plan['nextParticipantToCollect']
+      return participant.id === this.nextParticipantToCollect
   }
 
   isNextToPay(participant){
-      return this.plan['nextParticipantsToPay'].indexOf(participant.id) !== -1
+      return this.nextParticipantsToPay.indexOf(participant.id) !== -1
   }
 
   getPlanName() {
@@ -1123,11 +1128,10 @@ export class PlanDetailsPage {
       const data = { participant: participant, pot: this.plan };
 
       let fundsModal = this.modalCtrl.create(FundsPage, data);
-      fundsModal.onDidDismiss( returnParticipant => {
-            if(returnParticipant){
-
-              console.log(returnParticipant)
-            }
+      fundsModal.onDidDismiss( nextParticipantsToPay => {
+          if(nextParticipantsToPay){
+              this.nextParticipantsToPay = nextParticipantsToPay
+          }
       });
       fundsModal.present();
 

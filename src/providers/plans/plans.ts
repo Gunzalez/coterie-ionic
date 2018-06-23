@@ -154,17 +154,39 @@ export class PlansProvider {
       // set savings amount
       setSavingsAmount(value, id){
 
-        let options = { headers: this.headers };
-        let url = API + id;
-        let body = [{"op": "replace", "path": "/savingsAmount", "value": parseInt(value)}];
+          let options = { headers: this.headers };
+          let url = API + id;
+          let body = [{"op": "replace", "path": "/savingsAmount", "value": parseInt(value)}];
 
-        return this.http.patch(url, body, options)
-            .map( response => {
-            return response
-        }, error => {
-            return error
-        })
+          return this.http.patch(url, body, options)
+              .map( response => {
+              return response
+          }, error => {
+              return error
+          })
       }
+
+      // /plans/{planId}/ledger/payments
+      // ----------------------
+      // set savings amount
+      makePayment(id){
+
+          let options = { headers: this.headers };
+          let url = API + id + '/ledger/payments';
+          let body = { "participantId": id };
+
+          return true
+
+          // return this.http.post(url, body, options)
+          //     .map( response => {
+          //
+          //         console.log(response)
+          //     }, error => {
+          //         return error
+          // })
+      }
+
+
 
 
       // ----------------------
