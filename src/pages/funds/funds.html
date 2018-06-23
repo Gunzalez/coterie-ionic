@@ -36,8 +36,8 @@
     <ion-item>
       <ion-icon [name]="getFundsActionIcon()" color="primary" item-start></ion-icon>
         <h2>{{ getFundsAction() }}</h2>
-        <p *ngIf="actionType === 'Collection'">Amount: {{ getCollection() }}</p>
-        <p *ngIf="actionType === 'Payment'">Amount: {{ getSavingsAmount() }}</p>
+        <p *ngIf="actionType === 'Collection'" class="list-helper">{{ getCollection() }}</p>
+        <p *ngIf="actionType === 'Payment'" class="list-helper">{{ getSavingsAmount() }}</p>
     </ion-item>
     <ion-item>
       <ion-icon item-start></ion-icon>

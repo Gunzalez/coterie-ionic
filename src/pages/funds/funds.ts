@@ -45,13 +45,13 @@ export class FundsPage {
       if(this.isCollection){
           this.viewHeader = 'Collection';
           this.actionType = 'Collection';
-          this.actionTypeDone = 'Collection taken';
+          this.actionTypeDone = 'Pot collected';
           this.toDoState = 'basket-outline';
           this.doneState = 'basket';
       } else {
           this.viewHeader = 'Payment';
           this.actionType = 'Payment';
-          this.actionTypeDone = 'Payment made';
+          this.actionTypeDone = 'Savings paid';
           this.toDoState = 'cash-outline';
           this.doneState = 'cash';
 

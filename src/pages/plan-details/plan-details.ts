@@ -948,7 +948,6 @@ export class PlanDetailsPage {
     }
 
     getContactsLocal(){
-        console.log('getContactsLocal')
         this.contactsLocal.forEach(contact => {
             this.extractContactFromRaw(contact);
         });
