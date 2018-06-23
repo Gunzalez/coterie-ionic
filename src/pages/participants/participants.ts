@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { ViewController, NavController, ToastController, NavParams, reorderArray } from 'ionic-angular';
 
