@@ -169,23 +169,19 @@ export class PlansProvider {
       // /plans/{planId}/ledger/payments
       // ----------------------
       // set savings amount
-      makePayment(id){
+      makePayment(participant, id){
 
-          // let options = { headers: this.headers };
-          // let url = API + id + '/ledger/payments';
-          // let body = { "participantId": id };
-          //
-          // return true
+          let options = { headers: this.headers };
+          let url = API + id + '/ledger/payments';
+          let body = { "participantId": participant.id };
 
-          // return this.http.post(url, body, options)
-          //     .map( response => {
-          //
-          //         console.log(response)
-          //     }, error => {
-          //         return error
-          // })
+          return this.http.post(url, body, options)
+              .map( response => {
+                return response
+              }, error => {
+                  return error
+          })
       }
-
 
 
 

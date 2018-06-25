@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { NavController, NavParams, ViewController} from 'ionic-angular';
 
-// import { PlansProvider } from "../../providers/plans/plans";
+import { PlansProvider } from "../../providers/plans/plans";
 
 import { currencyConvert } from '../../helpers/helpers';
 
@@ -30,7 +30,7 @@ export class FundsPage {
   public doneButtonDisabled:boolean = true;
   public cancelButtonDisabled:boolean = false;
 
-  constructor(private viewCtrl: ViewController, public navParams: NavParams, private navCtrl: NavController /*, private plansProvider: PlansProvider */) {
+  constructor(private viewCtrl: ViewController, public navParams: NavParams, private navCtrl: NavController, private plansProvider: PlansProvider ) {
       this.participant = this.navParams.get('participant');
       this.pot = this.navParams.get('pot');
 
@@ -84,16 +84,17 @@ export class FundsPage {
           this.toggleDisabled = true;
           this.cancelButtonDisabled = true;
 
-          // this.plansProvider.makePayment(this.participant.id).subscribe(response => {
-          //     if(response){
-          //         const index = this.pot['nextParticipantsToPay'].indexOf(this.participant.id);
-          //         const deleteCount = 1;
-          //         this.pot['nextParticipantsToPay'].splice(index, deleteCount);
-          //         console.log(this.pot['nextParticipantsToPay']);
-          //
-          //         //this.doneButtonDisabled = false
-          //     }
-          // })
+          this.plansProvider.makePayment(this.participant, this.pot.id).subscribe(response => {
+
+              if(response.ok){
+                  const index = this.pot['nextParticipantsToPay'].indexOf(this.participant.id);
+                  const deleteCount = 1;
+                  this.pot['nextParticipantsToPay'].splice(index, deleteCount);
+                  console.log(this.pot['nextParticipantsToPay']);
+
+                  //this.doneButtonDisabled = false
+              }
+          })
       }
 
 
