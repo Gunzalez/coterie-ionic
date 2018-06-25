@@ -28,6 +28,7 @@ export class PlanDetailsPage {
 
     public id;
     private plan = {};
+    public round:string ='';
 
     private name:string = '';
     private status:string = '';
@@ -864,6 +865,7 @@ export class PlanDetailsPage {
             this.nextParticipantToCollect = this.plan['nextParticipantToCollect'];
             this.savingsAmount = this.plan['savingsAmount'];
             this.initialAmt = this.savingsAmount;
+            this.round = this.plan['round'];
 
             this.loading.dismiss();
 
@@ -876,8 +878,8 @@ export class PlanDetailsPage {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                //this.getContactsLocal();
-                this.getContacts();
+                this.getContactsLocal();
+                //this.getContacts();
             }
         });
     }

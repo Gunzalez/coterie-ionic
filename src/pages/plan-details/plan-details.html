@@ -74,8 +74,8 @@
 
         <h2 class="name participant">{{ participant.name }}</h2>
 
-        <p *ngIf="isNextToCollect(participant)" class="list-helper">Collects {{ getCollection() }}</p>
-        <p *ngIf="isNextToPay(participant)" class="list-helper">Pays {{ getSavingsAmount() }}</p>
+        <p *ngIf="isNextToCollect(participant)" class="list-helper">To collect {{ getCollection() }}</p>
+        <p *ngIf="isNextToPay(participant)" class="list-helper">To pay {{ getSavingsAmount() }}</p>
         <p *ngIf="!isNextToPay(participant) && !isNextToCollect(participant)" class="list-helper">Paid in {{ getSavingsAmount() }}</p>
 
         <ion-icon color="aGrey" name="arrow-up" item-end></ion-icon>

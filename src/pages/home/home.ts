@@ -105,6 +105,14 @@ export class HomePage {
         return '';
     }
 
+    getPotValue(plan){
+        if(plan.savingsAmount && plan.savingsAmount > 0 && plan['participants'].length){
+            const value = plan.savingsAmount * (plan['participants'].length - 1);
+            return currencyConvert(value)
+        }
+        return '';
+    }
+
     isInAddMode(){
       return this.addMode;
     }
