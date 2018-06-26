@@ -878,8 +878,8 @@ export class PlanDetailsPage {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                //this.getContactsLocal();
-                this.getContacts();
+                this.getContactsLocal();
+                //this.getContacts();
             }
         });
     }
@@ -994,7 +994,7 @@ export class PlanDetailsPage {
 
     onSwipeRemoveParticipant(participant, index){
         if(!this.isPlanInProgress()){
-            this.plansProvider.removeParticipant(participant).subscribe(response => {
+            this.plansProvider.removeParticipant(participant, this.id).subscribe(response => {
                 if(response.ok){
                     this.schedule.splice(index, 1);
                 }

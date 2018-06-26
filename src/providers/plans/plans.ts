@@ -221,10 +221,10 @@ export class PlansProvider {
 
       // ----------------------
       // remove a single participant, accepts
-      removeParticipant(participant){
+      removeParticipant(participant, id){
 
           let options = { headers: this.headers };
-          let url = API + this.plan['id'] + '/participants/' + participant.id;
+          let url = API + id + '/participants/' + participant.id;
 
           return this.http.delete(url, options)
               .map( response => {

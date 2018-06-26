@@ -143,7 +143,7 @@ export class ParticipantsPage {
     }
 
     removeParticipant(participant, callback){
-        this.plansProvider.removeParticipant(participant).subscribe(response => {
+        this.plansProvider.removeParticipant(participant, this.potId).subscribe(response => {
             if(response.ok){
                 callback();
             }
