@@ -32,15 +32,15 @@
 
       <button ion-item (click)="viewPlan(plan)">
         <ion-icon name="{{ getPlanIcon(plan) }}" color="{{ getIconColour(plan) }}" item-start></ion-icon>
-        <h2>{{plan.name}} ({{getPotValue(plan) }})</h2>
+        <h2 class="pot-name">{{plan.name}} <span *ngIf="plan['status'] === 'in-progress'"> / {{getPotValue(plan) }}</span></h2>
         <p class="meta">
           <span class="participants">
             <ion-icon name="contacts"></ion-icon>
-            {{plan['participants'].length}}
+            {{ plan['participants'].length }}
           </span>
           <span class="savings">
             <ion-icon name="cash"></ion-icon>
-            {{ getSavingsAmount(plan)}}
+            {{ getSavingsAmount(plan) }}
           </span>
           <span class="rounds" *ngIf="plan['status'] === 'in-progress'">
             <ion-icon name="md-timer"></ion-icon>

@@ -43,12 +43,20 @@ export class FundsPage {
 
   ionViewDidLoad() {
       if(this.isCollection){
+
           this.viewHeader = 'Collection';
           this.actionType = 'Collection';
           this.actionTypeDone = 'Pot collected';
           this.toDoState = 'basket-outline';
           this.doneState = 'basket';
+
+          if(this.pot.nextParticipantsToPay.length){
+              this.doneButtonDisabled = true;
+              this.toggleDisabled = true;
+          }
+
       } else {
+
           this.viewHeader = 'Payment';
           this.actionType = 'Payment';
           this.actionTypeDone = 'Savings paid';
@@ -73,49 +81,33 @@ export class FundsPage {
 
   setToPaidCollected(){
 
+      this.doneButtonDisabled = false;
+      this.toggleDisabled = true;
+      this.cancelButtonDisabled = true;
+
       if(this.isPayment){
-
-          const index = this.pot['nextParticipantsToPay'].indexOf(this.participant.id);
-          const deleteCount = 1;
-          this.pot['nextParticipantsToPay'].splice(index, deleteCount);
-          //console.log(this.pot['nextParticipantsToPay']);
-
-          this.doneButtonDisabled = false;
-          this.toggleDisabled = true;
-          this.cancelButtonDisabled = true;
-
           this.plansProvider.makePayment(this.participant, this.pot.id).subscribe(response => {
+              // if(response.statusText === 'Accepted'){
+              //     const index = this.pot['nextParticipantsToPay'].indexOf(this.participant.id);
+              //     const deleteCount = 1;
+              //     this.pot['nextParticipantsToPay'].splice(index, deleteCount);
+              // }
 
-              if(response.ok){
-                  const index = this.pot['nextParticipantsToPay'].indexOf(this.participant.id);
-                  const deleteCount = 1;
-                  this.pot['nextParticipantsToPay'].splice(index, deleteCount);
-                  console.log(this.pot['nextParticipantsToPay']);
-
-                  //this.doneButtonDisabled = false
+              if(response.statusText !== 'Accepted'){
+                  console.log('There was an error')
               }
           })
       }
 
-
       if(this.isCollection){
 
+          this.plansProvider.takeCollection(this.participant, this.pot.id).subscribe(response => {
+              if(response.statusText !== 'Accepted'){
 
+                  console.log('There was an error')
 
-        this.doneButtonDisabled = false;
-        this.toggleDisabled = true;
-        this.cancelButtonDisabled = true;
-
-        // this.plansProvider.makePayment(this.participant.id).subscribe(response => {
-        //     if(response){
-        //         const index = this.pot['nextParticipantsToPay'].indexOf(this.participant.id);
-        //         const deleteCount = 1;
-        //         this.pot['nextParticipantsToPay'].splice(index, deleteCount);
-        //         console.log(this.pot['nextParticipantsToPay']);
-        //
-        //         //this.doneButtonDisabled = false
-        //     }
-        // })
+              }
+          })
       }
   }
 
@@ -137,7 +129,7 @@ export class FundsPage {
   }
 
   onDonePaidCollected(){
-      this.viewCtrl.dismiss(this.pot['nextParticipantsToPay'])
+      this.viewCtrl.dismiss(true)
   }
 
   onDismiss(){

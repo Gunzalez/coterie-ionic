@@ -168,11 +168,28 @@ export class PlansProvider {
 
       // /plans/{planId}/ledger/payments
       // ----------------------
-      // set savings amount
+      // making a payment
       makePayment(participant, id){
 
           let options = { headers: this.headers };
           let url = API + id + '/ledger/payments';
+          let body = { "participantId": participant.id };
+
+          return this.http.post(url, body, options)
+              .map( response => {
+                return response
+              }, error => {
+                  return error
+          })
+      }
+
+      // /plans/{planId}/ledger/collections
+      // ----------------------
+      // taking a collection
+      takeCollection(participant, id){
+
+          let options = { headers: this.headers };
+          let url = API + id + '/ledger/collections';
           let body = { "participantId": participant.id };
 
           return this.http.post(url, body, options)

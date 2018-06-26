@@ -901,23 +901,23 @@ export class PlanDetailsPage {
 
       if (contact.name.givenName && contact.name.givenName.length) {
 
-        nameToUse = contact.name.givenName + ' ' + contact.name.familyName;
-        avatarLetters = contact.name.givenName.charAt(0).toUpperCase() + contact.name.familyName.charAt(0).toUpperCase()
+          nameToUse = contact.name.givenName + ' ' + contact.name.familyName;
+          avatarLetters = contact.name.givenName.charAt(0).toUpperCase() + contact.name.familyName.charAt(0).toUpperCase()
 
       } else if (contact.displayName && contact.displayName.length){
-        nameToUse = contact.displayName;
+          nameToUse = contact.displayName;
       } else if (contact.nickname && contact.nickname.length) {
-        nameToUse = contact.nickname;
+          nameToUse = contact.nickname;
       } else if (contact.name.formatted && contact.name.formatted) {
-        nameToUse = contact.name.formatted;
+          nameToUse = contact.name.formatted;
       }
 
       if(avatarLetters === ''){
-        avatarLetters = nameToUse.charAt(0).toUpperCase()
+          avatarLetters = nameToUse.charAt(0).toUpperCase()
       }
 
       if(contact.phoneNumbers && contact.phoneNumbers[0].value.length){
-        numberToUse = contact.phoneNumbers[0].value;
+          numberToUse = contact.phoneNumbers[0].value;
       }
 
       if(nameToUse && nameToUse.length){
@@ -1132,17 +1132,18 @@ export class PlanDetailsPage {
       const data = { participant: participant, pot: this.plan };
 
       let fundsModal = this.modalCtrl.create(FundsPage, data);
-      fundsModal.onDidDismiss( nextParticipantsToPay => {
-          if(nextParticipantsToPay){
-              this.nextParticipantsToPay = nextParticipantsToPay
+      fundsModal.onDidDismiss( shouldReload => {
+          if(shouldReload){
+              //this.nextParticipantsToPay = nextParticipantsToPay
+              this.displayLoadingSpinner();
+              this.fetchPlan();
           }
       });
       fundsModal.present();
-
   }
 
   viewParticipants(){
-      const data = { list: this.schedule, potId: this.id, contacts: this.contactsList }
+      const data = { list: this.schedule, potId: this.id, contacts: this.contactsList };
       let participantsModal = this.modalCtrl.create(ParticipantsPage, data);
       participantsModal.onDidDismiss( participants => {
           if(participants){

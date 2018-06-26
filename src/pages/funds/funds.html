@@ -26,7 +26,7 @@
 
     <ion-row>
       <ion-col col-12>
-        <span class="my-label">Round {{pot.round}} of {{ pot.participants.length }}</span>
+        <span class="my-label">Round {{ pot.round }} of {{ pot.participants.length }}</span>
       </ion-col>
     </ion-row>
 
@@ -38,6 +38,10 @@
         <h2>{{ getFundsAction() }}</h2>
         <p *ngIf="actionType === 'Collection'" class="list-helper">{{ getCollection() }}</p>
         <p *ngIf="actionType === 'Payment'" class="list-helper">{{ getSavingsAmount() }}</p>
+    </ion-item>
+    <ion-item *ngIf="actionType ==='Collection' && pot.nextParticipantsToPay.length">
+      <ion-icon item-start></ion-icon>
+      <p class="warning">Awaiting payments from participants</p>
     </ion-item>
     <ion-item>
       <ion-icon item-start></ion-icon>

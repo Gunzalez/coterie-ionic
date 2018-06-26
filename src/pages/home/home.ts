@@ -102,7 +102,7 @@ export class HomePage {
         if(plan.savingsAmount && plan.savingsAmount > 0){
             return currencyConvert(plan.savingsAmount)
         }
-        return '';
+        return '£0';
     }
 
     getPotValue(plan){
