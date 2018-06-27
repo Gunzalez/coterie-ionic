@@ -1145,7 +1145,7 @@ export class PlanDetailsPage {
       message: "It will be gone forever, poof! Last chance now, are you sure?" ,
       buttons: [
         {
-          text: 'Hmmm',
+          text: 'Hmm',
           role: 'cancel',
           handler: () => {
             //console.log('Cancel clicked');
