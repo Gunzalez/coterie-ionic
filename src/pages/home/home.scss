@@ -26,15 +26,24 @@ page-home {
   }
 
   .active {
-    button {
-      background-color: #fafafa;
+    button.sp-ion-item {
+      background-color: #fafafa !important;
     }
   }
 
   .completed {
-    button {
-      background-color: #FEF3F3;
+    button.sp-ion-item {
+      background-color: #FEF3F3 !important;
     }
+  }
+
+  .not-started {
+    color: #cccccc !important;
+  }
+
+
+  .pot-completed {
+    color: #f53d3d !important;
   }
 
   .btn-close {

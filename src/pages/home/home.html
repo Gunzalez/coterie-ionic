@@ -30,11 +30,12 @@
 
     <ion-item-sliding *ngFor="let plan of plans" [ngClass]="{'active': plan['status'] === 'in-progress', 'completed': plan['status'] === 'completed'}">
 
-      <button ion-item (click)="viewPlan(plan)">
+      <button ion-item (click)="viewPlan(plan)" class="sp-ion-item">
         <ion-icon name="{{ getPlanIcon(plan) }}" color="{{ getIconColour(plan) }}" item-start></ion-icon>
-        <h2 class="pot-name">{{plan.name}}
-          <span *ngIf="plan['status'] === 'in-progress'"> - {{ getPotValue(plan) }}</span>
-          <span *ngIf="plan['status'] === 'completed'"> - (completed)</span>
+        <h2 class="pot-name">{{plan.name}} -
+          <span *ngIf="plan['status'] === 'in-progress'">{{ getPotValue(plan) }}</span>
+          <span *ngIf="plan['status'] === 'completed'" class="pot-completed">(completed)</span>
+          <span *ngIf="plan['status'] !== 'completed' && plan['status'] !== 'in-progress'" class="not-started">(not started)</span>
         </h2>
         <p class="meta">
           <span class="participants">
@@ -53,7 +54,7 @@
       </button>
 
       <ion-item-options side="left">
-        <button ion-button [color]="canBeDeleted(plan) ? 'danger' : 'primary'" (click)="deleteOrArchive(plan)">
+        <button ion-button [color]="canBeDeleted(plan) ? 'danger' : 'secondary'" (click)="deleteOrArchive(plan)">
           <ion-icon [name]="canBeDeleted(plan) ? 'trash' : 'archive'"></ion-icon>
         </button>
       </ion-item-options>
