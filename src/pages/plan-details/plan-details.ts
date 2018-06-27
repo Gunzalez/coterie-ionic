@@ -1180,7 +1180,7 @@ export class PlanDetailsPage {
   }
 
   canStartPlan(){
-      return this.initialAmt > 0 && this.schedule.length > 2;
+      return this.initialAmt > 0 && this.schedule.length;
   }
 
   manageFunds(participant){
