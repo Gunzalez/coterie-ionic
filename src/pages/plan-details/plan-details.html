@@ -52,6 +52,7 @@
         <button ion-button full disabled *ngIf="isPlanInProgress()" class="sp-button">
           <ion-icon name="rainy"></ion-icon>&nbsp;&nbsp;Pot is running
         </button>
+
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -109,6 +110,10 @@
 
         <button ion-button full [disabled]="!canStartPlan() || isPlanInProgress()" *ngIf="!isPlanInProgress() && !isPlanCompleted()" (click)="startPlan()" class="sp-button">
           <ion-icon name="power"></ion-icon>&nbsp;{{ getStartButtonLabel() }}
+        </button>
+
+        <button ion-button full disabled *ngIf="isPlanInProgress()" class="sp-button">
+          <ion-icon name="power"></ion-icon>&nbsp;&nbsp;Pot started
         </button>
 
         <button ion-button full (click)="deletePot()" *ngIf="isPlanCompleted()" class="sp-button" color="danger">

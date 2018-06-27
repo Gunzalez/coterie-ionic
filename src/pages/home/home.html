@@ -35,7 +35,8 @@
         <h2 class="pot-name">{{plan.name}} -
           <span *ngIf="plan['status'] === 'in-progress'">{{ getPotValue(plan) }}</span>
           <span *ngIf="plan['status'] === 'completed'" class="pot-completed">(completed)</span>
-          <span *ngIf="plan['status'] !== 'completed' && plan['status'] !== 'in-progress'" class="not-started">(not started)</span>
+          <span *ngIf="!plan['participants'].length || plan['savingsAmount'] === 0" class="not-started">(not started)</span>
+          <span *ngIf="plan['status'] !== 'completed' && plan['status'] !== 'in-progress' && plan['participants'].length && plan['savingsAmount'] > 0" class="not-started">(ready)</span>
         </h2>
         <p class="meta">
           <span class="participants">
