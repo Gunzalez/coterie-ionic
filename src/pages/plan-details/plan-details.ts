@@ -10,7 +10,8 @@ import {
   AlertController,
   ModalController,
   reorderArray,
-  LoadingController
+  LoadingController,
+  NavController
 } from 'ionic-angular';
 
 import { PlansProvider } from '../../providers/plans/plans';
@@ -807,7 +808,7 @@ export class PlanDetailsPage {
     public savingsAmount:any = 0;
     public initialAmt:any = 0;
 
-    constructor(public loadingCtrl: LoadingController, private contacts: Contacts, private modalCtrl: ModalController, private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navParams: NavParams) {
+    constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, private contacts: Contacts, private modalCtrl: ModalController, private toastCtrl: ToastController, private alertCtrl: AlertController, private plansProvider: PlansProvider, public navParams: NavParams) {
         this.id = this.navParams.get('id');
     }
 
@@ -1138,7 +1139,11 @@ export class PlanDetailsPage {
   }
 
   deletePot(){
-      console.log('Deleting Pot')
+      this.plansProvider.deletePlan(this.id).subscribe(response => {
+          if(response){
+              this.navCtrl.pop();
+          }
+      });
   }
 
   isPlanCompleted(){

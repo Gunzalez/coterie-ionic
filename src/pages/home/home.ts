@@ -136,7 +136,7 @@ export class HomePage {
         this.plansProvider.deletePlan(plan['id']).subscribe(next);
       } else {
         // console.log('Archive')
-        console.log('Snoo[')
+        console.log('Show summary or something')
       }
     }
 
