@@ -949,7 +949,7 @@ export class PlanDetailsPage {
         });
       });
 
-      if(!this.isPlanInProgress()){
+      if(!this.isPlanInProgress() && !this.isPlanCompleted()){
         this.reorderStatus = true;
       }
     }

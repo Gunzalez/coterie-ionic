@@ -60,12 +60,6 @@
   <ion-list [reorder]="reorderStatus" (ionItemReorder)="reorderItems($event)">
     <ion-item-sliding *ngFor="let participant of schedule; let index = index">
 
-      <ion-item *ngIf="!isPlanInProgress()">
-        <ion-icon name="contact" color="primary" item-start></ion-icon>
-        <h2 class="name participant">{{ participant.name }}</h2>
-        <p class="list-helper">Collects in round {{ index + 1 }}</p>
-      </ion-item>
-
       <button ion-item (click)="manageFunds(participant)" *ngIf="isPlanInProgress()" detail-none>
 
         <ion-icon *ngIf="isNextToCollect(participant)" [name]="'basket-outline'" color="primary" item-start></ion-icon>
@@ -81,6 +75,19 @@
         <ion-icon color="aGrey" name="arrow-up" item-end></ion-icon>
 
       </button>
+
+      <ion-item *ngIf="!isPlanInProgress() && !isPlanCompleted()">
+        <ion-icon name="contact" color="primary" item-start></ion-icon>
+        <h2 class="name participant">{{ participant.name }}</h2>
+        <p class="list-helper">Collects in round {{ index + 1 }}</p>
+      </ion-item>
+
+      <ion-item *ngIf="isPlanCompleted()">
+        <ion-icon name="contact" color="primary" item-start></ion-icon>
+        <h2 class="name participant">{{ participant.name }}</h2>
+        <p class="list-helper">Collected {{ getCollection() }} in round {{ index + 1 }}</p>
+      </ion-item>
+
 
       <ion-item-options side="left" *ngIf="!isPlanInProgress()">
         <button ion-button color="danger" (click)="onSwipeRemoveParticipant(participant, index)">
