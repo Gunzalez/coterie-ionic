@@ -122,7 +122,7 @@ export class HomePage {
     }
 
     canBeDeleted(plan){
-      return plan['_capabilities'].indexOf("cancelPlan") !== -1
+      return plan['_capabilities'].indexOf("cancelPlan") !== -1 || plan['_capabilities'].indexOf("archivePlan") !== -1
     }
 
     deleteOrArchive(plan){

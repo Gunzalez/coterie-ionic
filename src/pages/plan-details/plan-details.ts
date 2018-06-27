@@ -812,9 +812,8 @@ export class PlanDetailsPage {
     }
 
     ionViewDidLoad() {
-      this.displayLoadingSpinner();
-      this.fetchPlan();
-
+        this.displayLoadingSpinner();
+        this.fetchPlan();
     };
 
     displayLoadingSpinner() {
@@ -839,10 +838,16 @@ export class PlanDetailsPage {
     }
 
     hasReachedMax(){
+        if(this.isPlanCompleted()){
+            return true
+        }
         return this.savingsAmount >= (this.max)
     }
 
     hasReachedMin(){
+        if(this.isPlanCompleted()){
+            return true
+        }
         return this.savingsAmount < this.min
     }
 
@@ -860,7 +865,7 @@ export class PlanDetailsPage {
                     })
                 });
             }
-            // this.plansProvider.plan = this.plan;
+
             this.nextParticipantsToPay = this.plan['nextParticipantsToPay'];
             this.nextParticipantToCollect = this.plan['nextParticipantToCollect'];
             this.savingsAmount = this.plan['savingsAmount'];
@@ -878,8 +883,8 @@ export class PlanDetailsPage {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                //this.getContactsLocal();
-                this.getContacts();
+                this.getContactsLocal();
+                //this.getContacts();
             }
         });
     }
@@ -1114,7 +1119,15 @@ export class PlanDetailsPage {
   }
 
   getStartButtonLabel(){
+
+    if(this.isPlanCompleted()){
+      return 'Completed'
+    }
       return this.plan['status'] === 'in-progress' ? 'Pot started' : 'Start this pot';
+  }
+
+  getAddButtonLabel(){
+      return this.isPlanCompleted() ? 'Completed' : 'Add/Remove participants';
   }
 
   isPlanInProgress(){
@@ -1122,6 +1135,17 @@ export class PlanDetailsPage {
           return this.status === 'in-progress'
       }
       return this.plan['status'] === 'in-progress';
+  }
+
+  deletePot(){
+      console.log('Deleting Pot')
+  }
+
+  isPlanCompleted(){
+      if(this.status !== ''){
+          return this.status === 'completed'
+      }
+      return this.plan['status'] === 'completed';
   }
 
   canStartPlan(){
