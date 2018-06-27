@@ -1139,11 +1139,37 @@ export class PlanDetailsPage {
   }
 
   deletePot(){
-      this.plansProvider.deletePlan(this.id).subscribe(response => {
-          if(response){
-              this.navCtrl.pop();
+
+    let startAlert = this.alertCtrl.create({
+      title: 'Delete this pot?',
+      message: "It will be gone forever, poof! Last chance now, are you sure?" ,
+      buttons: [
+        {
+          text: 'Hmmm',
+          role: 'cancel',
+          handler: () => {
+            //console.log('Cancel clicked');
           }
-      });
+        },
+        {
+          text: "Yes damnit!",
+          handler: () => {
+
+            this.plansProvider.deletePlan(this.id).subscribe(response => {
+              if(response){
+                this.navCtrl.pop();
+              }
+            });
+
+          }
+        }
+      ]
+    });
+    startAlert.present();
+
+
+
+
   }
 
   isPlanCompleted(){
