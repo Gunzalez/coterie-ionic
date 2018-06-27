@@ -1029,45 +1029,45 @@ export class PlanDetailsPage {
 
   openNameEdit(){
 
-      if(this.isPlanInProgress()){
+      if(this.isPlanInProgress() || this.isPlanCompleted()){
         return false
       }
 
-    let updatePotNameAlert = this.alertCtrl.create({
-      title:'Edit pot name',
-      inputs: [
-        {
-          type: "text",
-          name: 'potName',
-          placeholder: '',
-          value: this.getPlanName()
-        }
-      ],
-      buttons:[
-        {
-          text: "Cancel"
-        },
-        {
-          text: "Update",
-          handler: (inputData)=>{
-            let potName = inputData.potName.trim();
-            if(potName.length > 0){
-              this.plansProvider.updatePlan(potName, this.id).subscribe(response => {
-                if (response.ok){
-                  this.name = potName;
-                } else {
-                  // error handling
-                }
-              });
+      let updatePotNameAlert = this.alertCtrl.create({
+        title:'Edit pot name',
+        inputs: [
+          {
+            type: "text",
+            name: 'potName',
+            placeholder: '',
+            value: this.getPlanName()
+          }
+        ],
+        buttons:[
+          {
+            text: "Cancel"
+          },
+          {
+            text: "Update",
+            handler: (inputData)=>{
+              let potName = inputData.potName.trim();
+              if(potName.length > 0){
+                this.plansProvider.updatePlan(potName, this.id).subscribe(response => {
+                  if (response.ok){
+                    this.name = potName;
+                  } else {
+                    // error handling
+                  }
+                });
 
+              }
             }
           }
-        }
-      ],
-      enableBackdropDismiss: false
-    });
+        ],
+        enableBackdropDismiss: false
+      });
 
-    updatePotNameAlert.present();
+      updatePotNameAlert.present();
 
   }
 

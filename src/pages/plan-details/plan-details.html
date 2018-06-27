@@ -41,9 +41,14 @@
 
     <ion-row>
       <ion-col col-12>
-        <button ion-button full (click)="viewParticipants()" [disabled]="!contactsList.length || isPlanCompleted()" *ngIf="!isPlanInProgress()" class="sp-button">
+        <button ion-button full (click)="viewParticipants()" [disabled]="!contactsList.length" *ngIf="!isPlanInProgress() && !isPlanCompleted()" class="sp-button">
           <ion-icon name="contacts"></ion-icon>&nbsp;{{ getAddButtonLabel() }}
         </button>
+
+        <button ion-button full disabled *ngIf="isPlanCompleted()" class="sp-button">
+          <ion-icon name="cloudy-night"></ion-icon>&nbsp;&nbsp;Pot completed
+        </button>
+
         <button ion-button full disabled *ngIf="isPlanInProgress()" class="sp-button">
           <ion-icon name="rainy"></ion-icon>&nbsp;&nbsp;Pot is running
         </button>
@@ -101,7 +106,8 @@
   <ion-grid>
     <ion-row>
       <ion-col col-12>
-        <button ion-button full [disabled]="!canStartPlan() || isPlanInProgress() || isPlanCompleted()" (click)="startPlan()" class="sp-button">
+
+        <button ion-button full [disabled]="!canStartPlan() || isPlanInProgress()" *ngIf="!isPlanInProgress() && !isPlanCompleted()" (click)="startPlan()" class="sp-button">
           <ion-icon name="power"></ion-icon>&nbsp;{{ getStartButtonLabel() }}
         </button>
 
