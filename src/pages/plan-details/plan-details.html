@@ -88,7 +88,6 @@
         <p class="list-helper">Collected {{ getCollection() }} in round {{ index + 1 }}</p>
       </ion-item>
 
-
       <ion-item-options side="left" *ngIf="!isPlanInProgress()">
         <button ion-button color="danger" (click)="onSwipeRemoveParticipant(participant, index)">
           <ion-icon name="trash"></ion-icon>
@@ -107,7 +106,7 @@
         </button>
 
         <button ion-button full (click)="deletePot()" *ngIf="isPlanCompleted()" class="sp-button" color="danger">
-          <ion-icon name="trash"></ion-icon>&nbsp;&nbsp;Delete mature pot
+          <ion-icon name="trash"></ion-icon>&nbsp;&nbsp;Delete this pot
         </button>
 
       </ion-col>

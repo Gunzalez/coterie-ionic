@@ -28,11 +28,14 @@
 
   <ion-list>
 
-    <ion-item-sliding *ngFor="let plan of plans" [ngClass]="{'active': plan['status'] === 'in-progress'}">
+    <ion-item-sliding *ngFor="let plan of plans" [ngClass]="{'active': plan['status'] === 'in-progress', 'completed': plan['status'] === 'completed'}">
 
       <button ion-item (click)="viewPlan(plan)">
         <ion-icon name="{{ getPlanIcon(plan) }}" color="{{ getIconColour(plan) }}" item-start></ion-icon>
-        <h2 class="pot-name">{{plan.name}} <span *ngIf="plan['status'] === 'in-progress'"> - {{ getPotValue(plan) }}</span></h2>
+        <h2 class="pot-name">{{plan.name}}
+          <span *ngIf="plan['status'] === 'in-progress'"> - {{ getPotValue(plan) }}</span>
+          <span *ngIf="plan['status'] === 'completed'"> - (completed)</span>
+        </h2>
         <p class="meta">
           <span class="participants">
             <ion-icon name="contacts"></ion-icon>
