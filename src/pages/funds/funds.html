@@ -36,10 +36,10 @@
     <ion-item>
       <ion-icon [name]="getFundsActionIcon()" color="primary" item-start></ion-icon>
         <h2>{{ getFundsAction() }}</h2>
-        <p *ngIf="actionType === 'Collection'" class="list-helper">{{ getCollection() }}</p>
-        <p *ngIf="actionType === 'Payment'" class="list-helper">{{ getSavingsAmount() }}</p>
+        <p *ngIf="viewHeader === 'Collection'" class="list-helper">{{ getCollection() }}</p>
+        <p *ngIf="viewHeader === 'Payment'" class="list-helper">{{ getSavingsAmount() }}</p>
     </ion-item>
-    <ion-item *ngIf="actionType ==='Collection' && pot.nextParticipantsToPay.length">
+    <ion-item *ngIf="viewHeader ==='Collection' && pot.nextParticipantsToPay.length">
       <ion-icon item-start></ion-icon>
       <p class="warning">Awaiting payments from participants</p>
     </ion-item>

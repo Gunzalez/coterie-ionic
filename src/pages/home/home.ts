@@ -127,13 +127,20 @@ export class HomePage {
 
     deleteOrArchive(plan){
       if(this.canBeDeleted(plan)){
-        let next = response => {
+
+        let callback = response => {
           if(response){
             this.displayLoadingSpinner();
             this.getAllPlans();
           }
         };
-        this.plansProvider.deletePlan(plan['id']).subscribe(next);
+
+        if(plan['_capabilities'].indexOf("archivePlan") !== -1){
+          this.plansProvider.archivePlan(plan['id']).subscribe(callback);
+        } else if(plan['_capabilities'].indexOf("cancelPlan") !== -1){
+          this.plansProvider.deletePlan(plan['id']).subscribe(callback);
+        }
+
       } else {
         // console.log('Archive')
         console.log('Show summary or something')
