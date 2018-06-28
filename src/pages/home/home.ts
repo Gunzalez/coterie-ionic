@@ -155,7 +155,10 @@ export class HomePage {
           colour = 'primary';
           break;
         case 'cloud':
-          colour = 'gray';
+          colour = 'aGrey';
+          break;
+        case 'cloud-done':
+          colour = 'danger';
           break;
         default:
           colour = 'gray';

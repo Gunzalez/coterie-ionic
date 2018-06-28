@@ -33,8 +33,8 @@
       <button ion-item (click)="viewPlan(plan)" class="sp-ion-item">
         <ion-icon name="{{ getPlanIcon(plan) }}" color="{{ getIconColour(plan) }}" item-start></ion-icon>
         <h2 class="pot-name">{{plan.name}} -
-          <span *ngIf="plan['status'] === 'in-progress'">{{ getPotValue(plan) }}</span>
-          <span *ngIf="plan['status'] === 'completed'" class="pot-completed">(completed)</span>
+          <span *ngIf="plan['status'] === 'in-progress' || plan['status'] === 'completed'">{{ getPotValue(plan) }}</span>
+          <!--<span *ngIf="plan['status'] === 'completed'" class="pot-completed">(completed)</span>-->
           <span *ngIf="!plan['participants'].length || plan['savingsAmount'] === 0" class="not-started">(not ready)</span>
           <span *ngIf="plan['status'] !== 'completed' && plan['status'] !== 'in-progress' && plan['participants'].length && plan['savingsAmount'] > 0" class="not-started">(ready)</span>
         </h2>
@@ -50,6 +50,10 @@
           <span class="rounds" *ngIf="plan['status'] === 'in-progress'">
             <ion-icon name="md-timer"></ion-icon>
             Round ({{ plan.round }}/{{ plan['participants'].length }})
+          </span>
+          <span class="pot-completed" *ngIf="plan['status'] === 'completed'">
+            <ion-icon name="md-timer"></ion-icon>
+            Completed
           </span>
         </p>
       </button>

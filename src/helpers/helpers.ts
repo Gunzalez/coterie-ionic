@@ -6,7 +6,7 @@ export function getIcon(plan) {
   } else if(plan['status'] === 'in-progress'){
     icon = 'rainy'
   } else if(plan['status'] === 'completed'){
-    icon = 'cloudy-night'
+    icon = 'cloud-done'
   }
   return icon
 }
