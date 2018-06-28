@@ -151,6 +151,23 @@ export class PlansProvider {
 
 
       // ----------------------
+      // delete one plan, accepts plan id
+      archivePlan(id){
+
+          let options = { headers: this.headers };
+          let url = URL + '/plans.archive';
+          let body = { planId : id };
+
+        return this.http.post(url, body, options)
+          .map( response => {
+              return response.status === 200
+            }, error => {
+                return error
+            })
+      }
+
+
+      // ----------------------
       // set savings amount
       setSavingsAmount(value, id){
 

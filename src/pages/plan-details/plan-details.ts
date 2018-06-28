@@ -884,8 +884,8 @@ export class PlanDetailsPage {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                //this.getContactsLocal();
-                this.getContacts();
+                this.getContactsLocal();
+                //this.getContacts();
             }
         });
     }
@@ -1007,7 +1007,6 @@ export class PlanDetailsPage {
             });
         }
     }
-
 
     canSetAmount(){
         return this.initialAmt !== this.savingsAmount && this.savingsAmount > 0 && this.savingsAmount < (this.max + 1);
@@ -1155,11 +1154,13 @@ export class PlanDetailsPage {
           text: "Yes damnit!",
           handler: () => {
 
-            this.plansProvider.deletePlan(this.id).subscribe(response => {
+            this.plansProvider.archivePlan(this.id).subscribe(response => {
               if(response){
                 this.navCtrl.pop();
               }
             });
+
+
 
           }
         }
